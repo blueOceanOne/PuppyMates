@@ -1,0 +1,19 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "PuppyMates backend",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blueOceanOne/PuppyMates.git"
+  },
+  "author": "Blue Ocean One",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blueOceanOne/PuppyMates/issues"
+  },
+  "homepage": "https://github.com/blueOceanOne/PuppyMates#readme"
+}
