@@ -10,6 +10,12 @@ module.exports = {
         printWidth: 100,
       },
     ],
+    'react/style-prop-object': [
+      'error',
+      {
+        allow: ['StatusBar'],
+      },
+    ],
   },
   plugins: ['prettier'],
 };
