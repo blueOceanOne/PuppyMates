@@ -1,13 +1,14 @@
 require('dotenv').config();
-const postgres = require('postgres');
+const { Sequelize } = require('sequelize');
 
-const db = postgres({
-  host: process.env.HOST,
-  user: process.env.USER,
-  password: process.env.PASS,
-  database: process.env.DATABASE
-})
+const db = new Sequelize(`postgres://${process.env.USER}:${process.env.PASS}@${process.env.HOST}:5432/${process.env.DATABASE}`);
 
+try {
+  db.authenticate();
+  console.log('Connection has been established successfully.');
+} catch (error) {
+  console.error('Unable to connect to the database:', error);
+}
 // return db`Alter table test add name varchar(25);`
 //   .then((result) => console.log(result));
 
