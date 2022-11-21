@@ -4,7 +4,6 @@ const path = require('path');
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, '../../frontend/index.js')));
 app.use(express.json());
 
 app.get('/', (req, res) => {
