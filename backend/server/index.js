@@ -19,10 +19,6 @@ const io = require('socket.io')(http, {
 
 io.on('connection', (socket)=>{
   console.log(`⚡: ${socket.id} user just connected!`);
-  socket.emit("hello", "world");
-  socket.on("howdy", (arg)=>{
-    console.log(arg);
-  })
   socket.on('disconnect', () => {
     console.log('🔥: A user disconnected');
   });
@@ -37,5 +33,5 @@ app.post('/', (req, res) => {
   console.log('POST received');
   res.send('POST received');
 })
-module.exports = {server: http};
+module.exports = http;
 
