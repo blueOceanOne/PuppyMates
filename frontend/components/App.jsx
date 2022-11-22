@@ -1,14 +1,31 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
 import config from '../config.js'
 import io from 'socket.io-client';
-import Chat from './messages_components/Chat.jsx';
-import Home from './Home.jsx';
-import Events from './Events.jsx';
-import Profile from './Profile.jsx';
+import NavTabs from './Tabs.jsx';
+
+
 const socket = io(`${config.localIP}:4000`);
+console.log('imported Navtabs are ', NavTabs);
+console.log('NavigationContainer is ', NavigationContainer)
+socket.on("hello", (arg)=>{
+  console.log(arg);
+})
+socket.emit("howdy", "stranger");
+
+
+export default function App() {
+  return (
+/*     <View>
+      <Text>App</Text>
+    </View> */
+    <NavigationContainer>
+      <NavTabs />
+    </NavigationContainer>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -18,18 +35,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-socket.on("hello", (arg)=>{
-  console.log(arg);
-})
-
-socket.emit("howdy", "stranger");
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Testing with cats</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
