@@ -25,6 +25,4 @@ const Message = db.define('message', {
   },
 });
 
-Message.sync();
-
 module.exports = Message;

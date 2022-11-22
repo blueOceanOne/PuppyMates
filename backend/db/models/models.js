@@ -5,6 +5,7 @@ const Message = require('./Message');
 const Photo = require('./Photo');
 const Request = require('./Request');
 const User = require('./User');
+const db = require('../db');
 
 Breed.hasMany(User, {
   foreignKey: {
@@ -27,10 +28,10 @@ User.hasMany(Message, {
     name: 'sender_id',
     allowNull: false,
   },
-  as: 'sender',
+  as: 'message_sender',
 });
 Message.belongsTo(User, {
-  as: 'sender',
+  as: 'message_sender',
 });
 
 User.hasMany(Message, {
@@ -38,10 +39,10 @@ User.hasMany(Message, {
     name: 'recipient_id',
     allowNull: false,
   },
-  as: 'recipient',
+  as: 'message_recipient',
 });
 Message.belongsTo(User, {
-  as: 'recipient',
+  as: 'message_recipient',
 });
 
 User.hasMany(Request, {
@@ -89,5 +90,7 @@ Event.hasMany(Invitation, {
   },
 });
 Invitation.belongsTo(Event);
+
+db.sync();
 
 module.exports = { Breed, Event, Invitation, Message, Photo, Request, User };

@@ -17,6 +17,4 @@ const Photo = db.define('photo', {
   },
 });
 
-Photo.sync();
-
 module.exports = Photo;

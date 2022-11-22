@@ -25,6 +25,4 @@ const Event = db.define('event', {
   },
 });
 
-Event.sync();
-
 module.exports = Event;

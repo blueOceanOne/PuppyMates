@@ -26,6 +26,4 @@ const Invitation = db.define('invitation', {
   },
 });
 
-Invitation.sync();
-
 module.exports = Invitation;
