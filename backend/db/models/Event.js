@@ -11,7 +11,15 @@ const Event = db.define('event', {
     },
     allowNull: false,
   },
-  datetime: {
+  event_title: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  event_description: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  event_date: {
     type: DataTypes.DATE,
     allowNull: false,
   },

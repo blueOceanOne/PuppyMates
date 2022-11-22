@@ -50,10 +50,10 @@ User.hasMany(Request, {
     name: 'sender_id',
     allowNull: false,
   },
-  as: 'sender',
+  as: 'request_sender',
 });
 Request.belongsTo(User, {
-  as: 'sender',
+  as: 'request_sender',
 });
 
 User.hasMany(Request, {
@@ -61,10 +61,10 @@ User.hasMany(Request, {
     name: 'recipient_id',
     allowNull: false,
   },
-  as: 'recipient',
+  as: 'request_recipient',
 });
 Request.belongsTo(User, {
-  as: 'recipient',
+  as: 'request_recipient',
 });
 
 User.hasMany(Invitation, {
@@ -81,7 +81,7 @@ User.hasMany(Event, {
     allowNull: false,
   },
 });
-Invitation.belongsTo(User);
+Event.belongsTo(User);
 
 Event.hasMany(Invitation, {
   foreignKey: {
