@@ -6,13 +6,7 @@ import config from '../config.js'
 import io from 'socket.io-client';
 import NavTabs from './Tabs.jsx';
 
-
-const socket = io(`${config.localIP}:4000`);
-socket.on("hello", (arg)=>{
-  console.log(arg);
-})
-socket.emit("howdy", "stranger");
-
+const socket = io(`http://${config.localIP}:${config.port}`);
 
 export default function App() {
   return (
