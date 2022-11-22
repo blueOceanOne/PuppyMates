@@ -1,6 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import Events from './events/Events.jsx';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,6 +17,7 @@ export default function App() {
     <View style={styles.container}>
       <Text>Testing with cats</Text>
       <StatusBar style="auto" />
+      <Events />
     </View>
   );
 }
