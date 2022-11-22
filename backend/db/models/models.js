@@ -13,7 +13,12 @@ Breed.hasMany(User, {
     allowNull: false,
   },
 });
-User.belongsTo(Breed);
+User.belongsTo(Breed, {
+  foreignKey: {
+    name: 'breed_id',
+    allowNull: false,
+  },
+});
 
 User.hasMany(Photo, {
   foreignKey: {
@@ -21,7 +26,12 @@ User.hasMany(Photo, {
     allowNull: false,
   },
 });
-Photo.belongsTo(User);
+Photo.belongsTo(User, {
+  foreignKey: {
+    name: 'user_id',
+    allowNull: false,
+  },
+});
 
 User.hasMany(Message, {
   foreignKey: {
@@ -31,6 +41,10 @@ User.hasMany(Message, {
   as: 'message_sender',
 });
 Message.belongsTo(User, {
+  foreignKey: {
+    name: 'sender_id',
+    allowNull: false,
+  },
   as: 'message_sender',
 });
 
@@ -42,6 +56,10 @@ User.hasMany(Message, {
   as: 'message_recipient',
 });
 Message.belongsTo(User, {
+  foreignKey: {
+    name: 'recipient_id',
+    allowNull: false,
+  },
   as: 'message_recipient',
 });
 
@@ -53,6 +71,10 @@ User.hasMany(Request, {
   as: 'request_sender',
 });
 Request.belongsTo(User, {
+  foreignKey: {
+    name: 'sender_id',
+    allowNull: false,
+  },
   as: 'request_sender',
 });
 
@@ -64,6 +86,10 @@ User.hasMany(Request, {
   as: 'request_recipient',
 });
 Request.belongsTo(User, {
+  foreignKey: {
+    name: 'recipient_id',
+    allowNull: false,
+  },
   as: 'request_recipient',
 });
 
@@ -73,7 +99,12 @@ User.hasMany(Invitation, {
     allowNull: false,
   },
 });
-Invitation.belongsTo(User);
+Invitation.belongsTo(User, {
+  foreignKey: {
+    name: 'invitee_id',
+    allowNull: false,
+  },
+});
 
 User.hasMany(Event, {
   foreignKey: {
@@ -81,7 +112,12 @@ User.hasMany(Event, {
     allowNull: false,
   },
 });
-Event.belongsTo(User);
+Event.belongsTo(User, {
+  foreignKey: {
+    name: 'host_id',
+    allowNull: false,
+  },
+});
 
 Event.hasMany(Invitation, {
   foreignKey: {
@@ -89,7 +125,12 @@ Event.hasMany(Invitation, {
     allowNull: false,
   },
 });
-Invitation.belongsTo(Event);
+Invitation.belongsTo(Event, {
+  foreignKey: {
+    name: 'event_id',
+    allowNull: false,
+  },
+});
 
 db.sync();
 
