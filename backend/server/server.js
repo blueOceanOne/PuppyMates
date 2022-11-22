@@ -1,5 +1,7 @@
 const app = require('./index.js');
 
-app.listen(process.env.PORT, () => {
+const httpServer = app.server;
+
+httpServer.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);
 });

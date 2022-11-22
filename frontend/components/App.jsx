@@ -1,6 +1,9 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import config from '../config.js'
+import io from 'socket.io-client';
+const socket = io(`${config.localIP}:4000`);
 
 const styles = StyleSheet.create({
   container: {
@@ -10,6 +13,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+socket.on("hello", (arg)=>{
+  console.log(arg);
+})
+
+socket.emit("howdy", "stranger");
 
 export default function App() {
   return (
