@@ -8,11 +8,11 @@ import Profile from './Profile.jsx';
 
 const Tab = createBottomTabNavigator();
 
-const NavTabs = () => {
+const NavTabs = ({socket}) => {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Messages" component={MessagePage} />
+      <Tab.Screen name="Messages" children={()=><MessagePage socket={socket}/>} />
       <Tab.Screen name="Events" component={Events} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>

@@ -11,7 +11,7 @@ const socket = io(`http://${config.localIP}:${config.port}`);
 export default function App() {
   return (
     <NavigationContainer>
-      <NavTabs />
+      <NavTabs socket={socket}/>
     </NavigationContainer>
   );
 }

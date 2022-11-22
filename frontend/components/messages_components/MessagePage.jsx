@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text } from 'react-native';
 import Chat from './Chat.jsx';
 
-const MessagePage = () => {
+const MessagePage = ({socket}) => {
+
   return (
     <View>
-      <Chat />
+      <Chat socket={socket}/>
     </View>
   )
 }

@@ -19,6 +19,9 @@ const io = require('socket.io')(http, {
 
 io.on('connection', (socket)=>{
   console.log(`⚡: ${socket.id} user just connected!`);
+  socket.on('send', (arg)=>{
+    console.log(arg);
+  })
   socket.on('disconnect', () => {
     console.log('🔥: A user disconnected');
   });
