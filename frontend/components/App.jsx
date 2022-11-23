@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import config from '../config.js'
+import config from '../config.js';
 import io from 'socket.io-client';
 import NavTabs from './Tabs.jsx';
 import Events from './Events.jsx';
