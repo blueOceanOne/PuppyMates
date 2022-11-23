@@ -64,7 +64,7 @@ app.post('/messages', (req, res) => {
   controllers.postMessages(req, res);
 });
 
-app.get('/requests/pending/*', (req, res) => {
+app.get('/requests/pending/:user', (req, res) => {
   console.log('GET pending requests received');
   controllers.getPendingRequests(req, res);
 });

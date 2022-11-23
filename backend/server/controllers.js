@@ -62,14 +62,14 @@ module.exports = {
   },
 
   getPendingRequests: function (req, res) {
-    let user = req.url.slice(18);
+    const { user } = req.params;
 
     Request.findAll({
       where: {
         recipient_id: user,
         status: 'pending',
       },
-    }).then((result) => res.send(result));
+    }).then((result) => res.status(200).json(result));
   },
 
   getAcceptedRequests: function (req, res) {
