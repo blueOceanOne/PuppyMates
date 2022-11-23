@@ -43,4 +43,10 @@ CSV HEADER;
     FROM '${path.join(__dirname, './sampleData/example_invitations.csv')}'
     DELIMITER ','
     CSV HEADER;`)
+  )
+  .then(() =>
+    db.query(`COPY requests("id", "sender_id", "recipient_id", "status", "createdAt", "updatedAt")
+    FROM '${path.join(__dirname, './sampleData/example_requests.csv')}'
+    DELIMITER ','
+    CSV HEADER;`)
   );
