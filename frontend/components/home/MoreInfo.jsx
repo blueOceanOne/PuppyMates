@@ -6,7 +6,7 @@ import userData from '../home/exampleData/userData.js';
 
 const MoreInfo = ({ item }) => {
   return (
-    <Card width="100%" alignSelf="center">
+    <Card width="100%" alignSelf="center" borderRadius="10">
       <Text h4>{`${item.city}, ${item.state}`}</Text>
       <View
         style={{

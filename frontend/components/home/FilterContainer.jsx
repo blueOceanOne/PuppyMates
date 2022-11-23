@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { ListItem, Button, Badge } from '@rneui/themed';
+import { ListItem, Button, Badge, Icon } from '@rneui/themed';
 const { useState } = React;
 import userData from '../home/exampleData/userData.js';
 
@@ -14,19 +14,20 @@ const FilterContainer = ({ filter, setFilter }) => {
   const [expandBreed, setExpandBreed] = useState(false);
   const [expandFilter, setExpandFilter] = useState(false);
   const [displayConfirm, setDisplayConfirm] = useState(false);
-  const [choice, setChoice] = useState({});
+  const [selection, setSelection] = useState({});
   const [category, setCategory] = useState('');
 
-  const handleChoice = (string) => {
+  const handleSelection = (string) => {
     setDisplayConfirm(true);
-    setChoice({ category: category, choice: string });
+    setSelection({ category: category, selection: string });
   };
 
   const handleConfirm = () => {
     // expected input
-    // {"category": "Breed", "choice": "Corgi"}
+    // {"category": "Breed", "selection": "Corgi"}
     // send request to server based on input to render filter users
     // set expandFilter to false to close the accordion + update/reset relevant states
+    setExpandFilter(false);
   };
 
   return (
@@ -39,9 +40,6 @@ const FilterContainer = ({ filter, setFilter }) => {
                 Filter By
                 {category && expandFilter ? <Badge value={category} status="warning" /> : null}
               </ListItem.Title>
-              {displayConfirm && expandFilter ? (
-                <Button title="Confirm" onPress={() => handleConfirm()} />
-              ) : null}
             </ListItem.Content>
           </>
         }
@@ -50,11 +48,14 @@ const FilterContainer = ({ filter, setFilter }) => {
           setExpandFilter(!expandFilter);
         }}
       >
+        {displayConfirm && expandFilter ? (
+          <Button title="Confirm" onPress={() => handleConfirm()} />
+        ) : null}
         <ListItem.Accordion
           content={
             <>
               <ListItem.Content>
-                <ListItem.Title>Breed</ListItem.Title>
+                <ListItem.Title style={{ fontWeight: '600' }}>Breed</ListItem.Title>
               </ListItem.Content>
             </>
           }
@@ -66,9 +67,12 @@ const FilterContainer = ({ filter, setFilter }) => {
           bottomDivider
         >
           {breeds.map((breed) => (
-            <ListItem key={breed} onPress={() => handleChoice(breed)} bottomDivider>
+            <ListItem key={breed} onPress={() => handleSelection(breed)} bottomDivider>
               <ListItem.Content>
-                <ListItem.Title>{breed}</ListItem.Title>
+                <ListItem.Title>
+                  {breed}
+                  {breed === selection.selection ? <Icon name="check" /> : null}
+                </ListItem.Title>
               </ListItem.Content>
             </ListItem>
           ))}
@@ -77,7 +81,7 @@ const FilterContainer = ({ filter, setFilter }) => {
           content={
             <>
               <ListItem.Content>
-                <ListItem.Title>Size</ListItem.Title>
+                <ListItem.Title style={{ fontWeight: '600' }}>Size</ListItem.Title>
               </ListItem.Content>
             </>
           }
@@ -89,9 +93,12 @@ const FilterContainer = ({ filter, setFilter }) => {
           bottomDivider
         >
           {sizes.map((size) => (
-            <ListItem key={size} onPress={() => handleChoice(size)} bottomDivider>
+            <ListItem key={size} onPress={() => handleSelection(size)} bottomDivider>
               <ListItem.Content>
-                <ListItem.Title>{size}</ListItem.Title>
+                <ListItem.Title>
+                  {size}
+                  {size === selection.selection ? <Icon name="check" /> : null}
+                </ListItem.Title>
               </ListItem.Content>
             </ListItem>
           ))}
@@ -100,7 +107,7 @@ const FilterContainer = ({ filter, setFilter }) => {
         <ListItem
           onPress={() => {
             setCategory('Dog Friendly');
-            handleChoice();
+            handleSelection('Dog Friendly');
           }}
           bottomDivider
         >
@@ -111,7 +118,7 @@ const FilterContainer = ({ filter, setFilter }) => {
         <ListItem
           onPress={() => {
             setCategory('People Friendly');
-            handleChoice('People Friendly');
+            handleSelection('People Friendly');
           }}
           bottomDivider
         >
