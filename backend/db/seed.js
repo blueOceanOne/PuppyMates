@@ -2,10 +2,13 @@ const path = require('path');
 const db = require('./db');
 const { Breed, User, Photo, Invitation, Event, Request } = require('./models/models');
 
-db.query(
-  `
+db.sync()
+  .then(() =>
+    db.query(
+      `
 TRUNCATE TABLE breeds CASCADE;`
-)
+    )
+  )
   .then(() =>
     db.query(
       `
