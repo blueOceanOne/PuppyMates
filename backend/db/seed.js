@@ -35,6 +35,12 @@ CSV HEADER;
       `COPY events("id", "host_id", "title", "description", "date", "latitude", "longitude", "createdAt", "updatedAt")
       FROM '${path.join(__dirname, './sampleData/example_events.csv')}'
       DELIMITER ','
-      CSV HEADER`
+      CSV HEADER;`
     )
+  )
+  .then(() =>
+    db.query(`COPY invitations("id", "invitee_id", "event_id", "status", "createdAt", "updatedAt")
+    FROM '${path.join(__dirname, './sampleData/example_invitations.csv')}'
+    DELIMITER ','
+    CSV HEADER;`)
   );
