@@ -6,7 +6,6 @@ import events from '../../sampleData/events.js';
 export default function Map() {
   const localEvents = events;
   const markerRender = (localEvent) => {
-    console.log(localEvent.eventLocation);
     return (
       <Marker
         key={localEvent.eventId}
