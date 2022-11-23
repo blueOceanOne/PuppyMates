@@ -26,7 +26,9 @@ export default function Map() {
         style={styles.map}
         initialRegion={{
           latitude: 37.831234648041054,
-          longitude: -122.29168866522882
+          longitude: -122.29168866522882,
+          longitudeDelta: 0.4,
+          latitudeDelta: 0.3
         }}
       >
         {localEvents.map(each => markerRender(each))}
@@ -38,13 +40,14 @@ export default function Map() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F0F0F0',
     alignItems: 'center',
     justifyContent: 'center',
   },
   map: {
-    width: (Dimensions.get('window').width) * .9,
+    width: (Dimensions.get('window').width) * .95,
     height: (Dimensions.get('window').height) * .3,
-    borderRadius: 25
+    borderRadius: 25,
+    backgroundColor: '#F0F0F0',
   },
 });

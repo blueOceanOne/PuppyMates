@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   mapView: {
+    backgroundColor: '#F0F0F0',
     paddingBottom: 5,
   },
   tabContainer: {
