@@ -6,9 +6,8 @@ import Map from '../components/events/Map.jsx';
 
 const Events = () => {
   const [tab, setTab] = useState('attending');
-  console.log(`${tab} was pressed`);
   const sampleEvents = eventData;
-  // console.log(sampleEvents);
+
   return (
     <SafeAreaView styles={styles.container}>
       <ScrollView>
