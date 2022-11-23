@@ -4,7 +4,7 @@ const { useState } = React;
 import FilterContainer from './FilterContainer.jsx';
 import CarouselCards from './CarouselCards.jsx';
 
-const HomeContainer = () => {
+const Home = () => {
   const [filter, setFilter] = useState({});
 
   const [localUsers, setLocalUsers] = useState([]);
@@ -17,4 +17,4 @@ const HomeContainer = () => {
   );
 };
 
-export default HomeContainer;
+export default Home;
