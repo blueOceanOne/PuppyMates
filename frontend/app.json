@@ -25,7 +25,8 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "grod": "./assets/frog.png"
     },
     "entryPoint": "./index.js"
   }

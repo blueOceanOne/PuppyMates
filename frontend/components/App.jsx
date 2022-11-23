@@ -1,6 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import HomeContainer from './home/HomeContainer.jsx';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,8 +15,7 @@ const styles = StyleSheet.create({
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Testing with cats</Text>
-      <StatusBar style="auto" />
+      <HomeContainer />
     </View>
   );
 }
