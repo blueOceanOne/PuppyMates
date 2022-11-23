@@ -25,7 +25,7 @@ io.on('connection', (socket)=>{
     socket.emit('sendID', socket.id);
   })
   socket.on('send', (arg)=>{
-    console.log(arg);
+    //console.log(arg);
     io.to('room1').emit('response', arg);
   })
   socket.on('disconnect', () => {

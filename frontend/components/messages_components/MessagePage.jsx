@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
 import { View, Text } from 'react-native';
-import ChatPage from './ChatPage.jsx';
+import Requests from './Requests.jsx';
+import ChatsList from './ChatsList.jsx';
+import { Button } from '@rneui/themed';
 
 const MessagePage = ({socket}) => {
-
   return (
     <View>
-      <ChatPage socket={socket}/>
+      <Requests />
+      <ChatsList socket={socket}/>
     </View>
   )
 }

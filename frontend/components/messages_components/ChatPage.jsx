@@ -19,7 +19,6 @@ const ChatPage = ({socket}) => {
     socket.on('response', (data) => {
       setMessages([...messages, data])
     });
-
     return ()=>{
       socket.off('response');
     }
