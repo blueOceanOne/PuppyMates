@@ -17,6 +17,11 @@ app.post('/users', (req, res) => {
   controllers.postUser(req, res);
 })
 
+app.put('/users/*', (req, res) => {
+  console.log('PUT users received');
+  controllers.updateUser(req, res);
+})
+
 app.post('/requests/right', (req, res) => {
   console.log('RIGHT SWIPE');
   controllers.swipe(req, res);
@@ -81,6 +86,5 @@ app.put('invitations/reject/*', (req, res) => {
   console.log('PUT reject invite received')
   controllers.rejectEvent(req, res);
 })
-
 
 module.exports = app;
