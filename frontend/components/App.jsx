@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import config from '../config.js'
+import config from '../config.js';
 import io from 'socket.io-client';
 import NavTabs from './Tabs.jsx';
 import Events from './Events.jsx';
@@ -27,9 +27,9 @@ export default function App() {
     })();
   }, []);
 
-//   SAMPLE DATA OF LOCATION RETURN FROM ABOVE FUNCTION
-//   ALSO AVAILABLE WITHIN SAMPLE DATA
-//   {"coords":
+  //   SAMPLE DATA OF LOCATION RETURN FROM ABOVE FUNCTION
+  //   ALSO AVAILABLE WITHIN SAMPLE DATA
+  //   {"coords":
   //   {
   //     "speed":-1,
   //     "longitude":-123.444423,
@@ -40,7 +40,7 @@ export default function App() {
   //     "altitudeAccuracy":-1
   //   },
   //   "timestamp":1669174971110.204
-//   }
+  //   }
 
   let text = 'Waiting...';
   if (errorMsg) {
