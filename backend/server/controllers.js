@@ -86,8 +86,10 @@ module.exports = {
   },
 
   acceptRequest: function (req, res) {
+    // TODO: Use path params for user
     let user = req._parsedUrl.pathname.slice(17);
     let sender = req.query.participant_id;
+    // TODO: Have controller accept request for (recipient_id = user & sender_id: sender) OR (recipient_id = sender & sender_id: user)
     Request.update(
       { status: 'accepted' },
       { where: { recipient_id: user, sender_id: sender } }
@@ -95,8 +97,10 @@ module.exports = {
   },
 
   rejectRequest: function (req, res) {
+    // TODO: Use path params for user
     let user = req._parsedUrl.pathname.slice(17);
     let sender = req.query.participant_id;
+    // TODO: Have controller reject request for (recipient_id = user & sender_id: sender) OR (recipient_id = sender & sender_id: user)
     Request.update(
       { status: 'rejected' },
       { where: { recipient_id: user, sender_id: sender } }
@@ -104,6 +108,7 @@ module.exports = {
   },
 
   getAcceptedEvents: function (req, res) {
+    // TODO: Use path params for user
     let user = req.url.slice(23);
     Invitation.findAll({
       where: {
@@ -134,12 +139,16 @@ module.exports = {
   },
 
   postEvent: function (req, res) {
+    // TODO: Only send back status, not result
     const event = Event.create(req.body).then((result) => res.send(result));
   },
 
   acceptEvent: function (req, res) {
+    // TODO: Use path params for user
     let user = req._parsedUrl.pathname.slice(21);
     let event = req.query.event_id;
+
+    // TODO: Only send back status, not result
 
     Invitation.update(
       { status: 'accepted' },
@@ -153,8 +162,12 @@ module.exports = {
   },
 
   rejectEvent: function (req, res) {
+    // TODO: Use path params for user
+
     let user = req._parsedUrl.pathname.slice(20);
     let event = req.query.event_id;
+
+    // TODO: Only send back status, not result
 
     Invitation.update(
       { status: 'declined' },
