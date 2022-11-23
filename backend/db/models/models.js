@@ -132,6 +132,6 @@ Invitation.belongsTo(Event, {
   },
 });
 
-db.sync();
+db.sync({ logging: false });
 
 module.exports = { Breed, Event, Invitation, Message, Photo, Request, User };
