@@ -4,10 +4,10 @@ import Requests from './Requests.jsx';
 import ChatsList from './ChatsList.jsx';
 import { Button } from '@rneui/themed';
 
-const MessagePage = ({socket}) => {
+const MessagePage = ({socket, selectedRequest, setSelectedRequest}) => {
   return (
     <View>
-      <Requests />
+      <Requests selectedRequest={selectedRequest} setSelectedRequest={setSelectedRequest}/>
       <ChatsList socket={socket}/>
     </View>
   )
