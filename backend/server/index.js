@@ -54,7 +54,7 @@ app.post('/requests/left', (req, res) => {
   controllers.swipe(req, res);
 });
 
-app.get('/messages/*', (req, res) => {
+app.get('/messages/:user_id', (req, res) => {
   console.log('GET messages received');
   controllers.getMessages(req, res);
 });

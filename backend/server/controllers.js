@@ -23,23 +23,22 @@ module.exports = {
   },
 
   postUser: function (req, res) {
-    // let user = User.create(req.body)
-    //   .then(() => res.send(user));
+    User.create(req.body).then(() => res.sendStatus(201));
   },
 
   updateUser: function (req, res) {
-    res.send('received');
+    res.sendStatus(200);
   },
 
   swipe: function (req, res) {
     //determine left or right swipe from req.url
     //body includes sender and recipient ids
-    res.send('received');
+    res.sendStatus(200);
   },
 
   getMessages: function (req, res) {
-    let user = req._parsedUrl.pathname.slice(10);
-    let sender = req.query.participant_id;
+    const user = req.params.user_id;
+    const sender = req.query.participant_id;
 
     Message.findAll({
       where: {
@@ -55,7 +54,7 @@ module.exports = {
         ],
       },
       order: [['createdAt', 'DESC']],
-    }).then((result) => res.send(result));
+    }).then((result) => res.status(200).json(result));
   },
 
   postMessages: function (req, res) {
