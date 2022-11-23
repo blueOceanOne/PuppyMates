@@ -3,10 +3,12 @@ import { SafeAreaView, ScrollView, StyleSheet, Text, View, Pressable } from 'rea
 import { events, userData } from '../sampleData/events.js';
 import EventList from '../components/events/EventList.jsx';
 import Map from '../components/events/Map.jsx';
+import CreateEvent from './events/createEvent.jsx';
+import { FAB } from '@rneui/themed';
 
 const Events = () => {
   const [tab, setTab] = useState('attending');
-  const sampleEvents = eventData;
+  const sampleEvents = events;
 
   return (
     <SafeAreaView styles={styles.container}>
@@ -23,7 +25,9 @@ const Events = () => {
           <Map />
         </View>
         <EventList eventList={sampleEvents} />
+        <CreateEvent />
       </ScrollView>
+
     </SafeAreaView>
   )
 }

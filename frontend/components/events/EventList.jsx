@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, StatusBar, Text } from 'react-native';
+import { SafeAreaView, View, StyleSheet, StatusBar, Text } from 'react-native';
 
 const EventList = ({eventList}) => {
   return (
