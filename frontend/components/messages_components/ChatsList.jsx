@@ -19,7 +19,7 @@ const ChatsList = ({socket}) => {
             bottomDivider
             onPress = {(event)=>{
               event.preventDefault();
-              navigation.navigate('ChatPage')
+              navigation.navigate('ChatPage');
             }}
           >
             <Avatar source={{uri: item.photo}} />
