@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View, Pressable } from 'react-native';
-import eventData from '../../sampleData/events.js';
-import EventList from './EvenList.jsx';
-import Map from './Map.jsx';
+import eventData from '../sampleData/events.js';
+import EventList from '../components/events/EventList.jsx';
+import Map from '../components/events/Map.jsx';
 
 const Events = () => {
   const [tab, setTab] = useState('attending');
