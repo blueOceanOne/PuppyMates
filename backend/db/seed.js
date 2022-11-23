@@ -1,6 +1,6 @@
 const path = require('path');
 const db = require('./db');
-const { Breed, User, Photo, Invitation, Event, Request } = require('./models/models');
+const { Breed, User, Photo, Invitation, Event, Request, Message } = require('./models/models');
 
 db.sync()
   .then(() =>
@@ -65,4 +65,12 @@ CSV HEADER;
     CSV HEADER;`)
   )
   .then(() => Request.count())
-  .then((count) => db.query(`ALTER SEQUENCE "requests_id_seq" RESTART with ${count + 1}`));
+  .then((count) => db.query(`ALTER SEQUENCE "requests_id_seq" RESTART with ${count + 1}`))
+  .then(() =>
+    db.query(`COPY messages("id", "sender_id", "recipient_id", "content", "createdAt", "updatedAt")
+  FROM '${path.join(__dirname, './sampleData/example_messages.csv')}'
+  DELIMITER ','
+  CSV HEADER;`)
+  )
+  .then(() => Message.count())
+  .then((count) => db.query(`ALTER SEQUENCE "messages_id_seq" RESTART with ${count + 1}`));
