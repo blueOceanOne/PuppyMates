@@ -53,7 +53,7 @@ module.exports = {
           },
         ],
       },
-      order: [['createdAt', 'DESC']],
+      order: [['createdAt', 'ASC']],
     }).then((result) => res.status(200).json(result));
   },
 
