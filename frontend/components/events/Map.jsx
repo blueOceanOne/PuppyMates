@@ -22,7 +22,7 @@ export default function Map() {
   return (
     <View style={styles.container}>
       <MapView
-        style={styles.map}
+        style={styles.mapBounds}
         initialRegion={{
           latitude: 37.831234648041054,
           longitude: -122.29168866522882,
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  map: {
+  mapBounds: {
     width: (Dimensions.get('window').width) * .95,
     height: (Dimensions.get('window').height) * .3,
     borderRadius: 25,
