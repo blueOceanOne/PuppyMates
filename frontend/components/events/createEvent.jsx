@@ -1,10 +1,11 @@
 import React, {useRef, useState, Form} from 'react';
-import { ScrollView, View, StyleSheet, Text, TextInput, Button } from 'react-native';
+import { ScrollView, View, StyleSheet, Text, TextInput, Button, Pressable } from 'react-native';
 import { userData } from '../../sampleData/events.js';
 import { Input } from '@rneui/themed';
+import Guests from './Guests.jsx';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-const CreateEvent = ({DYNAMICUSERINFO}) => {
+const CreateEvent = ({setCreate, DYNAMICUSERINFO}) => {
   const sampleData = userData;
 
   const [open, setOpen] = useState(false);
@@ -17,14 +18,19 @@ const CreateEvent = ({DYNAMICUSERINFO}) => {
     invitees: []
   })
 
+  const handleChange = (input, property) => {
+    event[property] = input;
+    setEvent({...event});
+  }
+
   return (
     <ScrollView>
       <View style={styles.eventContainer}>
         <Text style={styles.formText}>Event Title</Text>
-        <Input value={event.title}/>
+        <Input value={event.title} onChange={(e) => {handleChange(e.nativeEvent.text, 'title')}}/>
         <Text style={styles.formText}>Event Location</Text>
-        <Input value={event.address}/>
-        <Text style={styles.formText}>Event Time & Place</Text>
+        <Input value={event.address} onChange={(e) => {handleChange(e.nativeEvent.text, 'address')}}/>
+        <Text style={styles.formText}>Event Time & Date</Text>
         <View style={styles.date}>
           <DateTimePicker
             style={styles.date}
@@ -36,6 +42,11 @@ const CreateEvent = ({DYNAMICUSERINFO}) => {
             }}
           />
         </View>
+        <Pressable onPress={() => {setOpen(!open)}}>
+          <Text style={styles.invite}>Invite Guests</Text>
+        </Pressable>
+        <Button title='Cancel' onPress={() => {setCreate(false)}}/>
+        { open ? <Guests setOpen={setOpen} /> : null }
       </View>
     </ScrollView>
   )
@@ -45,10 +56,19 @@ export default CreateEvent;
 
 const styles = StyleSheet.create({
   eventContainer: {
+    flex: 1,
     paddingLeft: 6,
     paddingRight: 6,
     marginLeft: 6,
-    marginRight: 6
+    marginRight: 6,
+  },
+  invite: {
+    fontSize: 20,
+    align: 'center',
+    justify: 'center',
+    backgroundColor: 'white',
+    margin: 6,
+    padding: 5,
   },
   formText: {
     fontSize: 18,
@@ -57,7 +77,7 @@ const styles = StyleSheet.create({
     flex: 1,
     align: 'center',
     justify: 'center',
-    paddingRight: 15,
+    paddingRight: 7,
     paddingTop: 10,
     paddingBottom:10,
   },
