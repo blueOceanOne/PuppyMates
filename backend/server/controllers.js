@@ -73,14 +73,16 @@ module.exports = {
   },
 
   getAcceptedRequests: function (req, res) {
-    let user = req.url.slice(19);
+    const { user } = req.params;
 
     Request.findAll({
       where: {
-        recipient_id: user,
-        status: 'accepted',
+        [Op.or]: [
+          { recipient_id: user, status: 'accepted' },
+          { sender_id: user, status: 'accepted' },
+        ],
       },
-    }).then((result) => res.send(result));
+    }).then((result) => res.status(200).json(result));
   },
 
   acceptRequest: function (req, res) {
