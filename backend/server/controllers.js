@@ -11,11 +11,21 @@ const User = require('../db/models/User');
 
 module.exports = {
   getUser: function(req, res) {
-    res.send('received');
+    let user_id = req.url.slice(7);
+    User.findAll({
+      where: {
+        id: user_id
+      }
+    })
+      .then((result) => {
+        console.log(result)
+        res.send(result);
+      });
   },
 
   postUser: function(req, res) {
-    res.send('received');
+    // let user = User.create(req.body)
+    //   .then(() => res.send(user));
   },
 
   updateUser: function(req, res) {
@@ -41,6 +51,7 @@ module.exports = {
   },
 
   getPendingRequests: function(req, res) {
+    console.log(req.query.participant_id);
     res.send('received');
   },
 

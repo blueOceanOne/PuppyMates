@@ -42,22 +42,22 @@ app.post('/messages', (req, res) => {
   controllers.postMessages(req, res);
 })
 
-app.get('requests/pending/*', (req, res) => {
+app.get('/requests/pending/*', (req, res) => {
   console.log('GET pending requests received');
   controllers.getPendingRequests(req, res);
 })
 
-app.get('requests/accepted/*', (req, res) => {
+app.get('/requests/accepted/*', (req, res) => {
   console.log('GET accepted requests received');
   controllers.getAcceptedRequests(req, res);
 })
 
-app.put('requests/accept/*', (req, res) => {
+app.put('/requests/accept/*', (req, res) => {
   console.log('PUT accept requests received');
   controllers.acceptRequest(req, res);
 })
 
-app.put('requests/reject/*', (req, res) => {
+app.put('/requests/reject/*', (req, res) => {
   console.log('PUT reject requests received');
   controllers.rejectRequest(req, res);
 })
@@ -77,12 +77,12 @@ app.post('/events', (req, res) => {
   controllers.postEvent(req, res);
 })
 
-app.put('invitations/confirm/*', (req, res) => {
+app.put('/invitations/confirm/*', (req, res) => {
   console.log('PUT accept invite received');
   controllers.acceptEvent(req, res);
 })
 
-app.put('invitations/reject/*', (req, res) => {
+app.put('/invitations/reject/*', (req, res) => {
   console.log('PUT reject invite received')
   controllers.rejectEvent(req, res);
 })
