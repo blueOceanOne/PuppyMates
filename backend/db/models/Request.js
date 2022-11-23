@@ -22,6 +22,7 @@ const Request = db.define('request', {
   status: {
     type: DataTypes.ENUM('pending', 'accepted', 'declined'),
     allowNull: false,
+    defaultValue: 'pending',
   },
 });
 

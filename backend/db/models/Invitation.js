@@ -23,6 +23,7 @@ const Invitation = db.define('invitation', {
   status: {
     type: DataTypes.ENUM('pending', 'accepted', 'declined'),
     allowNull: false,
+    defaultValue: 'pending',
   },
 });
 

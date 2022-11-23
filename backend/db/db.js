@@ -1,7 +1,9 @@
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
 
-const db = new Sequelize(`postgres://${process.env.USER}:${process.env.PASS}@${process.env.HOST}:5432/${process.env.DATABASE}`);
+const db = new Sequelize(
+  `postgres://${process.env.USER}:${process.env.PASS}@${process.env.HOST}:5432/${process.env.DATABASE}`
+);
 
 try {
   db.authenticate();
@@ -13,6 +15,3 @@ try {
 //   .then((result) => console.log(result));
 
 module.exports = db;
-
-
-

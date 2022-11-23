@@ -84,4 +84,3 @@ app.put('invitations/reject/*', (req, res) => {
 
 
 module.exports = app;
-
