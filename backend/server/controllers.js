@@ -12,13 +12,12 @@ const { Op } = sequelize;
 
 module.exports = {
   getUser: function (req, res) {
-    let user_id = req.url.slice(7);
+    // TODO: Include breed
     User.findAll({
       where: {
-        id: user_id,
+        id: req.query.user_id,
       },
     }).then((result) => {
-      console.log(result);
       res.send(result);
     });
   },
