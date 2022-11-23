@@ -58,7 +58,7 @@ module.exports = {
   },
 
   postMessages: function (req, res) {
-    const message = Message.create(req.body).then((message) => res.send(message));
+    Message.create(req.body).then(() => res.sendStatus(201));
   },
 
   getPendingRequests: function (req, res) {
