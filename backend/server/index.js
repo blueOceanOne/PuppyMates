@@ -17,10 +17,17 @@ const io = require('socket.io')(http, {
   }
 });
 
+const clients = [];
+
 io.on('connection', (socket)=>{
   console.log(`⚡: ${socket.id} user just connected!`);
+  clients.push(socket.id);
+  console.log('current clients ', clients);
+  socket.join('room1');
+
   socket.on('send', (arg)=>{
-    console.log(arg);
+    console.log(arg.content);
+    io.to('room1').emit('response', arg);
   })
   socket.on('disconnect', () => {
     console.log('🔥: A user disconnected');
