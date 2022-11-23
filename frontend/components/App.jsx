@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -27,9 +27,9 @@ export default function App() {
     })();
   }, []);
 
-//   SAMPLE DATA OF LOCATION RETURN FROM ABOVE FUNCTION
-//   ALSO AVAILABLE WITHIN SAMPLE DATA
-//   {"coords":
+  //   SAMPLE DATA OF LOCATION RETURN FROM ABOVE FUNCTION
+  //   ALSO AVAILABLE WITHIN SAMPLE DATA
+  //   {"coords":
   //   {
   //     "speed":-1,
   //     "longitude":-123.444423,
@@ -40,7 +40,7 @@ export default function App() {
   //     "altitudeAccuracy":-1
   //   },
   //   "timestamp":1669174971110.204
-//   }
+  //   }
 
   let text = 'Waiting...';
   if (errorMsg) {
@@ -56,3 +56,12 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
