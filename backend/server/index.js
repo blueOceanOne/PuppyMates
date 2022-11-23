@@ -4,7 +4,8 @@ const path = require('path');
 
 const app = express();
 
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
+
 
 const http = require('http').Server(app);
 const cors = require('cors');
@@ -17,16 +18,14 @@ const io = require('socket.io')(http, {
   }
 });
 
-const clients = [];
-
 io.on('connection', (socket)=>{
   console.log(`⚡: ${socket.id} user just connected!`);
-  clients.push(socket.id);
-  console.log('current clients ', clients);
   socket.join('room1');
-
+  socket.on('requestID', ()=>{
+    socket.emit('sendID', socket.id);
+  })
   socket.on('send', (arg)=>{
-    console.log(arg.content);
+    console.log(arg);
     io.to('room1').emit('response', arg);
   })
   socket.on('disconnect', () => {
