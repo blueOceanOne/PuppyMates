@@ -88,8 +88,8 @@ module.exports = {
 
   acceptRequest: function (req, res) {
     // TODO: Use path params for user
-    let user = req._parsedUrl.pathname.slice(17);
-    let sender = req.query.participant_id;
+    const { user } = req.params;
+    const sender = req.query.participant_id;
     // TODO: Have controller accept request for (recipient_id = user & sender_id: sender) OR (recipient_id = sender & sender_id: user)
     Request.update(
       { status: 'accepted' },
@@ -99,8 +99,8 @@ module.exports = {
 
   rejectRequest: function (req, res) {
     // TODO: Use path params for user
-    let user = req._parsedUrl.pathname.slice(17);
-    let sender = req.query.participant_id;
+    const { user } = req.params;
+    const sender = req.query.participant_id;
     // TODO: Have controller reject request for (recipient_id = user & sender_id: sender) OR (recipient_id = sender & sender_id: user)
     Request.update(
       { status: 'rejected' },

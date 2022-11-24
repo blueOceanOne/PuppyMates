@@ -74,12 +74,12 @@ app.get('/requests/accepted/:user', (req, res) => {
   controllers.getAcceptedRequests(req, res);
 });
 
-app.put('/requests/accept/*', (req, res) => {
+app.put('/requests/accept/:user', (req, res) => {
   console.log('PUT accept requests received');
   controllers.acceptRequest(req, res);
 });
 
-app.put('/requests/reject/*', (req, res) => {
+app.put('/requests/reject/:user', (req, res) => {
   console.log('PUT reject requests received');
   controllers.rejectRequest(req, res);
 });
