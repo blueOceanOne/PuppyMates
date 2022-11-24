@@ -9,11 +9,11 @@ import EventsSub from './EventsSub.jsx';
 
 const Tab = createBottomTabNavigator();
 
-const NavTabs = ({socket}) => {
+const NavTabs = ({socket, user}) => {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Messages" children={()=><MessagePageNav socket={socket}/>} />
+      <Tab.Screen name="Messages" children={()=><MessagePageNav socket={socket} user={user}/>} />
       <Tab.Screen name="EventsSub" component={EventsSub} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>

@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ListItem, Avatar } from '@rneui/themed';
 import matchedData from './matchedData.js';
 
-const ChatsList = ({socket, selectedRecipient, setSelectedRecipient}) => {
+const ChatsList = ({socket, setSelectedRecipient}) => {
   const navigation = useNavigation();
 
   return (

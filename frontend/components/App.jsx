@@ -12,6 +12,7 @@ import Events from './Events.jsx';
 const socket = io(`http://${config.localIP}:${config.port}`);
 
 export default function App() {
+  const [user, setUser] = useState(102);
 /*   const [errorMsg, setErrorMsg] = useState(null);
   const [geolocation, setGeolocation] = useState(null);
 
@@ -50,9 +51,17 @@ export default function App() {
     console.log(text);
   } */
 
+  useEffect(()=>{
+    socket.emit('requestID', user);
+    socket.on('sendID', (newUser)=>{
+      console.log('new user is ', newUser);
+      setUser(newUser.id);
+    })
+  }, [])
+
   return (
     <NavigationContainer>
-      <NavTabs socket={socket}/>
+      <NavTabs socket={socket} user={user}/>
     </NavigationContainer>
   );
 }

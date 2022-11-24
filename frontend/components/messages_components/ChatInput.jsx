@@ -5,11 +5,11 @@ import { Input, Icon, Button } from '@rneui/themed';
 
 const ChatInput = ({socket, user, recipient})=>{
   const [message, setMessage] = useState({sender_id: '', recipient_id: '', content:''})
-  console.log('recipient is ', recipient);
 
   return (
     <View>
         <Text>To recipient {recipient}</Text>
+        <Text>I am {user}</Text>
         <Input
             placeholder="Message here"
             leftIcon={{ type: 'font-awesome', name: 'comment' }}

@@ -6,7 +6,7 @@ import RequestDetail from './RequestDetail.jsx';
 
 const Stack = createNativeStackNavigator();
 
-const MessagePageNav = ({socket}) => {
+const MessagePageNav = ({socket, user}) => {
   const [selectedRequest, setSelectedRequest] = useState({});
   const [selectedRecipient, setSelectedRecipient] = useState('');
 
@@ -23,7 +23,7 @@ const MessagePageNav = ({socket}) => {
             setSelectedRecipient={setSelectedRecipient}
           />} />
       <Stack.Screen name="RequestDetail" children={()=><RequestDetail selectedRequest={selectedRequest} /> }/>
-      <Stack.Screen name="ChatPage" children={()=><ChatPage socket={socket} selectedRecipient={selectedRecipient}/>}/>
+      <Stack.Screen name="ChatPage" children={()=><ChatPage socket={socket} selectedRecipient={selectedRecipient} user={user}/>}/>
     </Stack.Navigator>
   )
 }
