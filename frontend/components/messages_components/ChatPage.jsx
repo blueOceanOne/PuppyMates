@@ -6,12 +6,13 @@ import ChatInput from './ChatInput.jsx';
 const ChatPage = ({socket}) => {
 
   const [messages, setMessages]=useState([]);
-  const [user, setUser]=useState('');
+  const [user, setUser]=useState({id: 102, socket_id: ''});
 
   useEffect(()=>{
-    socket.emit('requestID', null);
-    socket.on('sendID', (arg)=>{
-      setUser(arg);
+    socket.emit('requestID', user.id);
+    socket.on('sendID', (newUser)=>{
+      console.log('socketid is ', newUser);
+      setUser(newUser);
     })
   }, [])
 

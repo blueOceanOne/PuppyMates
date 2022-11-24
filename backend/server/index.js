@@ -7,7 +7,6 @@ const app = express();
 
 app.use(express.json());
 
-
 const http = require('http').Server(app);
 const cors = require('cors');
 
@@ -19,18 +18,38 @@ const io = require('socket.io')(http, {
   },
 });
 
+const clients = {};
+
 io.on('connection', (socket) => {
   console.log(`⚡: ${socket.id} user just connected!`);
   socket.join('room1');
-  socket.on('requestID', ()=>{
-    socket.emit('sendID', socket.id);
-  })
-  socket.on('send', (arg)=>{
-    //console.log(arg);
+  socket.on('requestID', (arg) => {
+    let newUser = { id: arg, socket_id: socket.id };
+    console.log('newUser is ', newUser);
+    let secondUser = false;
+    Object.keys(clients).forEach((key) => {
+      if (clients[key] === 102) {
+        secondUser = true;
+      }
+    });
+
+    if (secondUser) {
+      newUser = { id: 34, socket_id: socket.id };
+      clients[socket.id] = newUser.id;
+      socket.emit('sendID', newUser);
+    } else {
+      clients[socket.id] = newUser.id;
+      socket.emit('sendID', newUser);
+    }
+    console.log('now clients are ', clients);
+  });
+  socket.on('send', (arg) => {
     io.to('room1').emit('response', arg);
-  })
+  });
   socket.on('disconnect', () => {
+    delete clients[socket.id];
     console.log('🔥: A user disconnected');
+    console.log('now clients are ', clients);
   });
 });
 
