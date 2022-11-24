@@ -17,6 +17,7 @@ module.exports = {
       where: {
         id: req.query.user_id,
       },
+      include: [Breed],
     }).then((result) => {
       res.send(result);
     });
