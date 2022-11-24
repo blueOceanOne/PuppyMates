@@ -3,10 +3,11 @@ import { View, Text } from 'react-native';
 import ChatBody from './ChatBody.jsx';
 import ChatInput from './ChatInput.jsx';
 
-const ChatPage = ({socket}) => {
+const ChatPage = ({socket, selectedRecipient}) => {
 
-  const [messages, setMessages]=useState([]);
-  const [user, setUser]=useState(102);
+  const [messages, setMessages] = useState([]);
+  const [user, setUser] = useState(102);
+  const [recipient, setRecipient] = useState(selectedRecipient)
 
   useEffect(()=>{
     socket.emit('requestID', user);
@@ -25,10 +26,12 @@ const ChatPage = ({socket}) => {
     }
   }, [socket, messages]);
 
+  console.log('selected Recipent is ', selectedRecipient)
+
   return (
     <View>
-      <ChatBody messages={messages} user={user}/>
-      <ChatInput socket={socket} user={user}/>
+      <ChatBody messages={messages} user={user} recipient={recipient}/>
+      <ChatInput socket={socket} user={user} recipient={recipient}/>
     </View>
   )
 }

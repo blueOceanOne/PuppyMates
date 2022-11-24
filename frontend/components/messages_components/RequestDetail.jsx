@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
 
-const RequestDetail = ({socket, selectedRequest}) => {
+const RequestDetail = ({selectedRequest}) => {
   return (
     <View>
       <Text>Dog Detail page of {selectedRequest.dog_name}</Text>

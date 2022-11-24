@@ -3,11 +3,13 @@ import { StyleSheet, View, Text } from 'react-native';
 import { Input, Icon, Button } from '@rneui/themed';
 
 
-const ChatInput = ({socket, user})=>{
-  const [message, setMessage] = useState({sender_id: '', recipient_id: 2, content:''})
+const ChatInput = ({socket, user, recipient})=>{
+  const [message, setMessage] = useState({sender_id: '', recipient_id: '', content:''})
+  console.log('recipient is ', recipient);
 
   return (
     <View>
+        <Text>To recipient {recipient}</Text>
         <Input
             placeholder="Message here"
             leftIcon={{ type: 'font-awesome', name: 'comment' }}
@@ -18,10 +20,10 @@ const ChatInput = ({socket, user})=>{
           onPress={(event)=>{
             event.preventDefault();
             console.log(message);
-            socket.emit("send", {...message, sender_id: socket.id})
+            socket.emit("send", {...message, sender_id: user})
             setMessage({sender_id: user, recipient_id:2, content:''})
           }}
-        >Send</Button>
+        >Send to</Button>
     </View>
   )
 }

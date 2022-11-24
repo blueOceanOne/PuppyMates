@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ListItem, Avatar } from '@rneui/themed';
 import matchedData from './matchedData.js';
 
-const ChatsList = ({socket}) => {
+const ChatsList = ({socket, selectedRecipient, setSelectedRecipient}) => {
   const navigation = useNavigation();
 
   return (
@@ -19,6 +19,7 @@ const ChatsList = ({socket}) => {
             bottomDivider
             onPress = {(event)=>{
               event.preventDefault();
+              setSelectedRecipient(item.user2_id);
               navigation.navigate('ChatPage');
             }}
           >
