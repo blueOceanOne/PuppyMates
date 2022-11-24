@@ -7,7 +7,6 @@ const app = express();
 
 app.use(express.json());
 
-
 const http = require('http').Server(app);
 const cors = require('cors');
 
@@ -22,13 +21,13 @@ const io = require('socket.io')(http, {
 io.on('connection', (socket) => {
   console.log(`⚡: ${socket.id} user just connected!`);
   socket.join('room1');
-  socket.on('requestID', ()=>{
+  socket.on('requestID', () => {
     socket.emit('sendID', socket.id);
-  })
-  socket.on('send', (arg)=>{
+  });
+  socket.on('send', (arg) => {
     //console.log(arg);
     io.to('room1').emit('response', arg);
-  })
+  });
   socket.on('disconnect', () => {
     console.log('🔥: A user disconnected');
   });
@@ -93,27 +92,27 @@ app.put('/requests/reject/:user', (req, res) => {
   controllers.rejectRequest(req, res);
 });
 
-app.get('/invitations/attending/*', (req, res) => {
+app.get('/attendingEvents/:userId', (req, res) => {
   console.log('GET attending invites received');
   controllers.getAcceptedEvents(req, res);
 });
 
-app.get('/invitations/pending/*', (req, res) => {
+app.get('/pendingEvents/:userId', (req, res) => {
   console.log('GET pending invites received');
   controllers.getPendingEvents(req, res);
 });
 
-app.post('/events', (req, res) => {
+app.post('/attendingEvents', (req, res) => {
   console.log('POST event received');
   controllers.postEvent(req, res);
 });
 
-app.put('/invitations/confirm/*', (req, res) => {
+app.put('/pendingEvents/confirm/:userId', (req, res) => {
   console.log('PUT accept invite received');
   controllers.acceptEvent(req, res);
 });
 
-app.put('/invitations/reject/*', (req, res) => {
+app.put('/pendingEvents/reject/:userId', (req, res) => {
   console.log('PUT reject invite received');
   controllers.rejectEvent(req, res);
 });
