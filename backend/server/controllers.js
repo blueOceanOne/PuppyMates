@@ -87,24 +87,34 @@ module.exports = {
   },
 
   acceptRequest: function (req, res) {
-    // TODO: Use path params for user
     const { user } = req.params;
     const sender = req.query.participant_id;
-    // TODO: Have controller accept request for (recipient_id = user & sender_id: sender) OR (recipient_id = sender & sender_id: user)
     Request.update(
       { status: 'accepted' },
-      { where: { recipient_id: user, sender_id: sender } }
+      {
+        where: {
+          [Op.or]: [
+            { recipient_id: user, sender_id: sender },
+            { recipient_id: sender, sender_id: user },
+          ],
+        },
+      }
     ).then(() => res.send('received'));
   },
 
   rejectRequest: function (req, res) {
-    // TODO: Use path params for user
     const { user } = req.params;
     const sender = req.query.participant_id;
-    // TODO: Have controller reject request for (recipient_id = user & sender_id: sender) OR (recipient_id = sender & sender_id: user)
     Request.update(
       { status: 'rejected' },
-      { where: { recipient_id: user, sender_id: sender } }
+      {
+        where: {
+          [Op.or]: [
+            { recipient_id: user, sender_id: sender },
+            { recipient_id: sender, sender_id: user },
+          ],
+        },
+      }
     ).then(() => res.send('received'));
   },
 
