@@ -13,7 +13,7 @@ const UserCard = ({ item, index, onSwipe }) => {
 
   return (
     <View>
-      <Card borderRadius="10">
+      <Card /* borderRadius="10" */>
         <Image
           source={{
             uri: item.photos[0],
@@ -21,7 +21,7 @@ const UserCard = ({ item, index, onSwipe }) => {
           style={{ height: dHeight * 0.6, width: dWidth * 0.9 }}
           alignSelf="center"
           resizeMode="cover"
-          borderRadius="10"
+/*           borderRadius="10" */
         />
         <View flexDirection="row" justifyContent="space-between">
           <Text h3>{item.dog_name}</Text>
