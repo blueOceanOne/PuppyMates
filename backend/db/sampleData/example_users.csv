@@ -1,0 +1,136 @@
+id,email,dog_name,breed_id,size,dog_friendly,people_friendly,energy,city,state,bio,createdAt,updatedAt
+1,Tinkerdellelover1@test.com,Tinkerdelle,48,large,FALSE,FALSE,low,Los Angeles,HA,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+2,Pepperlover2@test.com,Pepper,196,large,FALSE,TRUE,high,New York,NY,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+3,Grey Foxlover28@test.com,Grey Fox,255,extra large,TRUE,TRUE,average,Honolulu,NY,Total cuddlebug Loves nothing more than curling up next to the fire on a cold evening.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+4,Hannahlover24@test.com,Hannah,285,medium,FALSE,TRUE,high,New York,CA,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+5,Daisylover9@test.com,Daisy,225,extra large,FALSE,FALSE,low,Honolulu,TX,null,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+6,Kukulalover11@test.com,Kukula,97,extra large,FALSE,TRUE,high,New York,TX,A little shy at first but will become your pet's best friend in no time,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+7,Stanleighlover8@test.com,Stanleigh,158,small,FALSE,TRUE,average,Dalas,CA,null,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+8,Gunnerlover13@test.com,Gunner,312,small,FALSE,FALSE,high,Denver,HA,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+9,Rhiannonlover24@test.com,Rhiannon,326,medium,FALSE,TRUE,low,Denver,HA,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+10,Letolover16@test.com,Leto,115,large,TRUE,TRUE,high,Honolulu,CO,Total cuddlebug Loves nothing more than curling up next to the fire on a cold evening.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+11,Noreelover23@test.com,Noree,305,extra large,TRUE,TRUE,high,Honolulu,CO,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+12,Pinwheellover17@test.com,Pinwheel,349,extra large,FALSE,TRUE,low,Denver,HA,null,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+13,Ashleylover25@test.com,Ashley,67,medium,FALSE,FALSE,low,Dalas,CA,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+14,Friskylover20@test.com,Frisky,217,extra small,FALSE,FALSE,high,New York,CA,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+15,Springfieldlover19@test.com,Springfield,320,small,FALSE,FALSE,low,Dalas,HA,Total cuddlebug Loves nothing more than curling up next to the fire on a cold evening.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+16,Diegolover3@test.com,Diego,159,extra small,FALSE,FALSE,high,Honolulu,CA,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+17,Lou-Loulover23@test.com,Lou-Lou,193,extra large,TRUE,TRUE,high,Los Angeles,TX,Total cuddlebug Loves nothing more than curling up next to the fire on a cold evening.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+18,Eleanorlover5@test.com,Eleanor,333,extra small,TRUE,TRUE,average,Denver,HA,Total cuddlebug Loves nothing more than curling up next to the fire on a cold evening.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+19,Jijilover14@test.com,Jiji,15,extra large,FALSE,FALSE,low,Honolulu,NY,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+20,Marleylover24@test.com,Marley,41,extra large,TRUE,TRUE,high,Honolulu,HA,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+21,Maxinelover1@test.com,Maxine,140,extra large,TRUE,TRUE,average,Dalas,TX,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+22,Shadowlover2@test.com,Shadow,37,extra large,FALSE,FALSE,low,Los Angeles,NY,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+23,Muggslover7@test.com,Muggs,74,small,FALSE,TRUE,low,Honolulu,HA,null,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+24,Tiblitslover7@test.com,Tiblits,14,medium,FALSE,FALSE,high,New York,CO,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+25,Angellover8@test.com,Angel,343,small,FALSE,TRUE,average,Denver,NY,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+26,Busterlover8@test.com,Buster,134,medium,FALSE,FALSE,high,Dalas,CO,Total cuddlebug Loves nothing more than curling up next to the fire on a cold evening.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+27,Salsalover25@test.com,Salsa,44,medium,FALSE,FALSE,high,Honolulu,TX,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+28,Midnightlover22@test.com,Midnight,48,extra small,TRUE,FALSE,high,Dalas,CA,Total cuddlebug Loves nothing more than curling up next to the fire on a cold evening.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+29,Mindylover25@test.com,Mindy,7,extra small,FALSE,FALSE,average,Los Angeles,NY,Total cuddlebug Loves nothing more than curling up next to the fire on a cold evening.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+30,Hootielover25@test.com,Hootie,79,extra small,TRUE,TRUE,average,Honolulu,TX,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+31,Isabellalover29@test.com,Isabella,59,extra small,TRUE,TRUE,average,Honolulu,CA,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+32,Lunalover28@test.com,Luna,337,medium,TRUE,TRUE,high,Los Angeles,HA,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+33,Nemesislover20@test.com,Nemesis,177,small,FALSE,TRUE,low,Honolulu,NY,A little shy at first but will become your pet's best friend in no time,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+34,Tater Tatlover19@test.com,Tater Tat,222,large,TRUE,TRUE,high,Honolulu,CA,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+35,Lulla Belllover30@test.com,Lulla Bell,125,extra large,TRUE,FALSE,average,Los Angeles,CO,A little shy at first but will become your pet's best friend in no time,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+36,Roger Balllover25@test.com,Roger Ball,179,large,FALSE,FALSE,low,New York,TX,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+37,Oberonlover15@test.com,Oberon,299,large,FALSE,FALSE,low,Denver,CO,Total cuddlebug Loves nothing more than curling up next to the fire on a cold evening.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+38,Sashalover19@test.com,Sasha,232,extra small,TRUE,FALSE,average,Los Angeles,CA,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+39,Lululover30@test.com,Lulu,13,small,TRUE,FALSE,average,Denver,NY,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+40,My Boylover25@test.com,My Boy,103,medium,FALSE,TRUE,average,Honolulu,TX,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+41,Lucy28/2969lover28@test.com,Lucy28/2969,200,large,TRUE,FALSE,low,New York,CO,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+42,Rickylover30@test.com,Ricky,54,small,FALSE,TRUE,average,Los Angeles,CA,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+43,Rosalover17@test.com,Rosa,300,large,FALSE,TRUE,low,New York,HA,A little shy at first but will become your pet's best friend in no time,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+44,Lightninglover20@test.com,Lightning,1,medium,FALSE,TRUE,low,Honolulu,HA,null,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+45,Finneganlover1@test.com,Finnegan,31,extra small,FALSE,TRUE,average,Denver,HA,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+46,Leolover26@test.com,Leo,176,extra small,TRUE,TRUE,high,Denver,NY,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+47,Sockslover15@test.com,Socks,147,extra large,FALSE,FALSE,high,Denver,NY,A little shy at first but will become your pet's best friend in no time,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+48,Puff'n'Stufflover27@test.com,Puff'n'Stuff,238,extra large,FALSE,TRUE,average,Los Angeles,TX,Total cuddlebug Loves nothing more than curling up next to the fire on a cold evening.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+49,Buddylover28@test.com,Buddy,320,extra small,FALSE,TRUE,average,Denver,CO,null,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+50,Magnuslover6@test.com,Magnus,181,extra large,FALSE,FALSE,high,Honolulu,CA,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+51,Bobbylover23@test.com,Bobby,346,small,TRUE,TRUE,high,Los Angeles,HA,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+52,Esmereldalover5@test.com,Esmerelda,25,large,FALSE,TRUE,high,Dalas,CO,null,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+53,Rocketlover29@test.com,Rocket,310,extra large,TRUE,TRUE,low,Los Angeles,CO,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+54,Binglover21@test.com,Bing,169,small,FALSE,TRUE,average,Dalas,NY,A little shy at first but will become your pet's best friend in no time,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+55,Jauntylover29@test.com,Jaunty,31,extra small,TRUE,FALSE,low,Los Angeles,TX,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+56,Carlitolover8@test.com,Carlito,80,large,FALSE,FALSE,average,Honolulu,HA,Total cuddlebug Loves nothing more than curling up next to the fire on a cold evening.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+57,Ozlover9@test.com,Oz,3,medium,FALSE,TRUE,average,Los Angeles,CA,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+58,Magnumlover21@test.com,Magnum,38,large,TRUE,FALSE,low,New York,TX,Total cuddlebug Loves nothing more than curling up next to the fire on a cold evening.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+59,Bulover16@test.com,Bu,214,small,TRUE,FALSE,low,New York,NY,A little shy at first but will become your pet's best friend in no time,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+60,Otislover25@test.com,Otis,280,small,TRUE,TRUE,low,Dalas,CA,null,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+61,Gigilover8@test.com,Gigi,314,small,FALSE,FALSE,high,New York,TX,null,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+62,Calypsolover15@test.com,Calypso,352,large,TRUE,FALSE,low,Dalas,CO,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+63,Tylover26@test.com,Ty,186,medium,FALSE,FALSE,high,Dalas,TX,Total cuddlebug Loves nothing more than curling up next to the fire on a cold evening.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+64,Guinnesslover11@test.com,Guinness,315,extra small,FALSE,FALSE,low,Los Angeles,HA,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+65,Babylover21@test.com,Baby,276,extra small,FALSE,TRUE,low,Honolulu,HA,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+66,Maceolover3@test.com,Maceo,288,extra large,TRUE,FALSE,high,New York,HA,null,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+67,Stinkylover7@test.com,Stinky,187,large,FALSE,TRUE,low,New York,CA,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+68,Tontolover18@test.com,Tonto,297,extra large,FALSE,TRUE,high,Dalas,CO,null,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+69,Zorrolover12@test.com,Zorro,342,medium,FALSE,FALSE,average,Honolulu,CO,A little shy at first but will become your pet's best friend in no time,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+70,Odorokilover20@test.com,Odoroki,44,extra small,FALSE,TRUE,average,Honolulu,HA,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+71,Felixlover28@test.com,Felix,304,small,FALSE,TRUE,low,Los Angeles,CO,Total cuddlebug Loves nothing more than curling up next to the fire on a cold evening.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+72,Romolover14@test.com,Romo,229,extra large,TRUE,FALSE,low,Dalas,NY,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+73,Bluelover24@test.com,Blue,158,medium,TRUE,TRUE,high,New York,HA,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+74,Kashilover27@test.com,Kashi,346,extra large,TRUE,FALSE,low,Denver,NY,Total cuddlebug Loves nothing more than curling up next to the fire on a cold evening.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+75,Cocolover20@test.com,Coco,203,small,TRUE,FALSE,low,Denver,CO,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+76,Mellow Mannylover12@test.com,Mellow Manny,325,extra large,FALSE,TRUE,low,Denver,HA,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+77,Tesslover18@test.com,Tess,130,large,TRUE,TRUE,average,Honolulu,TX,A little shy at first but will become your pet's best friend in no time,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+78,Kaylalover20@test.com,Kayla,353,large,FALSE,FALSE,low,Honolulu,HA,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+79,Julietlover12@test.com,Juliet,197,medium,FALSE,FALSE,low,Denver,NY,null,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+80,Ms. Ringtaillover22@test.com,Ms. Ringtail,31,small,TRUE,FALSE,high,Denver,HA,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+81,Chowderlover8@test.com,Chowder,153,extra small,FALSE,FALSE,high,Los Angeles,NY,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+82,Edwardlover11@test.com,Edward,349,extra large,TRUE,FALSE,low,Denver,CO,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+83,Nonilover17@test.com,Noni,57,medium,TRUE,FALSE,low,New York,CA,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+84,Mishalover9@test.com,Misha,167,extra large,FALSE,FALSE,low,Honolulu,CO,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+85,Cyan Pearlalover12@test.com,Cyan Pearla,292,medium,FALSE,FALSE,high,Honolulu,CA,null,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+86,Campbelllover13@test.com,Campbell,11,medium,FALSE,TRUE,low,Los Angeles,HA,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+87,Moseslover26@test.com,Moses,53,small,FALSE,FALSE,high,Honolulu,TX,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+88,Fortunelover7@test.com,Fortune,209,medium,FALSE,FALSE,average,Denver,CO,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+89,Frannielover2@test.com,Frannie,247,large,FALSE,FALSE,high,Denver,CA,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+90,Charlielover25@test.com,Charlie,181,large,TRUE,TRUE,high,New York,CA,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+91,Minoulover23@test.com,Minou,128,large,FALSE,TRUE,high,Honolulu,TX,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+92,Jasminelover17@test.com,Jasmine,277,medium,FALSE,TRUE,average,Denver,TX,Total cuddlebug Loves nothing more than curling up next to the fire on a cold evening.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+93,Petunialover20@test.com,Petunia,235,extra small,FALSE,FALSE,low,Dalas,TX,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+94,Mambalover14@test.com,Mamba,27,medium,TRUE,FALSE,low,New York,TX,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+95,T Clover30@test.com,T C,229,extra small,TRUE,FALSE,high,Dalas,NY,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+96,Bobbylover25@test.com,Bobby,297,extra small,TRUE,FALSE,average,Denver,HA,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+97,Josielover1@test.com,Josie,207,large,TRUE,FALSE,low,Los Angeles,NY,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+98,Pascallover23@test.com,Pascal,341,extra large,TRUE,TRUE,low,Denver,CO,A little shy at first but will become your pet's best friend in no time,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+99,Daiseylover27@test.com,Daisey,233,extra large,FALSE,TRUE,high,Dalas,HA,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+100,Kittylover6@test.com,Kitty,234,extra large,FALSE,TRUE,low,Denver,CO,A little shy at first but will become your pet's best friend in no time,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+101,Rubylover7@test.com,Ruby,252,extra large,FALSE,FALSE,low,New York,TX,Total cuddlebug Loves nothing more than curling up next to the fire on a cold evening.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+102,Millie Maelover13@test.com,Millie Mae,133,extra large,TRUE,TRUE,low,New York,NY,A little shy at first but will become your pet's best friend in no time,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+103,Snowballlover16@test.com,Snowball,196,large,TRUE,FALSE,low,Denver,NY,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+104,Lunalover21@test.com,Luna,224,small,TRUE,FALSE,average,Denver,NY,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+105,Petralover16@test.com,Petra,141,small,TRUE,TRUE,low,New York,NY,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+106,Louiselover23@test.com,Louise,310,large,TRUE,TRUE,low,Los Angeles,TX,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+107,Marcolover21@test.com,Marco,355,large,FALSE,FALSE,high,Dalas,TX,A little shy at first but will become your pet's best friend in no time,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+108,Magiclover11@test.com,Magic,136,extra large,TRUE,FALSE,high,New York,HA,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+109,Ishaanlover28@test.com,Ishaan,224,extra large,TRUE,FALSE,high,Los Angeles,TX,A little shy at first but will become your pet's best friend in no time,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+110,Jazzlover25@test.com,Jazz,308,extra small,TRUE,TRUE,average,Los Angeles,CA,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+111,Moose /Busterlover5@test.com,Moose /Buster,228,extra large,TRUE,TRUE,high,Los Angeles,TX,Total cuddlebug Loves nothing more than curling up next to the fire on a cold evening.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+112,Squirrel / Resulover20@test.com,Squirrel / Resu,46,extra large,FALSE,TRUE,low,Los Angeles,CO,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+113,Trixielover10@test.com,Trixie,37,extra large,FALSE,FALSE,low,Dalas,CO,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+114,Rileylover26@test.com,Riley,88,extra small,FALSE,TRUE,high,Dalas,CO,null,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+115,Lucylover1@test.com,Lucy,315,large,FALSE,TRUE,average,Honolulu,CA,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+116,Tigerlover4@test.com,Tiger,218,small,FALSE,FALSE,average,Los Angeles,CA,null,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+117,Maxlover27@test.com,Max,334,large,FALSE,TRUE,high,Honolulu,CA,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+118,Starlover11@test.com,Star,130,extra large,FALSE,FALSE,average,Los Angeles,CO,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+119,Tortuelover20@test.com,Tortue,305,medium,FALSE,TRUE,average,Dalas,CO,A little shy at first but will become your pet's best friend in no time,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+120,Stevielover29@test.com,Stevie,337,small,TRUE,TRUE,low,Denver,CA,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+121,Solsticelover24@test.com,Solstice,334,extra small,TRUE,TRUE,low,Los Angeles,NY,null,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+122,Roxylover14@test.com,Roxy,14,large,FALSE,TRUE,average,New York,TX,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+123,Cricketlover24@test.com,Cricket,178,large,FALSE,FALSE,high,Dalas,NY,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+124,Sammachlover24@test.com,Sammach,123,medium,FALSE,FALSE,high,Honolulu,CA,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+125,Zionlover6@test.com,Zion,326,large,TRUE,FALSE,low,New York,HA,null,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+126,Shirleylover29@test.com,Shirley,178,extra large,TRUE,TRUE,average,New York,CA,Total cuddlebug Loves nothing more than curling up next to the fire on a cold evening.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+127,Felixlover5@test.com,Felix,352,extra large,FALSE,TRUE,high,Dalas,TX,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+128,Gustavlover29@test.com,Gustav,286,extra large,TRUE,FALSE,average,Dalas,HA,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+129,KiKilover4@test.com,KiKi,282,large,TRUE,TRUE,low,Los Angeles,CA,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+130,Simonlover24@test.com,Simon,114,small,TRUE,FALSE,low,Honolulu,TX,null,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+131,Bellalover8@test.com,Bella,53,large,FALSE,FALSE,high,Los Angeles,HA,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+132,Bluelover11@test.com,Blue,88,extra large,FALSE,FALSE,high,Dalas,CO,null,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+133,Gracielover30@test.com,Gracie,20,large,TRUE,FALSE,high,Dalas,CO,A little shy at first but will become your pet's best friend in no time,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+134,Smokeylover7@test.com,Smokey,183,small,TRUE,FALSE,high,Los Angeles,CA,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
+135,Brat Catlover9@test.com,Brat Cat,9,extra large,FALSE,FALSE,average,Los Angeles,CO,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08
