@@ -12,7 +12,7 @@ const { Op } = sequelize;
 
 module.exports = {
   getUser: function (req, res) {
-    // TODO: Include breed
+    // TODO: Add Photos
     User.findAll({
       where: {
         id: req.query.user_id,
@@ -28,13 +28,65 @@ module.exports = {
   },
 
   updateUser: function (req, res) {
+    // TODO
     res.sendStatus(200);
   },
 
   swipe: function (req, res) {
-    //determine left or right swipe from req.url
-    //body includes sender and recipient ids
-    res.sendStatus(200);
+    const { sender_id, recipient_id } = req.body;
+    Request.findAll({
+      where: {
+        [Op.or]: [
+          {
+            sender_id: sender_id,
+            recipient_id: recipient_id,
+          },
+          {
+            sender_id: recipient_id,
+            recipient_id: sender_id,
+          },
+        ],
+      },
+    }).then((result) => {
+      if (req.url.slice(10) === 'right') {
+        if (result.length) {
+          Request.update(
+            { status: 'accepted' },
+            {
+              where: {
+                [Op.or]: [
+                  {
+                    sender_id: sender_id,
+                    recipient_id: recipient_id,
+                  },
+                  {
+                    sender_id: recipient_id,
+                    recipient_id: sender_id,
+                  },
+                ],
+              },
+            }
+          ).then(res.send({ status: 201 }));
+        } else {
+          const request = Request.create(req.body).then(res.send({ status: 201 }));
+        }
+      } else {
+        Request.destroy({
+          where: {
+            [Op.or]: [
+              {
+                sender_id: sender_id,
+                recipient_id: recipient_id,
+              },
+              {
+                sender_id: recipient_id,
+                recipient_id: sender_id,
+              },
+            ],
+          },
+        }).then(res.send({ status: 201 }));
+      }
+    });
   },
 
   getMessages: function (req, res) {
