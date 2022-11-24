@@ -25,14 +25,12 @@ io.on('connection', (socket) => {
   socket.join('room1');
   socket.on('requestID', (arg) => {
     let newUser = { id: arg, socket_id: socket.id };
-    console.log('newUser is ', newUser);
     let secondUser = false;
     Object.keys(clients).forEach((key) => {
       if (clients[key] === 102) {
         secondUser = true;
       }
     });
-
     if (secondUser) {
       newUser = { id: 34, socket_id: socket.id };
       clients[socket.id] = newUser.id;
