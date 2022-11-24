@@ -12,12 +12,11 @@ const { Op } = sequelize;
 
 module.exports = {
   getUser: function (req, res) {
-    // TODO: Add Photos
     User.findAll({
       where: {
         id: req.query.user_id,
       },
-      include: [Breed],
+      include: [Breed, Photo],
     }).then((result) => {
       res.send(result);
     });
