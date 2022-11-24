@@ -6,7 +6,7 @@ import config from '../config.js';
 import io from 'socket.io-client';
 import NavTabs from './Tabs.jsx';
 import Events from './Events.jsx';
-import { Permissions } from 'expo';
+/* import { Permissions } from 'expo'; */
 /* import * as Location from 'expo-location'; */
 
 const socket = io(`http://${config.localIP}:${config.port}`);
