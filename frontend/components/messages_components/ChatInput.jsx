@@ -4,7 +4,7 @@ import { Input, Icon, Button } from '@rneui/themed';
 
 
 const ChatInput = ({socket, user, recipient})=>{
-  const [message, setMessage] = useState({sender_id: '', recipient_id: '', content:''})
+  const [message, setMessage] = useState({sender_id: user, recipient_id: recipient, content:''})
 
   return (
     <View>
@@ -20,8 +20,8 @@ const ChatInput = ({socket, user, recipient})=>{
           onPress={(event)=>{
             event.preventDefault();
             console.log(message);
-            socket.emit("send", {...message, sender_id: user})
-            setMessage({sender_id: user, recipient_id:2, content:''})
+            socket.emit("send", message)
+            setMessage({sender_id: user, recipient_id: recipient, content:''})
           }}
         >Send to</Button>
     </View>
