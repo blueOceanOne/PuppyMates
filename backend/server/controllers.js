@@ -170,8 +170,7 @@ module.exports = {
   },
 
   getAcceptedEvents: function (req, res) {
-    // TODO: Use path params for user
-    let user = req.url.slice(23);
+    const user = req.params.userId;
     Invitation.findAll({
       where: {
         invitee_id: user,
@@ -182,7 +181,7 @@ module.exports = {
           model: Event,
         },
       ],
-    }).then((result) => res.send(result));
+    }).then((result) => res.status(200).json(result));
   },
 
   getPendingEvents: function (req, res) {
