@@ -202,7 +202,7 @@ module.exports = {
 
   postEvent: function (req, res) {
     // TODO: Only send back status, not result
-    const event = Event.create(req.body).then((result) => res.send(result));
+    Event.create(req.body).then(() => res.sendStatus(201));
   },
 
   acceptEvent: function (req, res) {
