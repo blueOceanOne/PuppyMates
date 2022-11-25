@@ -86,7 +86,7 @@ app.post('/requests/left', (req, res) => {
   controllers.swipe(req, res);
 });
 
-app.get('/messages/*', (req, res) => {
+app.get('/messages/:user_id', (req, res) => {
   console.log('GET messages received');
   controllers.getMessages(req, res);
 });
@@ -96,12 +96,12 @@ app.post('/messages', (req, res) => {
   controllers.postMessages(req, res);
 });
 
-app.get('/requests/pending/*', (req, res) => {
+app.get('/requests/pending/:user', (req, res) => {
   console.log('GET pending requests received');
   controllers.getPendingRequests(req, res);
 });
 
-app.get('/requests/accepted/*', (req, res) => {
+app.get('/requests/accepted/:user', (req, res) => {
   console.log('GET accepted requests received');
   controllers.getAcceptedRequests(req, res);
 });

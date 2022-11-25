@@ -74,12 +74,37 @@ module.exports = {
   },
 
   getPendingRequests: function (req, res) {
-    console.log(req.query.participant_id);
-    res.send('received');
+    const { user } = req.params;
+
+    Request.findAll({
+      where: {
+        recipient_id: user,
+        status: 'pending',
+      },
+    })
+      .then((result) => res.status(200).json(result))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(404);
+      });
   },
 
   getAcceptedRequests: function (req, res) {
-    res.send('received');
+    const { user } = req.params;
+
+    Request.findAll({
+      where: {
+        [Op.or]: [
+          { recipient_id: user, status: 'accepted' },
+          { sender_id: user, status: 'accepted' },
+        ],
+      },
+    })
+      .then((result) => res.status(200).json(result))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(404);
+      });
   },
 
   acceptRequest: function (req, res) {
