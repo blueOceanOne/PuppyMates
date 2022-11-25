@@ -3,7 +3,7 @@ import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { events } from '../../sampleData/events.js';
 
-export default function Map() {
+export default function Map({DYNAMICEVENTINFO}) {
   const localEvents = events;
   const markerRender = (localEvent) => {
     return (

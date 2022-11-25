@@ -4,8 +4,11 @@ import { userData } from '../../sampleData/events.js';
 import { Input } from '@rneui/themed';
 import Guests from './Guests.jsx';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useNavigation } from '@react-navigation/native';
+
 
 const CreateEvent = ({setCreate, DYNAMICUSERINFO}) => {
+  const navigation = useNavigation();
   const sampleData = userData;
 
   const [open, setOpen] = useState(false);
@@ -42,11 +45,9 @@ const CreateEvent = ({setCreate, DYNAMICUSERINFO}) => {
             }}
           />
         </View>
-        <Pressable onPress={() => {setOpen(!open)}}>
+        <Pressable onPress={() => {navigation.navigate('Guests')}}>
           <Text style={styles.invite}>Invite Guests</Text>
         </Pressable>
-        <Button title='Cancel' onPress={() => {setCreate(false)}}/>
-        { open ? <Guests setOpen={setOpen} /> : null }
       </View>
     </ScrollView>
   )

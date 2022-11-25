@@ -2,36 +2,40 @@ import React, { useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View, Button, Pressable } from 'react-native';
 import { events, userData } from '../sampleData/events.js';
 import EventList from '../components/events/EventList.jsx';
+import CreateEvent from './events/createEvent.jsx';
 import Map from '../components/events/Map.jsx';
-import CreateEvent from './events/CreateEvent.jsx';
+import { useNavigation } from '@react-navigation/native';
+import PendingEvents from './events/PendingEvents.jsx';
 import { FAB } from '@rneui/themed';
 
 const Events = () => {
+  const navigation = useNavigation();
   const [tab, setTab] = useState('attending');
-  const [create, setCreate] = useState(false);
+
   const sampleEvents = events;
 
   return (
     <SafeAreaView styles={styles.container}>
       <ScrollView>
-      { !create ?
-        <>
           <View styles={styles.tabContainer}>
             <Pressable onPress={() => {setTab('attending')}} style={styles.singleTab}>
               <Text style={[styles.tabText, {color: (tab === 'attending') ? '#F49D1A' : '#000000'}]}>Attending</Text>
             </Pressable>
-            <Pressable onPress={() => {setTab('pending')}} style={styles.unsingleTab}>
+            <Pressable onPress={() => {setTab('pending')}} style={styles.singleTab}>
               <Text style={[styles.tabText, {color: (tab === 'pending') ? '#F49D1A' : '#000000'}]}>Pending</Text>
             </Pressable>
           </View>
-          <View style={styles.mapView}>
-            <Map />
-          </View>
-          <EventList eventList={sampleEvents} />
-          <Button title='Create Event' onPress={() => {setCreate(!create)}}/>
-        </>
-      : null }
-        { create ? <CreateEvent setCreate={setCreate}/> : null }
+          {(tab === 'attending') ?
+            <>
+              <View style={styles.mapView}>
+                <Map />
+              </View>
+              <EventList eventList={sampleEvents} />
+              <Button title='Create Event' onPress={() => {
+                navigation.navigate('Create Event');
+              }}/>
+            </>
+          : <PendingEvents /> }
       </ScrollView>
     </SafeAreaView>
   )
@@ -49,7 +53,7 @@ const styles = StyleSheet.create({
   },
   tabContainer: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    justifyContent: 'space-between',
   },
   singleTab: {
     borderRadius: 3,

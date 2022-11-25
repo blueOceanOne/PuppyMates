@@ -22,6 +22,27 @@ module.exports = {
       }
     ],
 
+  pendingEvents:
+    [
+      {
+        eventId: 12,
+        hostUsername: 'DougTheDoberman',
+        eventDate: new Date(),
+        eventTitle: 'Diving with Dobermans',
+        eventDescription: 'Surfs up! Doggy swim date. Humans swim too!',
+        eventLocation: [ 37.797256944027055, -122.2601061225914 ],
+        attendeeIds: [ 1, 2, 3, 4 ]
+      },
+      {
+        eventId: 33,
+        hostUsername: 'CharlesTheChowChow',
+        eventDate: new Date(),
+        eventTitle: 'Chowing with Chow Chows',
+        eventDescription: 'Dim sum restaurants do not allow dogs :(',
+        eventLocation: [ 37.66607434173759, -122.46659827934928 ],
+        attendeeIds: [ 5, 1, 6, 8, 7 ]
+      }
+    ],
   userData: [
     {
       id: 1,

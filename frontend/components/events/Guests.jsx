@@ -1,20 +1,31 @@
-import React from 'react';
-import { View, ScrollView, Text, Pressable, Button } from 'react-native';
+import React, { useState } from 'react';
+import { View, ScrollView, Text, Pressable, Button, StyleSheet } from 'react-native';
 import { ListItem, Avatar } from '@rneui/themed';
 import userData from '../home/exampleData/userData.js';
 
 const Guests = ({setOpen, DYNAMICUSERINFO}) => {
   const sampleData = userData;
-  console.log('SAMPLE DATA: ', sampleData);
+  // console.log('SAMPLE DATA: ', sampleData);
+  const [invitees, setInvitees] = useState([]);
 
+  const handleInvite = (guestId) => {
+    const userIdInList = invitees.indexOf(guestId);
+    if (userIdInList !== -1) {
+      invitees.splice(userIdInList, 1);
+    } else {
+      invitees.push(guestId);
+      setInvitees([...invitees]);
+      console.log(invitees);
+    }
+  };
 
   return (
     <ScrollView>
       { sampleData.map((each) => {
         console.log('each mapped item: ', each);
         return (
-          <ListItem key={each.id}>
-            <Pressable>
+          <ListItem key={each.id} style={{ backgroundColor: invitees.indexOf(each.id) ? '#2D70F9' : 'white' }}>
+            <Pressable onPress={() => {handleInvite(each.id)}}>
             <Avatar source={{uri: each.photos[0]}} />
               <ListItem.Title>
                 {each['dog_name']}
@@ -26,9 +37,16 @@ const Guests = ({setOpen, DYNAMICUSERINFO}) => {
           </ListItem>
         )
       })}
-      <Button onPress={() => {setOpen(false)}} title='Cancel' />
     </ScrollView>
   )
 }
 
 export default Guests;
+
+const styles = StyleSheet.create({
+  selectedGuest: {
+    backgroundColor: '#2D70F9',
+  },
+  unselectedGuest: {
+  }
+})
