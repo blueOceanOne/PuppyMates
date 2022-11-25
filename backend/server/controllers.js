@@ -81,12 +81,15 @@ module.exports = {
         recipient_id: user,
         status: 'pending',
       },
-    })
-      .then((result) => res.status(200).json(result))
-      .catch((err) => {
-        console.log(err);
-        res.sendStatus(404);
-      });
+      include: [
+        {
+          model: User,
+          as: 'request_sender',
+          attributes: ['id', 'dog_name'],
+          include: [{ model: Photo, limit: 1, attributes: ['id', 'url'] }],
+        },
+      ],
+    }).then((result) => res.status(200).json(result));
   },
 
   getAcceptedRequests: function (req, res) {
@@ -99,6 +102,14 @@ module.exports = {
           { sender_id: user, status: 'accepted' },
         ],
       },
+      include: [
+        {
+          model: User,
+          as: 'request_sender',
+          attributes: ['id', 'dog_name'],
+          include: [{ model: Photo, limit: 1, attributes: ['id', 'url'] }],
+        },
+      ],
     })
       .then((result) => res.status(200).json(result))
       .catch((err) => {
