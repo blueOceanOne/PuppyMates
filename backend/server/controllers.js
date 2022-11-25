@@ -201,16 +201,12 @@ module.exports = {
   },
 
   postEvent: function (req, res) {
-    // TODO: Only send back status, not result
     Event.create(req.body).then(() => res.sendStatus(201));
   },
 
   acceptEvent: function (req, res) {
-    // TODO: Use path params for user
     const user = req.params.userId;
     const event = req.query.event_id;
-
-    // TODO: Only send back status, not result
 
     Invitation.update(
       { status: 'accepted' },
@@ -224,12 +220,8 @@ module.exports = {
   },
 
   rejectEvent: function (req, res) {
-    // TODO: Use path params for user
-
     const user = req.params.userId;
     const event = req.query.event_id;
-
-    // TODO: Only send back status, not result
 
     Invitation.update(
       { status: 'declined' },
