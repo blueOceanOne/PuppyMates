@@ -1,5 +1,5 @@
 require('../db/models/models');
-
+const sequelize = require('sequelize');
 const Breed = require('../db/models/Breed');
 const Event = require('../db/models/Event');
 const Invitation = require('../db/models/Invitation');
@@ -7,6 +7,8 @@ const Message = require('../db/models/Message');
 const Photo = require('../db/models/Photo');
 const Request = require('../db/models/Request');
 const User = require('../db/models/User');
+
+const { Op } = sequelize;
 
 module.exports = {
   getUser: function (req, res) {
@@ -37,14 +39,38 @@ module.exports = {
   },
 
   getMessages: function (req, res) {
-    //participant_id is query param, user_id is req.url
-    res.send('received');
+    const user = req.params.user_id;
+    const sender = req.query.participant_id;
+
+    Message.findAll({
+      where: {
+        [Op.or]: [
+          {
+            sender_id: user,
+            recipient_id: sender,
+          },
+          {
+            recipient_id: user,
+            sender_id: sender,
+          },
+        ],
+      },
+      order: [['createdAt', 'ASC']],
+    })
+      .then((result) => res.status(200).json(result))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(404);
+      });
   },
 
   postMessages: function (req, res) {
-    //body includes sender/recipient ids and content
-    //console.log(req.body);
-    const message = Message.create(req.body).then((result) => res.send(result));
+    Message.create(req.body)
+      .then(() => res.sendStatus(201))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   getPendingRequests: function (req, res) {
