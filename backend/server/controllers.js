@@ -17,13 +17,23 @@ module.exports = {
         id: req.query.user_id,
       },
       include: [Breed, Photo],
-    }).then((result) => {
-      res.send(result);
-    });
+    })
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   postUser: function (req, res) {
-    User.create(req.body).then(() => res.sendStatus(201));
+    User.create(req.body)
+      .then(() => res.sendStatus(201))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   updateUser: function (req, res) {
@@ -61,7 +71,12 @@ module.exports = {
       });
     }
 
-    swipePromise.then(() => res.sendStatus(200));
+    swipePromise
+      .then(() => res.sendStatus(200))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   getMessages: function (req, res) {
@@ -82,11 +97,21 @@ module.exports = {
         ],
       },
       order: [['createdAt', 'ASC']],
-    }).then((result) => res.status(200).json(result));
+    })
+      .then((result) => res.status(200).json(result))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   postMessages: function (req, res) {
-    Message.create(req.body).then(() => res.sendStatus(201));
+    Message.create(req.body)
+      .then(() => res.sendStatus(201))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   getPendingRequests: function (req, res) {
@@ -105,7 +130,12 @@ module.exports = {
           include: [{ model: Photo, limit: 1, attributes: ['id', 'url'] }],
         },
       ],
-    }).then((result) => res.status(200).json(result));
+    })
+      .then((result) => res.status(200).json(result))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   getAcceptedRequests: function (req, res) {
@@ -127,7 +157,12 @@ module.exports = {
           include: [{ model: Photo, limit: 1, attributes: ['id', 'url'] }],
         },
       ],
-    }).then((result) => res.status(200).json(result));
+    })
+      .then((result) => res.status(200).json(result))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   acceptRequest: function (req, res) {
@@ -143,7 +178,12 @@ module.exports = {
           ],
         },
       }
-    ).then(() => res.send('received'));
+    )
+      .then(() => res.send('received'))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   rejectRequest: function (req, res) {
@@ -159,7 +199,12 @@ module.exports = {
           ],
         },
       }
-    ).then(() => res.send('received'));
+    )
+      .then(() => res.send('received'))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   getAcceptedEvents: function (req, res) {
@@ -174,7 +219,12 @@ module.exports = {
           model: Event,
         },
       ],
-    }).then((result) => res.status(200).json(result));
+    })
+      .then((result) => res.status(200).json(result))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   getPendingEvents: function (req, res) {
@@ -189,11 +239,21 @@ module.exports = {
           model: Event,
         },
       ],
-    }).then((result) => res.status(200).json(result));
+    })
+      .then((result) => res.status(200).json(result))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   postEvent: function (req, res) {
-    Event.create(req.body).then(() => res.sendStatus(201));
+    Event.create(req.body)
+      .then(() => res.sendStatus(201))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   acceptEvent: function (req, res) {
@@ -208,7 +268,12 @@ module.exports = {
           event_id: event,
         },
       }
-    ).then(() => res.sendStatus(200));
+    )
+      .then(() => res.sendStatus(200))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   rejectEvent: function (req, res) {
@@ -223,6 +288,11 @@ module.exports = {
           event_id: event,
         },
       }
-    ).then(() => res.sendStatus(200));
+    )
+      .then(() => res.sendStatus(200))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 };
