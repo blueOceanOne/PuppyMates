@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import RequestDetail from './RequestDetail.jsx';
 import pendingData from './requestsData.js';
 
-const Requests = ({selectedRequest, setSelectedRequest}) => {
+const Requests = ({selectedRequest, setSelectedRequest, user}) => {
   const navigation = useNavigation();
 
   return (
