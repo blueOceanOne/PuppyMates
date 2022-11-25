@@ -32,17 +32,18 @@ module.exports = {
   },
 
   swipe: function (req, res, direction) {
-    const { sender_id, recipient_id } = req.body;
+    const senderId = req.body.sender_id;
+    const recipientId = req.body.recipient_id;
     Request.findAll({
       where: {
         [Op.or]: [
           {
-            sender_id: sender_id,
-            recipient_id: recipient_id,
+            sender_id: senderId,
+            recipient_id: recipientId,
           },
           {
-            sender_id: recipient_id,
-            recipient_id: sender_id,
+            sender_id: recipientId,
+            recipient_id: senderId,
           },
         ],
       },
@@ -55,12 +56,12 @@ module.exports = {
               where: {
                 [Op.or]: [
                   {
-                    sender_id: sender_id,
-                    recipient_id: recipient_id,
+                    sender_id: senderId,
+                    recipient_id: recipientId,
                   },
                   {
-                    sender_id: recipient_id,
-                    recipient_id: sender_id,
+                    sender_id: recipientId,
+                    recipient_id: senderId,
                   },
                 ],
               },
@@ -74,12 +75,12 @@ module.exports = {
           where: {
             [Op.or]: [
               {
-                sender_id: sender_id,
-                recipient_id: recipient_id,
+                sender_id: senderId,
+                recipient_id: recipientId,
               },
               {
-                sender_id: recipient_id,
-                recipient_id: sender_id,
+                sender_id: recipientId,
+                recipient_id: senderId,
               },
             ],
           },
