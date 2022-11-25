@@ -207,8 +207,8 @@ module.exports = {
 
   acceptEvent: function (req, res) {
     // TODO: Use path params for user
-    let user = req._parsedUrl.pathname.slice(21);
-    let event = req.query.event_id;
+    const user = req.params.userId;
+    const event = req.query.event_id;
 
     // TODO: Only send back status, not result
 
