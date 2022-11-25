@@ -110,6 +110,7 @@ module.exports = {
 
   getAcceptedRequests: function (req, res) {
     const { user } = req.params;
+    // TODO: Photo should change whether person sending the request is the recipient_id or the sender_id;
 
     Request.findAll({
       where: {
