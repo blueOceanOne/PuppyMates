@@ -220,7 +220,7 @@ module.exports = {
           event_id: event,
         },
       }
-    ).then((result) => res.send(result));
+    ).then(() => res.sendStatus(200));
   },
 
   rejectEvent: function (req, res) {
