@@ -186,7 +186,7 @@ module.exports = {
   },
 
   getPendingEvents: function (req, res) {
-    const user = req.params.user_id;
+    const user = req.params.userId;
     Invitation.findAll({
       where: {
         invitee_id: user,
