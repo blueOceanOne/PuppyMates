@@ -53,12 +53,12 @@ app.put('/users/*', (req, res) => {
   controllers.updateUser(req, res);
 });
 
-app.post('/requests/right', (req, res) => {
+app.post('/home/right', (req, res) => {
   console.log('RIGHT SWIPE');
   controllers.swipe(req, res, 'right');
 });
 
-app.post('/requests/left', (req, res) => {
+app.post('/home/left', (req, res) => {
   console.log('LEFT SWIPE');
   controllers.swipe(req, res, 'left');
 });
