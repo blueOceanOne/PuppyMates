@@ -226,8 +226,8 @@ module.exports = {
   rejectEvent: function (req, res) {
     // TODO: Use path params for user
 
-    let user = req._parsedUrl.pathname.slice(20);
-    let event = req.query.event_id;
+    const user = req.params.userId;
+    const event = req.query.event_id;
 
     // TODO: Only send back status, not result
 
@@ -239,6 +239,6 @@ module.exports = {
           event_id: event,
         },
       }
-    ).then((result) => res.send(result));
+    ).then(() => res.sendStatus(200));
   },
 };
