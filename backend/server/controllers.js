@@ -34,59 +34,34 @@ module.exports = {
   swipe: function (req, res, direction) {
     const senderId = req.body.sender_id;
     const recipientId = req.body.recipient_id;
-    Request.findAll({
+
+    const condition = {
       where: {
         [Op.or]: [
-          {
-            sender_id: senderId,
-            recipient_id: recipientId,
-          },
-          {
-            sender_id: recipientId,
-            recipient_id: senderId,
-          },
+          { sender_id: senderId, recipient_id: recipientId },
+          { sender_id: recipientId, recipient_id: senderId },
         ],
       },
-    }).then((result) => {
-      if (direction === 'right') {
-        if (result.length) {
-          Request.update(
-            { status: 'accepted' },
-            {
-              where: {
-                [Op.or]: [
-                  {
-                    sender_id: senderId,
-                    recipient_id: recipientId,
-                  },
-                  {
-                    sender_id: recipientId,
-                    recipient_id: senderId,
-                  },
-                ],
-              },
-            }
-          ).then(res.send({ status: 201 }));
-        } else {
-          const request = Request.create(req.body).then(res.send({ status: 201 }));
+    };
+
+    let swipePromise;
+
+    if (direction === 'left') {
+      swipePromise = Request.destroy(condition);
+    } else {
+      swipePromise = Request.findOne(condition).then((instance) => {
+        if (instance) {
+          return Request.update({ status: 'accepted' }, condition);
         }
-      } else {
-        Request.destroy({
-          where: {
-            [Op.or]: [
-              {
-                sender_id: senderId,
-                recipient_id: recipientId,
-              },
-              {
-                sender_id: recipientId,
-                recipient_id: senderId,
-              },
-            ],
-          },
-        }).then(res.send({ status: 201 }));
-      }
-    });
+        return Request.create({
+          sender_id: senderId,
+          recipient_id: recipientId,
+          status: 'pending',
+        });
+      });
+    }
+
+    swipePromise.then(() => res.sendStatus(200));
   },
 
   getMessages: function (req, res) {
