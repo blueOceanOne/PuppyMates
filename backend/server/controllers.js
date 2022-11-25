@@ -31,7 +31,7 @@ module.exports = {
     res.sendStatus(200);
   },
 
-  swipe: function (req, res) {
+  swipe: function (req, res, direction) {
     const { sender_id, recipient_id } = req.body;
     Request.findAll({
       where: {
@@ -47,7 +47,7 @@ module.exports = {
         ],
       },
     }).then((result) => {
-      if (req.url.slice(10) === 'right') {
+      if (direction === 'right') {
         if (result.length) {
           Request.update(
             { status: 'accepted' },

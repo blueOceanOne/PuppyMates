@@ -48,18 +48,19 @@ app.post('/users', (req, res) => {
 });
 
 app.put('/users/*', (req, res) => {
+  // TODO: change to url param
   console.log('PUT users received');
   controllers.updateUser(req, res);
 });
 
 app.post('/requests/right', (req, res) => {
   console.log('RIGHT SWIPE');
-  controllers.swipe(req, res);
+  controllers.swipe(req, res, 'right');
 });
 
 app.post('/requests/left', (req, res) => {
   console.log('LEFT SWIPE');
-  controllers.swipe(req, res);
+  controllers.swipe(req, res, 'left');
 });
 
 app.get('/messages/:user_id', (req, res) => {
