@@ -97,6 +97,14 @@ module.exports = {
         recipient_id: user,
         status: 'pending',
       },
+      include: [
+        {
+          model: User,
+          as: 'request_sender',
+          attributes: ['id', 'dog_name'],
+          include: [{ model: Photo, limit: 1, attributes: ['id', 'url'] }],
+        },
+      ],
     }).then((result) => res.status(200).json(result));
   },
 
