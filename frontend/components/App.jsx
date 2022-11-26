@@ -12,7 +12,7 @@ import Events from './Events.jsx';
 const socket = io(`http://${config.localIP}:${config.port}`);
 
 export default function App() {
-  const [user, setUser] = useState(102);
+  const [user, setUser] = useState(67);
 /*   const [errorMsg, setErrorMsg] = useState(null);
   const [geolocation, setGeolocation] = useState(null);
 

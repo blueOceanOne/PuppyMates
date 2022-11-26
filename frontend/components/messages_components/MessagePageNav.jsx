@@ -23,7 +23,7 @@ const MessagePageNav = ({socket, user}) => {
             setSelectedRecipient={setSelectedRecipient}
             user={user}
           />} />
-      <Stack.Screen name="RequestDetail" children={()=><RequestDetail selectedRequest={selectedRequest} /> }/>
+      <Stack.Screen name="RequestDetail" children={()=><RequestDetail selectedRequest={selectedRequest} user={user}/> }/>
       <Stack.Screen name="ChatPage" children={()=><ChatPage socket={socket} selectedRecipient={selectedRecipient} user={user}/>}/>
     </Stack.Navigator>
   )
