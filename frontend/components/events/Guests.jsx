@@ -14,7 +14,6 @@ const Guests = ({setOpen, DYNAMICUSERINFO}) => {
     } else {
       invitees.push(guestId);
       setInvitees([...invitees]);
-      console.log(invitees);
     }
   };
 

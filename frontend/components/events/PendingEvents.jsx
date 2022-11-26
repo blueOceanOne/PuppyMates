@@ -18,13 +18,11 @@ const PendingEvents = ({DYNAMICUSERINFO}) => {
   //   });
 
   const handleAccept = (eventId) => {
-    console.log(`Event ${eventId} has been accepted`);
     Alert.alert('See you there!');
     // perform axios request
   }
 
   const handleReject = (eventId) => {
-    console.log(`Event ${eventId} has been rejected`);
     Alert.alert(`Event Rejected`);
     // perform axios request
   }
