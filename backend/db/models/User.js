@@ -7,6 +7,18 @@ const User = db.define('user', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  hashed_password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  salt: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  iterations: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   dog_name: {
     type: DataTypes.STRING,
     allowNull: false,

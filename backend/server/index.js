@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const controllers = require('./controllers');
+const auth = require('./auth');
 
 const app = express();
 
@@ -37,6 +38,14 @@ io.on('connection', (socket) => {
 app.get('/', (req, res) => {
   console.log('GET received');
   res.send('GET received');
+});
+
+app.get('/login', (req, res) => {
+  auth.login(req, res);
+});
+
+app.get('/email', (req, res) => {
+  auth.email(req, res);
 });
 
 app.get('/users', (req, res) => {
