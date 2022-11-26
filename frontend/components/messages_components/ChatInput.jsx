@@ -1,10 +1,22 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { Input, Icon, Button } from '@rneui/themed';
+import config from '../../config.js';
+import axios from 'axios';
 
 
 const ChatInput = ({socket, user, recipient})=>{
   const [message, setMessage] = useState({sender_id: user, recipient_id: recipient, content:''})
+
+  const sendMessage = (value) => {
+    axios.post(`http://${config.localIP}:${config.port}/messages`)
+      .then(() => {
+        console.log('message sent')
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 
   return (
     <View>
