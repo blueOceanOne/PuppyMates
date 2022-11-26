@@ -33,7 +33,9 @@ module.exports = {
 
   postUser: function (req, res) {
     // TODO: look up breed id and then add to creation
-    User.create(req.body)
+    Breed.findOne({ where: { breed: { [Op.iLike]: req.body.breed } } })
+      .then((result) => User.create({ ...req.body, breed_id: result.id }))
+
       .then(() => res.sendStatus(201))
       .catch((err) => {
         console.log(err);
