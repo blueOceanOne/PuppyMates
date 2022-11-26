@@ -123,11 +123,45 @@ module.exports = {
   },
 
   acceptRequest: function (req, res) {
-    res.send('received');
+    const { user } = req.params;
+    const sender = req.query.participant_id;
+    Request.update(
+      { status: 'accepted' },
+      {
+        where: {
+          [Op.or]: [
+            { recipient_id: user, sender_id: sender },
+            { recipient_id: sender, sender_id: user },
+          ],
+        },
+      }
+    )
+      .then(() => res.send('received'))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   rejectRequest: function (req, res) {
-    res.send('received');
+    const { user } = req.params;
+    const sender = req.query.participant_id;
+    Request.update(
+      { status: 'rejected' },
+      {
+        where: {
+          [Op.or]: [
+            { recipient_id: user, sender_id: sender },
+            { recipient_id: sender, sender_id: user },
+          ],
+        },
+      }
+    )
+      .then(() => res.send('received'))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   getAcceptedEvents: function (req, res) {
