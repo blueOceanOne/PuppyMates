@@ -2,23 +2,31 @@ import React, { useState } from 'react';
 import { View, ScrollView, Text, Pressable, Button, StyleSheet } from 'react-native';
 import { ListItem, Avatar } from '@rneui/themed';
 import userData from '../home/exampleData/userData.js';
+import { useNavigation } from '@react-navigation/native';
 
-const Guests = ({setOpen, DYNAMICUSERINFO}) => {
+const Guests = ({invitees, setInvitees}) => {
+  const navigation = useNavigation();
   const sampleData = userData;
-  const [invitees, setInvitees] = useState([]);
 
   const handleInvite = (guestId) => {
     const userIdInList = invitees.indexOf(guestId);
     if (userIdInList !== -1) {
       invitees.splice(userIdInList, 1);
+      console.log(invitees);
     } else {
       invitees.push(guestId);
       setInvitees([...invitees]);
-  }
+      console.log(invitees);
+    }
   };
+
+  const handleConfirm = () => {
+    navigation.navigate('Create Event');
+  }
 
   return (
     <ScrollView>
+      <Button title='Confirm Guests' onPress={handleConfirm}/>
       { sampleData.map((each) => {
         return (
           <ListItem
