@@ -78,7 +78,7 @@ app.get('/requests/pending/:user', (req, res) => {
   controllers.getPendingRequests(req, res);
 });
 
-app.get('/requests/accepted/:user', (req, res) => {
+app.get('/requests/matched/:user', (req, res) => {
   console.log('GET accepted requests received');
   controllers.getAcceptedRequests(req, res);
 });
