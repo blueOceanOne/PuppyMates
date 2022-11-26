@@ -14,14 +14,17 @@ const Guests = ({setOpen, DYNAMICUSERINFO}) => {
     } else {
       invitees.push(guestId);
       setInvitees([...invitees]);
-    }
+  }
   };
 
   return (
     <ScrollView>
       { sampleData.map((each) => {
         return (
-          <ListItem key={each.id} style={{ backgroundColor: ((!!invitees.indexOf(each.id)) ? '#2D70F9' : 'white' )}}>
+          <ListItem
+            key={each.id}
+            style={ invitees.indexOf(each.id) === -1 ? styles.unselectedGuest : styles.selectedGuest }
+          >
             <Pressable onPress={() => {handleInvite(each.id)}}>
             <Avatar source={{uri: each.photos[0]}} />
               <ListItem.Title>
