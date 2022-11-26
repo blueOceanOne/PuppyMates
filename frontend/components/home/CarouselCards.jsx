@@ -8,14 +8,12 @@ const { useState, useRef } = React;
 
 const CarouselCards = ({ localUsers }) => {
   const [userIndex, setUserIndex] = useState(0);
-  // const dimensions = Dimensions.get('window');
   const [noMoreUsers, setNoMoreUsers] = useState(false);
   const [userList, setUserList] = useState(userData);
-  const [swipeDirection, setSwipeDirection] = useState('--');
-  const removeCard = (id) => {
-    // alert(id);
+  const [swipeDirection, setSwipeDirection] = useState('');
+  const omitCard = (id) => {
     userList.splice(
-      userList.findIndex((item) => item.id == id),
+      userList.findIndex((item) => item.id === id),
       1
     );
     setUserList(userList);
@@ -24,9 +22,16 @@ const CarouselCards = ({ localUsers }) => {
     }
   };
 
-  const handleSwipe = (swipeDirection) => {
-    // on swipe - send req to server to  update match status
+  const handleSwipe = (swipeDirection, id) => {
+    // on swipe right  - send req to server to  update match status
     setSwipeDirection(swipeDirection);
+    //if right swipe - send post req
+    // if (swipeDirection === 'right') {
+    //   const req = { user1_id: (current user id), user2_id: id, direction: 'right'}
+    // }
+    // axios.post('/home', req)
+    //   .then((res) => console.log('do something'))
+    //   .catch((err) => console.log(err))
   };
 
   return (
@@ -35,11 +40,15 @@ const CarouselCards = ({ localUsers }) => {
         <UserCard
           key={key}
           item={item}
-          removeCard={() => removeCard(item.id)}
-          swipedDirection={handleSwipe}
+          omitCard={() => omitCard(item.id)}
+          handleSwipe={handleSwipe}
         />
       ))}
-      {noMoreUsers ? <Text style={{ fontSize: 22, color: '#000' }}>No users.</Text> : null}
+      {noMoreUsers ? (
+        <Text h3 style={{ color: '#000' }}>
+          You're caught up! Check back soon to find more pups to connect with.
+        </Text>
+      ) : null}
     </View>
   );
 };

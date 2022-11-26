@@ -52,7 +52,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <NavTabs socket={socket}/>
+      <NavTabs socket={socket} />
     </NavigationContainer>
   );
 }

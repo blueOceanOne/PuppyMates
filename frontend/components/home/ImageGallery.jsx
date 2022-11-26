@@ -16,7 +16,7 @@ const ImageGallery = ({ photos, setImgIndex, imgIndex }) => {
           />
         ) : (
           <Button
-            buttonStyle={{ backgroundColor: '#F5EFE6' }}
+            buttonStyle={{ backgroundColor: '#FFE15D' }}
             key={photo}
             style={styles.dots}
             onPress={() => setImgIndex(index)}
@@ -29,14 +29,19 @@ const ImageGallery = ({ photos, setImgIndex, imgIndex }) => {
 export default ImageGallery;
 const styles = StyleSheet.create({
   dotContainer: {
-    flexDirection: 'row',
-    height: 40,
+    flexDirection: 'column',
+    height: 5,
     justifyContent: 'center',
     alignItems: 'center',
+    top: '50%',
+    left: '90%',
+    position: 'absolute',
+    zIndex: 3,
   },
   dots: {
     height: 10,
-    width: 10,
+    width: 5,
     padding: 10,
+    zIndex: 3,
   },
 });

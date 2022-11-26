@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import { ListItem, Button, Badge, Icon } from '@rneui/themed';
 const { useState } = React;
 import userData from '../home/exampleData/userData.js';
@@ -20,27 +20,28 @@ const FilterContainer = ({ filter, setFilter }) => {
 
   const handleSelection = (string) => {
     setDisplayConfirm(true);
-    setSelection({ category: category, selection: string });
+    setSelection({ category: category, value: string });
   };
 
   const handleConfirm = () => {
-    // expected input
-    // {"category": "Breed", "selection": "Corgi"}
-    // send request to server based on input to render filter users
+    //invoke handle func for get req in home page
+    // filterCategory: "Breed", filterValue: "Corgi"}
+
     // set expandFilter to false to close the accordion + update/reset relevant states
     setExpandFilter(false);
   };
 
   return (
-    <View style={{ flex: 0.5, zIndex: 1 }}>
+    <View style={{ flex: 0.5, zIndex: 2 }}>
       <ListItem.Accordion
         content={
           <>
-            <ListItem.Content>
-              <ListItem.Title>
-                Filter By
-                {category && expandFilter ? <Badge value={category} status="warning" /> : null}
-              </ListItem.Title>
+            <ListItem.Content flexDirection="row" alignItems="center" justifyContent="flex-start">
+              <ListItem.Title>Filter By </ListItem.Title>
+              {category && expandFilter ? <Badge value={category} status="warning" /> : null}
+              {displayConfirm && expandFilter ? (
+                <Button title="Confirm" type="clear" onPress={() => handleConfirm()} />
+              ) : null}
             </ListItem.Content>
           </>
         }
@@ -49,9 +50,6 @@ const FilterContainer = ({ filter, setFilter }) => {
           setExpandFilter(!expandFilter);
         }}
       >
-        {displayConfirm && expandFilter ? (
-          <Button title="Confirm" onPress={() => handleConfirm()} />
-        ) : null}
         <ListItem.Accordion
           content={
             <>
@@ -72,7 +70,7 @@ const FilterContainer = ({ filter, setFilter }) => {
               <ListItem.Content>
                 <ListItem.Title>
                   {breed}
-                  {breed === selection.selection ? <Icon name="check" /> : null}
+                  {breed === selection.value ? <Icon name="check" /> : null}
                 </ListItem.Title>
               </ListItem.Content>
             </ListItem>
@@ -98,7 +96,7 @@ const FilterContainer = ({ filter, setFilter }) => {
               <ListItem.Content>
                 <ListItem.Title>
                   {size}
-                  {size === selection.selection ? <Icon name="check" /> : null}
+                  {size === selection.value ? <Icon name="check" /> : null}
                 </ListItem.Title>
               </ListItem.Content>
             </ListItem>
@@ -124,13 +122,13 @@ const FilterContainer = ({ filter, setFilter }) => {
               <ListItem.Content>
                 <ListItem.Title>
                   {level}
-                  {level === selection.selection ? <Icon name="check" /> : null}
+                  {level === selection.value ? <Icon name="check" /> : null}
                 </ListItem.Title>
               </ListItem.Content>
             </ListItem>
           ))}
         </ListItem.Accordion>
-        {/* need to render this in badge too */}
+
         <ListItem
           onPress={() => {
             setCategory('Dog Friendly');
@@ -141,7 +139,7 @@ const FilterContainer = ({ filter, setFilter }) => {
           <ListItem.Content>
             <ListItem.Title style={{ fontWeight: '600' }}>
               Dog Friendly
-              {/* {'Dog Friendly' === selection.selection ? <Icon name="check" /> : null} */}
+              {/* {'Dog Friendly' === selection.value ? <Icon name="check" /> : null} */}
             </ListItem.Title>
           </ListItem.Content>
         </ListItem>
@@ -155,7 +153,7 @@ const FilterContainer = ({ filter, setFilter }) => {
           <ListItem.Content>
             <ListItem.Title style={{ fontWeight: '600' }}>
               People Friendly
-              {/* {'People Friendly' === selection.selection ? <Icon name="check" /> : null} */}
+              {/* {'People Friendly' === selection.value ? <Icon name="check" /> : null} */}
             </ListItem.Title>
           </ListItem.Content>
         </ListItem>
