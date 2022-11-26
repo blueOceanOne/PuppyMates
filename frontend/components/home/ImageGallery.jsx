@@ -16,7 +16,7 @@ const ImageGallery = ({ photos, setImgIndex, imgIndex }) => {
           />
         ) : (
           <Button
-            buttonStyle={{ backgroundColor: '#FFE15D' }}
+            buttonStyle={{ backgroundColor: '#F5EFE6' }}
             key={photo}
             style={styles.dots}
             onPress={() => setImgIndex(index)}

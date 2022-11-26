@@ -5,35 +5,6 @@ import UserCard from './UserCard.jsx';
 import userData from '../home/exampleData/userData.js';
 
 const { useState, useRef } = React;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  titleText: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    paddingVertical: 20,
-  },
-  cardStyle: {
-    width: '75%',
-    height: '45%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    borderRadius: 7,
-  },
-  cardTitleStyle: {
-    color: '#fff',
-    fontSize: 24,
-  },
-  swipeText: {
-    fontSize: 18,
-    textAlign: 'center',
-  },
-});
 
 const CarouselCards = ({ localUsers }) => {
   const [userIndex, setUserIndex] = useState(0);
@@ -59,14 +30,6 @@ const CarouselCards = ({ localUsers }) => {
   };
 
   return (
-    // <FlatList
-    //   data={userList}
-    //   renderItem={({ item, index }) => (
-    //     <UserCard item={item} index={index} swipedDirection={handleSwipe} />
-    //   )}
-    //   keyExtractor={(item) => item.id}
-    // />
-    // <SafeAreaView style={{ flex: 1 }}>
     <View style={styles.container}>
       {userList.map((item, key) => (
         <UserCard
@@ -78,7 +41,13 @@ const CarouselCards = ({ localUsers }) => {
       ))}
       {noMoreUsers ? <Text style={{ fontSize: 22, color: '#000' }}>No users.</Text> : null}
     </View>
-    // </SafeAreaView>
   );
 };
 export default CarouselCards;
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

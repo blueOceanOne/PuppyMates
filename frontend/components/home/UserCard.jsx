@@ -17,38 +17,9 @@ import ImageGallery from '../home/ImageGallery.jsx';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const dHeight = Dimensions.get('window').height;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  titleText: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    paddingVertical: 20,
-  },
-  cardStyle: {
-    width: '75%',
-    height: '45%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    borderRadius: 7,
-  },
-  cardTitleStyle: {
-    color: '#fff',
-    fontSize: 24,
-  },
-  swipeText: {
-    fontSize: 18,
-    textAlign: 'center',
-  },
-});
-
 const UserCard = ({ item, index, swipedDirection, removeCard }) => {
   const [viewMore, setViewMore] = useState(false);
+  const [imgHeight, setImgHeight] = useState(dHeight * 0.5);
   const [xPosition, setXPosition] = useState(new Animated.Value(0));
   const [imgIndex, setImgIndex] = useState(0);
   let swipeDirection = '';
@@ -119,6 +90,11 @@ const UserCard = ({ item, index, swipedDirection, removeCard }) => {
     imgIndex === item.photos.length - 1 ? setImgIndex(0) : setImgIndex(imgIndex + 1);
   };
 
+  const handleViewMore = () => {
+    setViewMore(!viewMore);
+    viewMore ? setImgHeight(dHeight * 0.5) : setImgHeight(dHeight * 0.4);
+  };
+
   return (
     <Animated.View
       {...panResponder.panHandlers}
@@ -130,25 +106,31 @@ const UserCard = ({ item, index, swipedDirection, removeCard }) => {
         },
       ]}
     >
-      <Card borderRadius="10">
+      <Card borderRadius="10" containerStyle={{ padding: 0, backgroundColor: '#FFE15D' }}>
+        {/* <Card borderRadius="10" containerStyle={{ }}> */}
         <TouchableOpacity onPress={() => handleDisplayImage()}>
           <Image
+            style={{ height: imgHeight, width: SCREEN_WIDTH * 0.8, alignSelf: 'center' }}
             borderRadius="10"
             source={{
               uri: item.photos[imgIndex],
             }}
-            style={{ height: dHeight * 0.5, width: SCREEN_WIDTH * 0.75 }}
           />
         </TouchableOpacity>
         <ImageGallery photos={item.photos} setImgIndex={setImgIndex} imgIndex={imgIndex} />
-        <View flexDirection="row" justifyContent="space-between">
-          <Text h3>{item.dog_name}</Text>
-          <Text h3># miles away</Text>
+        <View flexDirection="row" justifyContent="space-between" style={{ paddingHorizontal: 5 }}>
+          <Text h4 style={{ fontWeight: 'bold' }}>
+            {item.dog_name}
+          </Text>
+          <Text h4 style={{ fontWeight: 'bold' }}>
+            # miles away
+          </Text>
         </View>
 
-        <Button title="Clear" type="clear" onPress={() => setViewMore(!viewMore)}>
+        <Button title="Clear" type="clear" onPress={() => handleViewMore()}>
           {viewMore ? 'View Less' : 'View More'}
         </Button>
+
         {viewMore ? <MoreInfo item={item} /> : null}
       </Card>
     </Animated.View>
@@ -156,3 +138,11 @@ const UserCard = ({ item, index, swipedDirection, removeCard }) => {
 };
 
 export default UserCard;
+const styles = StyleSheet.create({
+  cardStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    borderRadius: 7,
+  },
+});
