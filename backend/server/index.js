@@ -49,7 +49,7 @@ app.put('/users/*', (req, res) => {
 });
 
 app.get('/home', (req, res) => {
-  // TODO
+  controllers.getNearbyUsers(req, res);
 });
 
 app.post('/home', (req, res) => {

@@ -46,6 +46,26 @@ module.exports = {
     res.sendStatus(200);
   },
 
+  getNearbyUsers: function (req, res) {
+    User.findOne({ where: { id: req.query.id } })
+      .then((result) =>
+        User.findAll({
+          where: sequelize.literal(
+            `6371 * acos(cos(radians(${result.latitude})) * cos(radians(latitude)) * cos(radians(${result.longitude}) - radians(longitude)) + sin(radians(${result.latitude})) * sin(radians(latitude))) <= 50 AND "user"."id" != ${req.query.id}`
+          ),
+          include: [
+            { model: Breed, attributes: ['id', 'breed'] },
+            { model: Photo, attributes: ['id', 'url'] },
+          ],
+        })
+      )
+      .then((result) => res.status(200).json(result))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
+  },
+
   getBreeds: function (req, res) {
     const limit = req.query.perPage || 10;
     const offset = parseInt(req.query.page, 10) ? (req.query.page - 1) * limit : 0;
