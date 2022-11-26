@@ -68,6 +68,16 @@ module.exports = {
               filterCategory,
             ],
           },
+          attributes: {
+            include: [
+              [
+                sequelize.literal(
+                  `6371 * acos(cos(radians(${result.latitude})) * cos(radians(latitude)) * cos(radians(${result.longitude}) - radians(longitude)) + sin(radians(${result.latitude})) * sin(radians(latitude)))`
+                ),
+                'distance',
+              ],
+            ],
+          },
           include: [
             { model: Breed, attributes: ['id', 'breed'] },
             { model: Photo, attributes: ['id', 'url'] },
