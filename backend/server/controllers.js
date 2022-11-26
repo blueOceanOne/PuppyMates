@@ -16,7 +16,11 @@ module.exports = {
       where: {
         id: req.params.userId,
       },
-      include: [Breed, Photo],
+      attributes: { exclude: ['createdAt, updatedAt'] },
+      include: [
+        { model: Breed, attributes: ['id', 'breed'] },
+        { model: Photo, attributes: ['id', 'url'] },
+      ],
     })
       .then((result) => {
         res.send(result);
