@@ -9,7 +9,7 @@ import axios from 'axios';
 const Requests = ({selectedRequest, setSelectedRequest, user, pending, setPending}) => {
   //const [pendingData, setPendingData] = useState([]);
 
-  useEffect (()=>{
+/*   useEffect (()=>{
     axios.get(`http://${config.localIP}:${config.port}/requests/pending/${user}`)
     .then((response)=>{
       setPending(response.data)
@@ -17,7 +17,7 @@ const Requests = ({selectedRequest, setSelectedRequest, user, pending, setPendin
     .catch((err)=>{
       console.log(err);
     })
-  }, []);
+  }, []); */
 
   const navigation = useNavigation();
 

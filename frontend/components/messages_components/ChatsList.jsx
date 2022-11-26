@@ -8,8 +8,7 @@ import config from '../../config.js';
 import axios from 'axios';
 
 const ChatsList = ({socket, setSelectedRecipient, user, matched, setMatched}) => {
- // const [matchedData, setMatchedData] = useState([]);
-  useEffect (()=>{
+/*   useEffect (()=>{
     axios.get(`http://${config.localIP}:${config.port}/requests/accepted/${user}`)
     .then((response)=>{
       setMatched(response.data)
@@ -17,7 +16,7 @@ const ChatsList = ({socket, setSelectedRecipient, user, matched, setMatched}) =>
     .catch((err)=>{
       console.log(err);
     })
-  }, [])
+  }, []) */
 
   const navigation = useNavigation();
 

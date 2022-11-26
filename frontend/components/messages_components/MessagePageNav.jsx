@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ChatPage from './ChatPage.jsx';
 import MessagePage from './MessagePage.jsx';
 import RequestDetail from './RequestDetail.jsx';
+import config from '../../config.js';
+import axios from 'axios';
 
 const Stack = createNativeStackNavigator();
 
@@ -11,6 +13,19 @@ const MessagePageNav = ({socket, user}) => {
   const [selectedRecipient, setSelectedRecipient] = useState('');
   const [pending, setPending] = useState([]);
   const [matched, setMatched] = useState([]);
+
+  useEffect (()=>{
+    let promise1 = axios.get(`http://${config.localIP}:${config.port}/requests/accepted/${user}`);
+    let promise2 = axios.get(`http://${config.localIP}:${config.port}/requests/pending/${user}`)
+    Promise.all([promise1, promise2])
+      .then((values) => {
+        setMatched(values[0].data);
+        setPending(values[1].data);
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+  }, [])
 
   return (
     <Stack.Navigator>
