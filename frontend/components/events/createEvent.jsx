@@ -1,13 +1,15 @@
-import React, {useRef, useState, Form} from 'react';
-import { ScrollView, View, StyleSheet, Text, TextInput, Button, Pressable } from 'react-native';
-import { userData } from '../../sampleData/events.js';
+import React, {useRef, useState, useEffect, Form} from 'react';
+import { ScrollView, View, StyleSheet, Text, TextInput, Button, Pressable, Alert } from 'react-native';
+import { ListItem, Avatar } from '@rneui/themed';
+import userData from '../home/exampleData/userData.js'
 import { Input } from '@rneui/themed';
 import Guests from './Guests.jsx';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, route } from '@react-navigation/native';
+import * as Location from 'expo-location';
 
 
-const CreateEvent = ({setCreate, DYNAMICUSERINFO}) => {
+const CreateEvent = ({invitees, DYNAMICUSERINFO}) => {
   const navigation = useNavigation();
   const sampleData = userData;
 
@@ -18,12 +20,46 @@ const CreateEvent = ({setCreate, DYNAMICUSERINFO}) => {
     title: null,
     date: (new Date()),
     address: null,
-    invitees: []
+    invitees: null
   })
+
+  useEffect(() => {
+    event.invitees = invitees;
+    setEvent({...event});
+    console.log('event with updated invitees: ', event);
+  }, [invitees]);
 
   const handleChange = (input, property) => {
     event[property] = input;
     setEvent({...event});
+  }
+
+  const handleSubmit = () => {
+
+  }
+
+  const guestlist = invitees.map((each) => {
+    for (var i = 0; i < userData.length; i++) {
+      if (userData[i].id === each) {
+        return userData[i];
+      }
+    }
+  })
+
+  const coordinatify = async () => {
+    await Location.geocodeAsync(event.address)
+    .then((results) => {
+      event.address = [results[0].latitude, results[0].longitude];
+      setEvent({...event});
+    })
+    .catch((err) => {
+      Alert.alert('The address is invalid');
+    });
+  }
+
+  const handleCreate = async () => {
+    await coordinatify();
+    // event.reduce((element));
   }
 
   return (
@@ -46,8 +82,26 @@ const CreateEvent = ({setCreate, DYNAMICUSERINFO}) => {
           />
         </View>
         <Pressable onPress={() => {navigation.navigate('Guests')}}>
-          <Text style={styles.invite}>Invite Guests</Text>
+          <Text color='#2D70F9' style={styles.invite}>Invite Guests</Text>
         </Pressable>
+        { guestlist ?
+          (guestlist.map((each) => {
+            return (
+              <ListItem
+                key={each.id}
+              >
+                <Avatar source={{uri: each.photos[0]}} />
+                <ListItem.Title>
+                  {each['dog_name']}
+                </ListItem.Title>
+                <Text>
+                  {each.username}
+                </Text>
+              </ListItem>
+            )
+          }))
+        : null }
+        <Button title='Create' onPress={handleCreate}/>
       </View>
     </ScrollView>
   )
