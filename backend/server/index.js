@@ -44,7 +44,7 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/email', (req, res) => {
-  auth.email(req, res);
+  auth.verify_email(req, res);
 });
 
 app.get('/users', (req, res) => {

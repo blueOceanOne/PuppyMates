@@ -9,15 +9,15 @@ const User = db.define('user', {
   },
   hashed_password: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   salt: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   iterations: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   dog_name: {
     type: DataTypes.STRING,

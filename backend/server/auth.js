@@ -1,8 +1,9 @@
 require('../db/models/models');
 const pbkdf2 = require('pbkdf2');
 const Crypto = require('crypto');
-
 const User = require('../db/models/User');
+const Breed = require('../db/models/Breed');
+const Photo = require('../db/models/Photo');
 
 function hashPassword(password) {
   const salt = Crypto.randomBytes(128).toString('base64');
@@ -21,7 +22,7 @@ function isPasswordCorrect(savedHash, savedSalt, savedIterations, passwordAttemp
 }
 
 module.exports = {
-  email: function(req, res) {
+  verify_email: function(req, res) {
     const { user_email } = req.query;
     User.findAll({
       attributes: [email],
@@ -40,7 +41,7 @@ module.exports = {
   login: function(req, res) {
     const { user_email, hashed_password_attempt } = req.query;
     User.findAll({
-      attributes: [hashed_password, salt, iterations],
+      attributes: [id, hashed_password, salt, iterations],
       where: {
         email: user_email,
       },
@@ -48,23 +49,15 @@ module.exports = {
       if (!result.length) {
         res.send('incorrect email');
       } else {
-        const { hashed_password, salt, iterations } = result[0];
+        const { id, hashed_password, salt, iterations } = result[0];
         if (isPasswordCorrect(hashed_password, salt, iterations, hashed_password_attempt)) {
           User.findAll({
-            attributes: [
-              dog_name,
-              breed, size,
-              dog_friendly,
-              people_friendly,
-              energy,
-              city,
-              state,
-              latitude,
-              longitude,
-              bio
-            ],
             where: {
               email: user_email,
+            },
+            include: [Breed, Photo],
+            attributes: {
+              exclude: ['hashed_password', 'salt', 'iterations'],
             },
           }).then((userData) => res.send(userData));
         } else if (!isPasswordCorrect(hashed_password, salt, iterations, hashed_password_attempt)) {

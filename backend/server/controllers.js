@@ -17,6 +17,9 @@ module.exports = {
         id: req.query.user_id,
       },
       include: [Breed, Photo],
+      attributes: {
+        exclude: ['hashed_password', 'salt', 'iterations'],
+      },
     })
       .then((result) => {
         res.send(result);
