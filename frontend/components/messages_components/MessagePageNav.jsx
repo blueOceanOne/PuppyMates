@@ -19,6 +19,7 @@ const MessagePageNav = ({socket, user}) => {
     let promise2 = axios.get(`http://${config.localIP}:${config.port}/requests/pending/${user}`)
     Promise.all([promise1, promise2])
       .then((values) => {
+        console.log('values are ', values)
         setMatched(values[0].data);
         setPending(values[1].data);
       })
