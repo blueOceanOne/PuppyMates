@@ -15,5 +15,5 @@ export default App = () => {
         <Stack.Screen name="App" component={NavBar} />
       </Stack.Navigator>
     </NavigationContainer>
-  )
-}
+  );
+};
