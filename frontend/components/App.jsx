@@ -6,14 +6,14 @@ import config from '../config.js';
 import io from 'socket.io-client';
 import NavTabs from './Tabs.jsx';
 import Events from './Events.jsx';
-/* import { Permissions } from 'expo'; */
-/* import * as Location from 'expo-location'; */
+import { Permissions } from 'expo';
+import * as Location from 'expo-location';
 
 const socket = io(`http://${config.localIP}:${config.port}`);
 
 export default function App() {
   const [user, setUser] = useState(87);
-/*   const [errorMsg, setErrorMsg] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
   const [geolocation, setGeolocation] = useState(null);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function App() {
       let location = await Location.getCurrentPositionAsync({});
       setGeolocation(location);
     })();
-  }, []); */
+  }, []);
 
   //   SAMPLE DATA OF LOCATION RETURN FROM ABOVE FUNCTION
   //   ALSO AVAILABLE WITHIN SAMPLE DATA
@@ -43,13 +43,13 @@ export default function App() {
   //   "timestamp":1669174971110.204
   //   }
 
-/*   let text = 'Waiting...';
+  let text = 'Waiting...';
   if (errorMsg) {
     text = errorMsg;
   } else if (geolocation) {
     text = JSON.stringify(geolocation);
     console.log(text);
-  } */
+  }
 
   useEffect(()=>{
     socket.emit('requestID', user);
