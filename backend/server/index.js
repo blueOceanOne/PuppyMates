@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
   res.send('GET received');
 });
 
-app.get('/users', (req, res) => {
+app.get('/users/:userId', (req, res) => {
   controllers.getUser(req, res);
 });
 

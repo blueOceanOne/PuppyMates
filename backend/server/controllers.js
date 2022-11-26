@@ -14,7 +14,7 @@ module.exports = {
   getUser: function (req, res) {
     User.findAll({
       where: {
-        id: req.query.user_id,
+        id: req.params.userId,
       },
       include: [Breed, Photo],
     })
