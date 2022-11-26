@@ -261,7 +261,7 @@ module.exports = {
     const { user } = req.params;
     const sender = req.query.participant_id;
     Request.update(
-      { status: 'rejected' },
+      { status: 'declined' },
       {
         where: {
           [Op.or]: [
@@ -271,7 +271,7 @@ module.exports = {
         },
       }
     )
-      .then(() => res.send('received'))
+      .then(() => res.sendStatus(200))
       .catch((err) => {
         console.log(err);
         res.sendStatus(400);
