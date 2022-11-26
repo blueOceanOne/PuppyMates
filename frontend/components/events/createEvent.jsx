@@ -1,5 +1,5 @@
 import React, {useRef, useState, useEffect, Form} from 'react';
-import { ScrollView, View, StyleSheet, Text, TextInput, Button, Pressable } from 'react-native';
+import { ScrollView, View, StyleSheet, Text, TextInput, Button, Pressable, Alert } from 'react-native';
 import { ListItem, Avatar } from '@rneui/themed';
 import userData from '../home/exampleData/userData.js'
 import { Input } from '@rneui/themed';
@@ -12,7 +12,6 @@ import * as Location from 'expo-location';
 const CreateEvent = ({invitees, DYNAMICUSERINFO}) => {
   const navigation = useNavigation();
   const sampleData = userData;
-  console.log(invitees);
 
   const [open, setOpen] = useState(false);
   const [event, setEvent] = useState({
@@ -41,22 +40,26 @@ const CreateEvent = ({invitees, DYNAMICUSERINFO}) => {
 
   const guestlist = invitees.map((each) => {
     for (var i = 0; i < userData.length; i++) {
-      console.log('i', i, 'userData: ', userData[i]);
       if (userData[i].id === each) {
         return userData[i];
       }
     }
   })
-  console.log('guest list: ', guestlist);
 
-  const coordinatify = () => {
-    Location.geocodeAsync(event.address)
+  const coordinatify = async () => {
+    await Location.geocodeAsync(event.address)
     .then((results) => {
-      console.log(results);
+      event.address = [results[0].latitude, results[0].longitude];
+      setEvent({...event});
     })
     .catch((err) => {
-      console.log(err);
+      Alert.alert('The address is invalid');
     });
+  }
+
+  const handleCreate = async () => {
+    await coordinatify();
+    // event.reduce((element));
   }
 
   return (
@@ -85,7 +88,7 @@ const CreateEvent = ({invitees, DYNAMICUSERINFO}) => {
           (guestlist.map((each) => {
             return (
               <ListItem
-                key={each}
+                key={each.id}
               >
                 <Avatar source={{uri: each.photos[0]}} />
                 <ListItem.Title>
@@ -98,6 +101,7 @@ const CreateEvent = ({invitees, DYNAMICUSERINFO}) => {
             )
           }))
         : null }
+        <Button title='Create' onPress={handleCreate}/>
       </View>
     </ScrollView>
   )
