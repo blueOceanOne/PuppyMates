@@ -334,8 +334,26 @@ module.exports = {
 
   postEvent: function (req, res) {
     // TODO: Have post event creates invitations for each invitee
-    Event.create(req.body)
-      .then(() => res.sendStatus(201))
+    const eventDetails = {
+      host_id: req.body.host_id,
+      title: req.body.event_title,
+      description: req.body.event_description,
+      date: req.body.event_date,
+      latitude: req.body.event_latitude,
+      longitude: req.body.event_longitude,
+    };
+
+    Event.create(eventDetails)
+      .then((result) =>
+        Promise.all(
+          req.body.invitees.map((invitee) =>
+            Invitation.create({ invitee_id: invitee, event_id: result.id, status: 'pending' })
+          )
+        )
+      )
+      .then(() => {
+        res.sendStatus(201);
+      })
       .catch((err) => {
         console.log(err);
         res.sendStatus(400);
