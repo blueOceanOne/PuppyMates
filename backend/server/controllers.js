@@ -47,12 +47,27 @@ module.exports = {
   },
 
   getNearbyUsers: function (req, res) {
+    const filterCategory = {};
+    if (req.query.filterCategory && req.query.filterValue) {
+      if (req.query.filterCategory === 'breed') {
+        filterCategory['$breed.breed$'] = req.query.filterValue;
+      } else {
+        filterCategory[req.query.filterCategory] = req.query.filterValue;
+      }
+    }
+
     User.findOne({ where: { id: req.query.id } })
       .then((result) =>
         User.findAll({
-          where: sequelize.literal(
-            `6371 * acos(cos(radians(${result.latitude})) * cos(radians(latitude)) * cos(radians(${result.longitude}) - radians(longitude)) + sin(radians(${result.latitude})) * sin(radians(latitude))) <= 50 AND "user"."id" != ${req.query.id}`
-          ),
+          where: {
+            [Op.and]: [
+              { id: { [Op.not]: req.query.id } },
+              sequelize.literal(
+                `6371 * acos(cos(radians(${result.latitude})) * cos(radians(latitude)) * cos(radians(${result.longitude}) - radians(longitude)) + sin(radians(${result.latitude})) * sin(radians(latitude))) <= 50`
+              ),
+              filterCategory,
+            ],
+          },
           include: [
             { model: Breed, attributes: ['id', 'breed'] },
             { model: Photo, attributes: ['id', 'url'] },
