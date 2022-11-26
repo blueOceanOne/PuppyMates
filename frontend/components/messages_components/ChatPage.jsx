@@ -17,7 +17,7 @@ const ChatPage = ({socket, selectedRecipient, user}) => {
       .catch((err)=>{
         console.log(err);
       })
-  })
+  }, [])
 
   useEffect(() => {
     socket.on('response', (data) => {
