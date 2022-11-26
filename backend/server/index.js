@@ -33,11 +33,6 @@ io.on('connection', (socket) => {
   });
 });
 
-app.get('/', (req, res) => {
-  console.log('GET received');
-  res.send('GET received');
-});
-
 app.get('/users/:userId', (req, res) => {
   controllers.getUser(req, res);
 });
@@ -53,8 +48,16 @@ app.put('/users/*', (req, res) => {
   controllers.updateUser(req, res);
 });
 
+app.get('/home', (req, res) => {
+  // TODO
+});
+
 app.post('/home', (req, res) => {
   controllers.swipe(req, res);
+});
+
+app.get('/breeds', (req, res) => {
+  controllers.getBreeds(req, res);
 });
 
 app.get('/messages/:user_id', (req, res) => {
