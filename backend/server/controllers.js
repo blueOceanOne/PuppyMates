@@ -140,7 +140,13 @@ module.exports = {
 
   getAcceptedRequests: function (req, res) {
     const { user } = req.params;
-    // TODO: Photo should change whether person sending the request is the recipient_id or the sender_id;
+
+    const userWithPhoto = (as) => ({
+      model: User,
+      as: as,
+      attributes: ['id', 'dog_name'],
+      include: [{ model: Photo, limit: 1, attributes: ['id', 'url'] }],
+    });
 
     Request.findAll({
       where: {
@@ -149,16 +155,21 @@ module.exports = {
           { sender_id: user, status: 'accepted' },
         ],
       },
-      include: [
-        {
-          model: User,
-          as: 'request_sender',
-          attributes: ['id', 'dog_name'],
-          include: [{ model: Photo, limit: 1, attributes: ['id', 'url'] }],
-        },
-      ],
+      include: [userWithPhoto('request_sender'), userWithPhoto('request_recipient')],
     })
-      .then((result) => res.status(200).json(result))
+      .then((results) => {
+        const output = results.map((result) => {
+          const resultCopy = JSON.parse(JSON.stringify(result));
+          if (resultCopy.request_sender.id === parseInt(user, 10)) {
+            delete resultCopy.request_sender;
+          } else {
+            delete resultCopy.request_recipient;
+          }
+          return resultCopy;
+        });
+
+        res.status(200).json(output);
+      })
       .catch((err) => {
         console.log(err);
         res.sendStatus(400);
