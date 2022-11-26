@@ -9,6 +9,8 @@ const Stack = createNativeStackNavigator();
 const MessagePageNav = ({socket, user}) => {
   const [selectedRequest, setSelectedRequest] = useState({});
   const [selectedRecipient, setSelectedRecipient] = useState('');
+  const [pending, setPending] = useState([]);
+  const [matched, setMatched] = useState([]);
 
   return (
     <Stack.Navigator>
@@ -17,13 +19,17 @@ const MessagePageNav = ({socket, user}) => {
         children={()=>
           <MessagePage
             socket={socket}
+            user={user}
             selectedRequest={selectedRequest}
             setSelectedRequest={setSelectedRequest}
             selectedRecipient={selectedRecipient}
             setSelectedRecipient={setSelectedRecipient}
-            user={user}
+            pending={pending}
+            setPending={setPending}
+            matched={matched}
+            setMatched={setMatched}
           />} />
-      <Stack.Screen name="RequestDetail" children={()=><RequestDetail selectedRequest={selectedRequest} user={user}/> }/>
+      <Stack.Screen name="RequestDetail" children={()=><RequestDetail selectedRequest={selectedRequest} user={user} setMatched={setMatched} setPending={setPending}/> }/>
       <Stack.Screen name="ChatPage" children={()=><ChatPage socket={socket} selectedRecipient={selectedRecipient} user={user}/>}/>
     </Stack.Navigator>
   )

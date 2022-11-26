@@ -7,12 +7,12 @@ import { ListItem, Avatar } from '@rneui/themed';
 import config from '../../config.js';
 import axios from 'axios';
 
-const ChatsList = ({socket, setSelectedRecipient, user}) => {
-  const [matchedData, setMatchedData] = useState([]);
+const ChatsList = ({socket, setSelectedRecipient, user, matched, setMatched}) => {
+ // const [matchedData, setMatchedData] = useState([]);
   useEffect (()=>{
     axios.get(`http://${config.localIP}:${config.port}/requests/accepted/${user}`)
     .then((response)=>{
-      setMatchedData(response.data)
+      setMatched(response.data)
     })
     .catch((err)=>{
       console.log(err);
@@ -25,7 +25,7 @@ const ChatsList = ({socket, setSelectedRecipient, user}) => {
     <View>
       <Text>ChatsList</Text>
       {
-        matchedData.map((item, i)=>(
+        matched.map((item, i)=>(
           <ListItem
             key={i}
             bottomDivider

@@ -5,14 +5,14 @@ import { useNavigation } from '@react-navigation/native';
 import RequestDetail from './RequestDetail.jsx';
 import config from '../../config.js';
 import axios from 'axios';
-// import pendingData from './requestsData.js';
 
-const Requests = ({selectedRequest, setSelectedRequest, user}) => {
-  const [pendingData, setPendingData] = useState([]);
+const Requests = ({selectedRequest, setSelectedRequest, user, pending, setPending}) => {
+  //const [pendingData, setPendingData] = useState([]);
+
   useEffect (()=>{
     axios.get(`http://${config.localIP}:${config.port}/requests/pending/${user}`)
     .then((response)=>{
-      setPendingData(response.data)
+      setPending(response.data)
     })
     .catch((err)=>{
       console.log(err);
@@ -25,7 +25,7 @@ const Requests = ({selectedRequest, setSelectedRequest, user}) => {
     <View>
       <Text>Pending requests</Text>
       {
-        pendingData.map((item, i) => (
+        pending.map((item, i) => (
           <ListItem
             key={i}
             bottomDivider
