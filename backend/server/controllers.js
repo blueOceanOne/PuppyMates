@@ -233,7 +233,7 @@ module.exports = {
           include: [
             {
               model: Invitation,
-              where: { status: 'accepted' },
+              where: { status: 'accepted', invitee_id: { [Op.not]: user } },
               attributes: { exclude: ['createdAt', 'updatedAt', 'event_id'] },
             },
           ],
