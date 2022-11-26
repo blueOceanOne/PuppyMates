@@ -83,6 +83,8 @@ app.get('/requests/accepted/:user', (req, res) => {
   controllers.getAcceptedRequests(req, res);
 });
 
+// TODO: Change accept/reject to requests/:user in accordance with api docs
+
 app.put('/requests/accept/:user', (req, res) => {
   console.log('PUT accept requests received');
   controllers.acceptRequest(req, res);
