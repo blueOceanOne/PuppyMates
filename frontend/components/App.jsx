@@ -37,7 +37,7 @@ export default function App() {
   }, [])
 
   return (
-    <NavigationContainer>
+    <NavigationContainer >
       <NavTabs socket={socket} user={user}/>
     </NavigationContainer>
   );
