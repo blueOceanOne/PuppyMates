@@ -12,15 +12,19 @@ const { Op } = sequelize;
 
 module.exports = {
   getUser: function (req, res) {
-    let user_id = req.url.slice(7);
     User.findAll({
       where: {
-        id: user_id,
+        id: req.query.user_id,
       },
-    }).then((result) => {
-      console.log(result);
-      res.send(result);
-    });
+      include: [Breed, Photo],
+    })
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   postUser: function (req, res) {
