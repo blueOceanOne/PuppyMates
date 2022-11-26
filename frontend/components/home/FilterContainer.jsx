@@ -31,103 +31,103 @@ const FilterContainer = ({ filter, setFilter }) => {
   };
 
   return (
-    <View>
+    // <View>
+    <ListItem.Accordion
+      content={
+        <>
+          <ListItem.Content>
+            <ListItem.Title>
+              Filter By
+              {category && expandFilter ? <Badge value={category} status="warning" /> : null}
+            </ListItem.Title>
+          </ListItem.Content>
+        </>
+      }
+      isExpanded={expandFilter}
+      onPress={() => {
+        setExpandFilter(!expandFilter);
+      }}
+    >
+      {displayConfirm && expandFilter ? (
+        <Button title="Confirm" onPress={() => handleConfirm()} />
+      ) : null}
       <ListItem.Accordion
         content={
           <>
             <ListItem.Content>
-              <ListItem.Title>
-                Filter By
-                {category && expandFilter ? <Badge value={category} status="warning" /> : null}
-              </ListItem.Title>
+              <ListItem.Title style={{ fontWeight: '600' }}>Breed</ListItem.Title>
             </ListItem.Content>
           </>
         }
-        isExpanded={expandFilter}
+        isExpanded={expandBreed}
         onPress={() => {
-          setExpandFilter(!expandFilter);
+          setExpandBreed(!expandBreed);
+          setCategory('Breed');
         }}
+        bottomDivider
       >
-        {displayConfirm && expandFilter ? (
-          <Button title="Confirm" onPress={() => handleConfirm()} />
-        ) : null}
-        <ListItem.Accordion
-          content={
-            <>
-              <ListItem.Content>
-                <ListItem.Title style={{ fontWeight: '600' }}>Breed</ListItem.Title>
-              </ListItem.Content>
-            </>
-          }
-          isExpanded={expandBreed}
-          onPress={() => {
-            setExpandBreed(!expandBreed);
-            setCategory('Breed');
-          }}
-          bottomDivider
-        >
-          {breeds.map((breed) => (
-            <ListItem key={breed} onPress={() => handleSelection(breed)} bottomDivider>
-              <ListItem.Content>
-                <ListItem.Title>
-                  {breed}
-                  {breed === selection.selection ? <Icon name="check" /> : null}
-                </ListItem.Title>
-              </ListItem.Content>
-            </ListItem>
-          ))}
-        </ListItem.Accordion>
-        <ListItem.Accordion
-          content={
-            <>
-              <ListItem.Content>
-                <ListItem.Title style={{ fontWeight: '600' }}>Size</ListItem.Title>
-              </ListItem.Content>
-            </>
-          }
-          isExpanded={expandSize}
-          onPress={() => {
-            setExpandSize(!expandSize);
-            setCategory('Size');
-          }}
-          bottomDivider
-        >
-          {sizes.map((size) => (
-            <ListItem key={size} onPress={() => handleSelection(size)} bottomDivider>
-              <ListItem.Content>
-                <ListItem.Title>
-                  {size}
-                  {size === selection.selection ? <Icon name="check" /> : null}
-                </ListItem.Title>
-              </ListItem.Content>
-            </ListItem>
-          ))}
-        </ListItem.Accordion>
-        {/* need to render this in badge too */}
-        <ListItem
-          onPress={() => {
-            setCategory('Dog Friendly');
-            handleSelection('Dog Friendly');
-          }}
-          bottomDivider
-        >
-          <ListItem.Content>
-            <ListItem.Title>Dog Friendly</ListItem.Title>
-          </ListItem.Content>
-        </ListItem>
-        <ListItem
-          onPress={() => {
-            setCategory('People Friendly');
-            handleSelection('People Friendly');
-          }}
-          bottomDivider
-        >
-          <ListItem.Content>
-            <ListItem.Title>People Friendly</ListItem.Title>
-          </ListItem.Content>
-        </ListItem>
+        {breeds.map((breed) => (
+          <ListItem key={breed} onPress={() => handleSelection(breed)} bottomDivider>
+            <ListItem.Content>
+              <ListItem.Title>
+                {breed}
+                {breed === selection.selection ? <Icon name="check" /> : null}
+              </ListItem.Title>
+            </ListItem.Content>
+          </ListItem>
+        ))}
       </ListItem.Accordion>
-    </View>
+      <ListItem.Accordion
+        content={
+          <>
+            <ListItem.Content>
+              <ListItem.Title style={{ fontWeight: '600' }}>Size</ListItem.Title>
+            </ListItem.Content>
+          </>
+        }
+        isExpanded={expandSize}
+        onPress={() => {
+          setExpandSize(!expandSize);
+          setCategory('Size');
+        }}
+        bottomDivider
+      >
+        {sizes.map((size) => (
+          <ListItem key={size} onPress={() => handleSelection(size)} bottomDivider>
+            <ListItem.Content>
+              <ListItem.Title>
+                {size}
+                {size === selection.selection ? <Icon name="check" /> : null}
+              </ListItem.Title>
+            </ListItem.Content>
+          </ListItem>
+        ))}
+      </ListItem.Accordion>
+      {/* need to render this in badge too */}
+      <ListItem
+        onPress={() => {
+          setCategory('Dog Friendly');
+          handleSelection('Dog Friendly');
+        }}
+        bottomDivider
+      >
+        <ListItem.Content>
+          <ListItem.Title>Dog Friendly</ListItem.Title>
+        </ListItem.Content>
+      </ListItem>
+      <ListItem
+        onPress={() => {
+          setCategory('People Friendly');
+          handleSelection('People Friendly');
+        }}
+        bottomDivider
+      >
+        <ListItem.Content>
+          <ListItem.Title>People Friendly</ListItem.Title>
+        </ListItem.Content>
+      </ListItem>
+    </ListItem.Accordion>
+    // </View>
   );
 };
 
