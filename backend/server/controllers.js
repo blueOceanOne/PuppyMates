@@ -270,6 +270,7 @@ module.exports = {
   },
 
   postEvent: function (req, res) {
+    // TODO: Have post event creates invitations for each invitee
     Event.create(req.body)
       .then(() => res.sendStatus(201))
       .catch((err) => {
