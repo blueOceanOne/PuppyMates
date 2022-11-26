@@ -9,7 +9,7 @@ const ChatInput = ({socket, user, recipient})=>{
   const [message, setMessage] = useState({sender_id: user, recipient_id: recipient, content:''})
 
   const sendMessage = (value) => {
-    axios.post(`http://${config.localIP}:${config.port}/messages`)
+    axios.post(`http://${config.localIP}:${config.port}/messages`, value)
       .then(() => {
         console.log('message sent')
       })
@@ -32,7 +32,8 @@ const ChatInput = ({socket, user, recipient})=>{
           onPress={(event)=>{
             event.preventDefault();
             console.log(message);
-            socket.emit("send", message)
+            socket.emit("send", message);
+            sendMessage(message);
             setMessage({sender_id: user, recipient_id: recipient, content:''})
           }}
         >Send to</Button>
