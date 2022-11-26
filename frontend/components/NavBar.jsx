@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
@@ -13,7 +14,7 @@ const socket = io(`http://${config.localIP}:${config.port}`);
 
 export default function NavBar() {
   const [errorMsg, setErrorMsg] = useState(null);
-  const [geolocation, setGeolocation] = useState(null);
+  const [coordinates, setCoordinates] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -23,32 +24,9 @@ export default function NavBar() {
         return;
       }
       let location = await Location.getCurrentPositionAsync({});
-      setGeolocation(location);
+      setCoordinates([location.coords.latitude, location.coords.longitude])
     })();
   }, []);
-
-  //   SAMPLE DATA OF LOCATION RETURN FROM ABOVE FUNCTION
-  //   ALSO AVAILABLE WITHIN SAMPLE DATA
-  //   {"coords":
-  //   {
-  //     "speed":-1,
-  //     "longitude":-123.444423,
-  //     "latitude":39.664243,
-  //     "accuracy":5,
-  //     "heading":-1,
-  //     "altitude":0,
-  //     "altitudeAccuracy":-1
-  //   },
-  //   "timestamp":1669174971110.204
-  //   }
-
-  let text = 'Waiting...';
-  if (errorMsg) {
-    text = errorMsg;
-  } else if (geolocation) {
-    text = JSON.stringify(geolocation);
-    console.log(text);
-  }
 
   return (
     <NavTabs socket={socket}/>
