@@ -72,18 +72,19 @@ app.post('/users', (req, res) => {
 });
 
 app.put('/users/*', (req, res) => {
+  // TODO: change to url param
   console.log('PUT users received');
   controllers.updateUser(req, res);
 });
 
-app.post('/requests/right', (req, res) => {
+app.post('/home/right', (req, res) => {
   console.log('RIGHT SWIPE');
-  controllers.swipe(req, res);
+  controllers.swipe(req, res, 'right');
 });
 
-app.post('/requests/left', (req, res) => {
+app.post('/home/left', (req, res) => {
   console.log('LEFT SWIPE');
-  controllers.swipe(req, res);
+  controllers.swipe(req, res, 'left');
 });
 
 app.get('/messages/:user_id', (req, res) => {
@@ -116,27 +117,27 @@ app.put('/requests/reject/:user', (req, res) => {
   controllers.rejectRequest(req, res);
 });
 
-app.get('/invitations/attending/*', (req, res) => {
+app.get('/attendingEvents/:userId', (req, res) => {
   console.log('GET attending invites received');
   controllers.getAcceptedEvents(req, res);
 });
 
-app.get('/invitations/pending/*', (req, res) => {
+app.get('/pendingEvents/:userId', (req, res) => {
   console.log('GET pending invites received');
   controllers.getPendingEvents(req, res);
 });
 
-app.post('/events', (req, res) => {
+app.post('/attendingEvents', (req, res) => {
   console.log('POST event received');
   controllers.postEvent(req, res);
 });
 
-app.put('/invitations/confirm/*', (req, res) => {
+app.put('/pendingEvents/confirm/:userId', (req, res) => {
   console.log('PUT accept invite received');
   controllers.acceptEvent(req, res);
 });
 
-app.put('/invitations/reject/*', (req, res) => {
+app.put('/pendingEvents/reject/:userId', (req, res) => {
   console.log('PUT reject invite received');
   controllers.rejectEvent(req, res);
 });

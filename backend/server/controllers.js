@@ -28,18 +28,55 @@ module.exports = {
   },
 
   postUser: function (req, res) {
-    // let user = User.create(req.body)
-    //   .then(() => res.send(user));
+    User.create(req.body)
+      .then(() => res.sendStatus(201))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   updateUser: function (req, res) {
-    res.send('received');
+    // TODO
+    res.sendStatus(200);
   },
 
-  swipe: function (req, res) {
-    //determine left or right swipe from req.url
-    //body includes sender and recipient ids
-    res.send('received');
+  swipe: function (req, res, direction) {
+    const senderId = req.body.sender_id;
+    const recipientId = req.body.recipient_id;
+
+    const condition = {
+      where: {
+        [Op.or]: [
+          { sender_id: senderId, recipient_id: recipientId },
+          { sender_id: recipientId, recipient_id: senderId },
+        ],
+      },
+    };
+
+    let swipePromise;
+
+    if (direction === 'left') {
+      swipePromise = Request.destroy(condition);
+    } else {
+      swipePromise = Request.findOne(condition).then((instance) => {
+        if (instance) {
+          return Request.update({ status: 'accepted' }, condition);
+        }
+        return Request.create({
+          sender_id: senderId,
+          recipient_id: recipientId,
+          status: 'pending',
+        });
+      });
+    }
+
+    swipePromise
+      .then(() => res.sendStatus(200))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   getMessages: function (req, res) {
@@ -93,11 +130,17 @@ module.exports = {
           include: [{ model: Photo, limit: 1, attributes: ['id', 'url'] }],
         },
       ],
-    }).then((result) => res.status(200).json(result));
+    })
+      .then((result) => res.status(200).json(result))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   getAcceptedRequests: function (req, res) {
     const { user } = req.params;
+    // TODO: Photo should change whether person sending the request is the recipient_id or the sender_id;
 
     Request.findAll({
       where: {
@@ -165,25 +208,91 @@ module.exports = {
   },
 
   getAcceptedEvents: function (req, res) {
-    res.send('received');
+    const user = req.params.userId;
+    Invitation.findAll({
+      where: {
+        invitee_id: user,
+        status: 'accepted',
+      },
+      include: [
+        {
+          model: Event,
+        },
+      ],
+    })
+      .then((result) => res.status(200).json(result))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   getPendingEvents: function (req, res) {
-    res.send('received');
+    const user = req.params.userId;
+    Invitation.findAll({
+      where: {
+        invitee_id: user,
+        status: 'pending',
+      },
+      include: [
+        {
+          model: Event,
+        },
+      ],
+    })
+      .then((result) => res.status(200).json(result))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   postEvent: function (req, res) {
-    //body includes host id, date, title, description, latitude, longitude
-    res.send('received');
+    Event.create(req.body)
+      .then(() => res.sendStatus(201))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   acceptEvent: function (req, res) {
-    //event_id is a query param
-    res.send('received');
+    const user = req.params.userId;
+    const event = req.query.event_id;
+
+    Invitation.update(
+      { status: 'accepted' },
+      {
+        where: {
+          invitee_id: user,
+          event_id: event,
+        },
+      }
+    )
+      .then(() => res.sendStatus(200))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 
   rejectEvent: function (req, res) {
-    //event_id is a query param
-    res.send('received');
+    const user = req.params.userId;
+    const event = req.query.event_id;
+
+    Invitation.update(
+      { status: 'declined' },
+      {
+        where: {
+          invitee_id: user,
+          event_id: event,
+        },
+      }
+    )
+      .then(() => res.sendStatus(200))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
   },
 };
