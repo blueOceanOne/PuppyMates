@@ -12,7 +12,7 @@ import * as Location from 'expo-location';
 const socket = io(`http://${config.localIP}:${config.port}`);
 
 export default function App() {
-  const [user, setUser] = useState(87);
+  const [user, setUser] = useState(5);
   const [errorMsg, setErrorMsg] = useState(null);
   const [coordinates, setCoordinates] = useState(null);
 
@@ -27,6 +27,14 @@ export default function App() {
       setCoordinates([location.coords.latitude, location.coords.longitude])
     })();
   }, []);
+
+  useEffect(()=>{
+    socket.emit('requestID', user);
+    socket.on('sendID', (newUser)=>{
+      console.log('new user is ', newUser);
+      setUser(newUser.id);
+    })
+  }, [])
 
   return (
     <NavigationContainer>
