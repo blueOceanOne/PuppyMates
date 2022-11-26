@@ -32,6 +32,7 @@ module.exports = {
   },
 
   postUser: function (req, res) {
+    // TODO: look up breed id and then add to creation
     User.create(req.body)
       .then(() => res.sendStatus(201))
       .catch((err) => {
@@ -45,9 +46,10 @@ module.exports = {
     res.sendStatus(200);
   },
 
-  swipe: function (req, res, direction) {
-    const senderId = req.body.sender_id;
-    const recipientId = req.body.recipient_id;
+  swipe: function (req, res) {
+    const senderId = req.body.user1_id;
+    const recipientId = req.body.user2_id;
+    const { direction } = req.body;
 
     const condition = {
       where: {
