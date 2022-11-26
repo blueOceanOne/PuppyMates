@@ -23,7 +23,6 @@ export default function App() {
         return;
       }
       let location = await Location.getCurrentPositionAsync({});
-      setCoordinates(location);
       setCoordinates([location.coords.latitude, location.coords.longitude])
     })();
   }, []);

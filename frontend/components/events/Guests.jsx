@@ -5,7 +5,6 @@ import userData from '../home/exampleData/userData.js';
 
 const Guests = ({setOpen, DYNAMICUSERINFO}) => {
   const sampleData = userData;
-  // console.log('SAMPLE DATA: ', sampleData);
   const [invitees, setInvitees] = useState([]);
 
   const handleInvite = (guestId) => {
@@ -22,9 +21,8 @@ const Guests = ({setOpen, DYNAMICUSERINFO}) => {
   return (
     <ScrollView>
       { sampleData.map((each) => {
-        console.log('each mapped item: ', each);
         return (
-          <ListItem key={each.id} style={{ backgroundColor: invitees.indexOf(each.id) ? '#2D70F9' : 'white' }}>
+          <ListItem key={each.id} style={{ backgroundColor: ((!!invitees.indexOf(each.id)) ? '#2D70F9' : 'white' )}}>
             <Pressable onPress={() => {handleInvite(each.id)}}>
             <Avatar source={{uri: each.photos[0]}} />
               <ListItem.Title>
