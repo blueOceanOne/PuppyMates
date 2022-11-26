@@ -12,7 +12,7 @@ const { Op } = sequelize;
 
 module.exports = {
   getUser: function (req, res) {
-    User.findAll({
+    User.findOne({
       where: {
         id: req.params.userId,
       },
