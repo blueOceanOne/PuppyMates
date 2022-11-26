@@ -13,25 +13,17 @@ const Tab = createBottomTabNavigator();
 const NavTabs = ({socket, user}) => {
   return (
     <Tab.Navigator
-      options={
-        {headerTitle: "puppymates"}
+      screenOptions={
+        {headerShown: false}
       }
     >
-      <Tab.Screen name="Home" component={Home} options={
-        {title: "puppymates"}
-      }/>
+      <Tab.Screen name="Home" component={Home}/>
       <Tab.Screen
         name="Messages"
-        options={
-          {title: "puppymates"}
-        }
         children={()=><MessagePageNav socket={socket} user={user}/>} />
-      <Tab.Screen name="Events" component={EventsNav} options={
-          {title: "puppymates"}
-        } />
-      <Tab.Screen name="Profile" component={Profile} options={
-          {title: "puppymates"}
-        } />
+      <Tab.Screen name="Events" component={EventsNav}
+        />
+      <Tab.Screen name="Profile" component={Profile}/>
     </Tab.Navigator>
   );
 };
