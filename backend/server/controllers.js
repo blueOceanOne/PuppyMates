@@ -225,9 +225,18 @@ module.exports = {
         invitee_id: user,
         status: 'accepted',
       },
+      attributes: ['id'],
       include: [
         {
           model: Event,
+          attributes: { exclude: ['createdAt', 'updatedAt'] },
+          include: [
+            {
+              model: Invitation,
+              where: { status: 'accepted' },
+              attributes: { exclude: ['createdAt', 'updatedAt', 'event_id'] },
+            },
+          ],
         },
       ],
     })
