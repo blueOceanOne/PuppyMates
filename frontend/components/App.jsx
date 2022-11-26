@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LogInSignUp from './LogInSignUp.jsx';
+import LogInSignUp from './login/LogInSignUp.jsx';
 import NavBar from './NavBar.jsx';
 
 const Stack = createNativeStackNavigator();

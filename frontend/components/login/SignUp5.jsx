@@ -8,7 +8,7 @@ export default SignUp5 = ({ navigation, route }) => {
   const finish = () => {
     const props = _.extend(route.params, { bio });
     console.log(props);
-    navigation.navigate('App', props)
+    navigation.navigate('App')
   }
 
   const finishBtn = bio.length ? (
