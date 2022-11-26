@@ -8,22 +8,6 @@ export default SignUp1 = ({ navigation }) => {
   const [ repeatPassword, setRepeatPassword ] = useState('');
   const [ under18, setUnder18 ] = useState(null);
 
-  const handleEmailChange = text => {
-    setEmail(text);
-  }
-
-  const handlePasswordChange = text => {
-    setPassword(text);
-  }
-
-  const handleRepeatPasswordChange = text => {
-    setRepeatPassword(text);
-  }
-
-  const handleUnder18Change = e => {
-    setUnder18(e.value);
-  }
-
   const under18Btns = [
     {
       label: 'Yes',
@@ -33,7 +17,7 @@ export default SignUp1 = ({ navigation }) => {
       label: 'No',
       value: false,
      }
-    ];
+  ];
 
   const nextPage = () => {
     if (password === repeatPassword) {
@@ -52,13 +36,13 @@ export default SignUp1 = ({ navigation }) => {
   return (
     <View>
       <Text>Create your account</Text>
-      <TextInput textContentType="emailAddress" value={email} onChangeText={handleEmailChange} placeholder="Email" />
-      <TextInput textContentType="newPassword" value={password} onChangeText={handlePasswordChange} placeholder="Password" secureTextEntry={true} />
-      <TextInput textContentType="newPassword" value={repeatPassword} onChangeText={handleRepeatPasswordChange} placeholder="Repeat Password" secureTextEntry={true} />
-      <Text> Are you 18 or older?</Text>
+      <TextInput textContentType="emailAddress" value={email} onChangeText={setEmail} placeholder="Email" />
+      <TextInput textContentType="newPassword" value={password} onChangeText={setPassword} placeholder="Password" secureTextEntry={true} />
+      <TextInput textContentType="newPassword" value={repeatPassword} onChangeText={setRepeatPassword} placeholder="Repeat Password" secureTextEntry={true} />
+      <Text>Are you 18 or older?</Text>
       <RadioButtonRN
         data={under18Btns}
-        selectedBtn={handleUnder18Change}
+        selectedBtn={ e => setUnder18(e.value) }
       />
       {nextPageBtn}
     </View>

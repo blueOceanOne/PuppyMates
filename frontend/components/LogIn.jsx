@@ -14,7 +14,7 @@ export default LogIn = ({ navigation }) => {
   }
 
   const onLogIn = () => {
-    Alert.alert('This does nothing for now')
+    navigation.navigate('App');
   }
 
   const LogInBtn = email.length && password.length ? (

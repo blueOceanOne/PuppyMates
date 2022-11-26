@@ -1,37 +1,22 @@
 import React, { useState } from 'react';
 import _ from 'underscore';
-import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
+import { Text, View, TextInput, Button } from 'react-native';
 import { SelectList } from 'react-native-dropdown-select-list';
-// import cities from 'https://gist.githubusercontent.com/avaboonzaayer/439bc2e05d97f4eae082179934d37ac3/raw/0ef9a7fdb83b42b4d69563ee544399a7b23927ed/states.json';
+import stateData from './states.js';
 
 export default SignUp2 = ({ navigation, route }) => {
   const [ dog_name, setDogName ] = useState('');
-  // const [ state, setState ] = useState('');
-  // const [ city, setCity ] = useState('');
+  const [ state, setState ] = useState('');
+  const [ city, setCity ] = useState('');
   const [ breed, setBreed ] = useState('');
   const [ size, setSize ] = useState('');
+  const [ cityData, setCityData ] = useState([{ value: "Select a state first", disabled: true }])
 
-  const handleDogNameChange = text => {
-    setDogName(text);
+  const handleStateChange = text => {
+    setState(text);
+    setCity('');
+    setCityData(stateData.filter(city => city.value === text)[0].cities);
   }
-
-  // const handleStateChange = text => {
-  //   setState(text);
-  // }
-
-  // const handleCityChange = text => {
-  //   setCity(text);
-  // }
-
-  const handleBreedChange = text => {
-    setBreed(text);
-  }
-
-  const handleSizeChange = text => {
-    setSize(text);
-  }
-
-  // const stateData = State.getStatesOfCountry('US');
 
   const breedData = [
     { key: '1', value: 'Mixed' },
@@ -42,17 +27,19 @@ export default SignUp2 = ({ navigation, route }) => {
   ]
 
   const sizeData = [
-    { key: '1', value: 'Small'},
-    { key: '2', value: 'Medium'},
-    { key: '3', value: 'Large' }
+    { value: 'Extra Small'},
+    { value: 'Small'},
+    { value: 'Medium'},
+    { value: 'Large' },
+    { value: 'Extra Large' }
   ]
 
   const nextPage = () => {
-    const props = _.extend(route.params, { dog_name, location, breed, size });
+    const props = _.extend(route.params, { dog_name, breed, size, state, city });
     navigation.navigate('Sign Up 3', props)
   }
 
-  const nextPageBtn = dog_name.length && location.length && breed.length && size.length ? (
+  const nextPageBtn = dog_name.length && breed.length && size.length && state.length && city.length ? (
     <Button title="Next" onPress={nextPage} />
   ) : (
     <Button title="Next" disabled />
@@ -61,28 +48,28 @@ export default SignUp2 = ({ navigation, route }) => {
   return (
     <View>
       <Text>Tell us about your pup</Text>
-      <TextInput value={dog_name} onChangeText={handleDogNameChange} placeholder="Name" />
+      <TextInput value={dog_name} onChangeText={setDogName} placeholder="Name" />
       <Text>State</Text>
-      {/* <SelectList
-        setSelected={handleStateChange}
-        data={cities}
-        save="state"
-      /> */}
-      {/* <Text>City</Text>
       <SelectList
-        setSelected={handleCityChange}
+        setSelected={handleStateChange}
+        data={stateData}
+        save="value"
+      />
+      <Text>City</Text>
+      <SelectList
+        setSelected={setCity}
         data={cityData}
-        save="name"
-      /> */}
+        save="value"
+      />
       <Text>Breed</Text>
       <SelectList
-        setSelected={handleBreedChange}
+        setSelected={setBreed}
         data={breedData}
         save="value"
       />
       <Text>Size</Text>
       <SelectList
-        setSelected={handleSizeChange}
+        setSelected={ e => setSize(e.toLowerCase())}
         data={sizeData}
         save="value"
       />
