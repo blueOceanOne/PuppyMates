@@ -82,10 +82,7 @@ module.exports = {
   },
 
   getBreeds: function (req, res) {
-    const limit = req.query.perPage || 10;
-    const offset = parseInt(req.query.page, 10) ? (req.query.page - 1) * limit : 0;
-
-    Breed.findAll({ limit: limit, offset: offset, attributes: ['id', 'breed'] })
+    Breed.findAll({ attributes: ['id', 'breed'] })
       .then((result) => res.status(200).json(result))
       .catch((err) => {
         console.log(err);
