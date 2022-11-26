@@ -256,11 +256,14 @@ module.exports = {
         invitee_id: user,
         status: 'pending',
       },
+      attributes: ['id'],
       include: [
         {
           model: Event,
+          attributes: { exclude: ['createdAt', 'updatedAt'] },
         },
       ],
+      order: [[Event, 'date', 'DESC']],
     })
       .then((result) => res.status(200).json(result))
       .catch((err) => {
