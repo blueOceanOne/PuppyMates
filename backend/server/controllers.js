@@ -32,7 +32,6 @@ module.exports = {
   },
 
   postUser: function (req, res) {
-    // TODO: look up breed id and then add to creation
     Breed.findOne({ where: { breed: { [Op.iLike]: req.body.breed } } })
       .then((result) => User.create({ ...req.body, breed_id: result.id }))
 
@@ -335,7 +334,6 @@ module.exports = {
   },
 
   postEvent: function (req, res) {
-    // TODO: Have post event creates invitations for each invitee
     const eventDetails = {
       host_id: req.body.host_id,
       title: req.body.event_title,
