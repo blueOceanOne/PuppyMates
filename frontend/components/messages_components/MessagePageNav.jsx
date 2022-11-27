@@ -54,7 +54,10 @@ const MessagePageNav = ({socket, user}) => {
         options={{
           title: selectedRecipient.request_sender.dog_name,
           headerTintColor: 'black',
-          headerShadowVisible: false
+          headerShadowVisible: false,
+          headerTitleStyle: {
+            fontSize: '24px'
+          }
         }}
         children={()=><ChatPage socket={socket} selectedRecipient={selectedRecipient} user={user}/>}
       />

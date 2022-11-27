@@ -8,7 +8,7 @@ const MessagePage = ({socket, user, selectedRequest, setSelectedRequest, selecte
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView styel={styles.scrollView}>
+      <ScrollView style={styles.scrollView}>
         <Requests selectedRequest={selectedRequest} setSelectedRequest={setSelectedRequest} user={user} pending={pending} setPending={setPending}/>
         <ChatsList socket={socket} selectedRecipient={selectedRecipient} setSelectedRecipient={setSelectedRecipient} user={user} matched={matched} setMatched={setMatched}/>
       </ScrollView>
@@ -21,9 +21,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: StatusBar.currentHeight,
     backgroundColor: 'white'
-  },
-  scrollView: {
-    marginHorizontal: 20,
   },
 });
 

@@ -16,7 +16,7 @@ const ChatBody = ({messages, user}) => {
         )
       } else {
         return (
-          <View style={styles.recipient} key={message.content}>
+          <View style={styles.recipient} key={i}>
             <Text style={styles.content}>{message.content}</Text>
           </View>
         )
