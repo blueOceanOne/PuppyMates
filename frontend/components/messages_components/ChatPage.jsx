@@ -8,9 +8,9 @@ import axios from 'axios';
 const ChatPage = ({socket, selectedRecipient, user}) => {
 
   const [messages, setMessages] = useState([]);
-  const [recipient, setRecipient] = useState(selectedRecipient)
+  const [recipient, setRecipient] = useState(selectedRecipient.sender_id)
   useEffect(() => {
-    axios.get(`http://${config.localIP}:${config.port}/messages/${user}`, { params: {participant_id: selectedRecipient}})
+    axios.get(`http://${config.localIP}:${config.port}/messages/${user}`, { params: {participant_id: selectedRecipient.sender_id}})
       .then((response)=>{
         setMessages(response.data);
       })

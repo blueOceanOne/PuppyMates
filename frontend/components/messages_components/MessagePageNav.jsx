@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator();
 
 const MessagePageNav = ({socket, user}) => {
   const [selectedRequest, setSelectedRequest] = useState({});
-  const [selectedRecipient, setSelectedRecipient] = useState('');
+  const [selectedRecipient, setSelectedRecipient] = useState({request_sender:{dog_name: ''}});
   const [pending, setPending] = useState([]);
   const [matched, setMatched] = useState([]);
 
@@ -28,10 +28,10 @@ const MessagePageNav = ({socket, user}) => {
   }, [])
 
   return (
-    <Stack.Navigator
-/*       screenOptions={{headerShown: false}} */>
+    <Stack.Navigator>
       <Stack.Screen
         name="MessagePage"
+        options={{title: ''}}
         children={()=>
           <MessagePage
             socket={socket}
@@ -45,8 +45,18 @@ const MessagePageNav = ({socket, user}) => {
             matched={matched}
             setMatched={setMatched}
           />} />
-      <Stack.Screen name="RequestDetail" children={()=><RequestDetail selectedRequest={selectedRequest} user={user} setMatched={setMatched} setPending={setPending}/> }/>
-      <Stack.Screen name="ChatPage" children={()=><ChatPage socket={socket} selectedRecipient={selectedRecipient} user={user}/>}/>
+      <Stack.Screen
+        name="RequestDetail"
+        options={{title: ''}}
+        children={()=><RequestDetail selectedRequest={selectedRequest} user={user} setMatched={setMatched} setPending={setPending}/> }/>
+      <Stack.Screen
+        name="ChatPage"
+        options={{
+          title: selectedRecipient.request_sender.dog_name,
+          headerTintColor: 'black'
+        }}
+        children={()=><ChatPage socket={socket} selectedRecipient={selectedRecipient} user={user}/>}
+      />
     </Stack.Navigator>
   )
 }

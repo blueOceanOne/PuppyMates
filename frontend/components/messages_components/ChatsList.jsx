@@ -30,7 +30,7 @@ const ChatsList = ({socket, setSelectedRecipient, user, matched, setMatched}) =>
             bottomDivider
             onPress = {(event)=>{
               event.preventDefault();
-              setSelectedRecipient(item.sender_id);
+              setSelectedRecipient(item);
               navigation.navigate('ChatPage');
             }}
           >
