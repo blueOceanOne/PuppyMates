@@ -119,7 +119,7 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
       ]}
     >
       <Card
-/*         borderRadius="10" */
+        borderRadius="10"
         containerStyle={{
           padding: 0,
           marginTop: 40,
@@ -134,7 +134,7 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
               alignSelf: 'center',
               zIndex: 2,
             }}
-/*             borderRadius="10" */
+            borderRadius="10"
             source={{
               uri: item.photos[imgIndex],
             }}
