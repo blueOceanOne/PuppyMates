@@ -26,21 +26,19 @@ const Guests = ({invitees, setInvitees}) => {
     <ScrollView>
       <Button title='Confirm Guests' onPress={handleConfirm}/>
       { sampleData.map((each) => {
+        const [invited, setInvited] = useState(false);
         return (
-          <ListItem
+          <Pressable
             key={each.id}
-            style={ invitees.indexOf(each.id) === -1 ? styles.unselectedGuest : styles.selectedGuest }
-          >
-            <Pressable onPress={() => {handleInvite(each.id)}}>
-            <Avatar source={{uri: each.photos[0]}} />
-              <ListItem.Title>
-                {each['dog_name']}
-              </ListItem.Title>
-              <Text>
-                {each.username}
+            style={({pressed}) => [{backgroundColor: invited ? 'lightgrey' : 'white'}, styles.guestPressable]}
+            onPress={() => {handleInvite(each.id); setInvited(!invited);}}>
+            <View style={styles.guestCard}>
+              <Avatar rounded source={{uri: each.photos[0]}} />
+              <Text style={styles.info}>
+                {`${each['dog_name']} | ${each.username}`}
               </Text>
-            </Pressable>
-          </ListItem>
+            </View>
+          </Pressable>
         )
       })}
     </ScrollView>
@@ -49,10 +47,23 @@ const Guests = ({invitees, setInvitees}) => {
 
 export default Guests;
 
+const gap = 8;
 const styles = StyleSheet.create({
   selectedGuest: {
     backgroundColor: '#2D70F9',
   },
-  unselectedGuest: {
+  guestPressable: {
+    flex: 1,
+    padding: 12
+  },
+  guestCard: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  info:{
+    marginLeft: 10,
+    fontSize: 17,
+    justifyContent: 'center',
+    paddingTop: 8
   }
 })
