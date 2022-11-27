@@ -8,15 +8,20 @@ const User = db.define('user', {
     allowNull: false,
   },
   hashed_password: {
-    type: DataTypes.STRING,
+    // TODO change to DataTypes.BLOB
+    type: DataTypes.BLOB,
     allowNull: true,
   },
   salt: {
-    type: DataTypes.STRING,
+    // TODO change to DataTypes.BLOB
+
+    type: DataTypes.BLOB,
     allowNull: true,
   },
   iterations: {
-    type: DataTypes.STRING,
+    // TODO change to DataTypes.INTEGER
+
+    type: DataTypes.INTEGER,
     allowNull: true,
   },
   dog_name: {
