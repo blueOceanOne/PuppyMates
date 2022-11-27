@@ -10,7 +10,9 @@ const ChatPage = ({socket, selectedRecipient, user}) => {
 
   const [messages, setMessages] = useState([]);
   const [recipient, setRecipient] = useState(selectedRecipient.sender_id);
+  const [keyboardStatus, setKeyboardStatus] = useState(undefined);
   const scrollViewRef = useRef();
+/*   const keyboardHeight = useKeyboardHeight() */
 /*   const [keyBoardOffset, setKeyBoardOffset] = useState(0);
   const [keyboardStatus, setKeyboardStatus] = useState(undefined);
   const keyboardHeight = useKeyboardHeight();
@@ -37,20 +39,21 @@ const ChatPage = ({socket, selectedRecipient, user}) => {
 
 /*   useEffect(() => {
     const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
-      //setKeyboardStatus("Keyboard Shown");
-      setKeyBoardOffset(keyboardHeight)
+      setKeyboardStatus("Shown");
     });
     const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
-      //setKeyboardStatus("Keyboard Hidden");
-      setKeyBoardOffset(0);
+      setKeyboardStatus("Hidden");
     });
 
     return () => {
       showSubscription.remove();
       hideSubscription.remove();
     };
-  }, []); */
+  }, []);
 
+  const onLayout=(event)=>{
+    const {x, y, height, width} = event.nativeEvent.layout;
+  } */
 
   return (
     <SafeAreaView style={styles.container}>
