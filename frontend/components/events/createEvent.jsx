@@ -2,6 +2,7 @@ import React, {useRef, useState, useEffect, Form} from 'react';
 import { ScrollView, View, StyleSheet, Text, TextInput, Button, Pressable, Alert } from 'react-native';
 import { ListItem, Avatar } from '@rneui/themed';
 import userData from '../home/exampleData/userData.js'
+import * as eventsSampleData from '../../sampleData/events.js';
 import { Input } from '@rneui/themed';
 import Guests from './Guests.jsx';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -12,10 +13,11 @@ import * as Location from 'expo-location';
 const CreateEvent = ({invitees, DYNAMICUSERINFO}) => {
   const navigation = useNavigation();
   const sampleData = userData;
+  const hostData = eventsSampleData.userData;
 
   const [open, setOpen] = useState(false);
   const [event, setEvent] = useState({
-    host: sampleData.id,
+    host: hostData[0].id,
     description: null,
     title: null,
     date: (new Date()),
@@ -26,16 +28,11 @@ const CreateEvent = ({invitees, DYNAMICUSERINFO}) => {
   useEffect(() => {
     event.invitees = invitees;
     setEvent({...event});
-    console.log('event with updated invitees: ', event);
   }, [invitees]);
 
   const handleChange = (input, property) => {
     event[property] = input;
     setEvent({...event});
-  }
-
-  const handleSubmit = () => {
-
   }
 
   const guestlist = invitees.map((each) => {
@@ -49,8 +46,9 @@ const CreateEvent = ({invitees, DYNAMICUSERINFO}) => {
   const coordinatify = async () => {
     await Location.geocodeAsync(event.address)
     .then((results) => {
-      event.address = [results[0].latitude, results[0].longitude];
-      setEvent({...event});
+      const eventCopy = {...event};
+      eventCopy.address = [results[0].latitude, results[0].longitude];
+      setEvent(eventCopy);
     })
     .catch((err) => {
       Alert.alert('The address is invalid');
@@ -59,7 +57,18 @@ const CreateEvent = ({invitees, DYNAMICUSERINFO}) => {
 
   const handleCreate = async () => {
     await coordinatify();
-    // event.reduce((element));
+    const anyNullValues = Object.values(event).reduce((memo, currElement) => {
+      if (memo === true) {
+        return true;
+      }
+      return memo = (!currElement);
+    }, false
+    )
+    if (!anyNullValues) {
+      Alert.alert('Successfully created event');
+    } else {
+      Alert.alert('The event details are incomplete');
+    }
   }
 
   return (
@@ -69,6 +78,8 @@ const CreateEvent = ({invitees, DYNAMICUSERINFO}) => {
         <Input value={event.title} onChange={(e) => {handleChange(e.nativeEvent.text, 'title')}}/>
         <Text style={styles.formText}>Event Location</Text>
         <Input value={event.address} onChange={(e) => {handleChange(e.nativeEvent.text, 'address')}}/>
+        <Text style={styles.formText}>Event Description</Text>
+        <Input value={event.description} onChange={(e) => {handleChange(e.nativeEvent.text, 'description')}}/>
         <Text style={styles.formText}>Event Time & Date</Text>
         <View style={styles.date}>
           <DateTimePicker

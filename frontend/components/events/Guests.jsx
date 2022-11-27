@@ -12,11 +12,9 @@ const Guests = ({invitees, setInvitees}) => {
     const userIdInList = invitees.indexOf(guestId);
     if (userIdInList !== -1) {
       invitees.splice(userIdInList, 1);
-      console.log(invitees);
     } else {
       invitees.push(guestId);
       setInvitees([...invitees]);
-      console.log(invitees);
     }
   };
 
