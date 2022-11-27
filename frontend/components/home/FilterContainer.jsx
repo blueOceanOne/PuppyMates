@@ -1,15 +1,15 @@
 import React from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, ScrollView } from 'react-native';
 import { ListItem, Button, Badge, Icon } from '@rneui/themed';
 const { useState } = React;
 import userData from '../home/exampleData/userData.js';
 
 // will look to access breed options in db
-const breeds = userData.map((user) => user.breed);
+
 const sizes = ['Small', 'Medium', 'Large'];
 const energy = ['Low', 'Medium', 'High'];
 
-const FilterContainer = ({ filter, setFilter, handleFilter }) => {
+const FilterContainer = ({ filter, setFilter, handleFilter, breeds }) => {
   const [expandSize, setExpandSize] = useState(false);
   const [expandEnergy, setExpandEnergy] = useState(false);
   const [expandBreed, setExpandBreed] = useState(false);
@@ -112,7 +112,7 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
   console.log('filter', filter);
 
   return (
-    <View style={{ flex: 0.5, zIndex: 2 }}>
+    <View style={{ zIndex: 2 }}>
       <ListItem.Accordion
         content={
           <>
@@ -128,29 +128,22 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
         isExpanded={expandFilter}
         onPress={() => handleExpandFilter()}
       >
-        <ListItem.Accordion
-          content={
-            <>
-              <ListItem.Content>
-                <ListItem.Title style={{ fontWeight: '600' }}>Breed</ListItem.Title>
-              </ListItem.Content>
-            </>
-          }
-          isExpanded={category === 'breed' ? true : false}
-          onPress={() => handleExpandBreed()}
-          bottomDivider
-        >
-          {breeds.map((breed) => (
-            <ListItem key={breed} onPress={() => handleValue(breed)} bottomDivider>
-              <ListItem.Content>
-                <ListItem.Title>
-                  {breed}
-                  {breed === value ? <Icon name="check" /> : null}
-                </ListItem.Title>
-              </ListItem.Content>
-            </ListItem>
-          ))}
-        </ListItem.Accordion>
+        <ListItem onPress={() => handleDogFriendly()} bottomDivider>
+          <ListItem.Content>
+            <ListItem.Title style={{ fontWeight: '600' }}>
+              Dog Friendly
+              {'Dog Friendly' === category ? <Icon name="check" /> : null}
+            </ListItem.Title>
+          </ListItem.Content>
+        </ListItem>
+        <ListItem onPress={() => handlePeopleFriendly()} bottomDivider>
+          <ListItem.Content>
+            <ListItem.Title style={{ fontWeight: '600' }}>
+              People Friendly
+              {'People Friendly' === category ? <Icon name="check" /> : null}
+            </ListItem.Title>
+          </ListItem.Content>
+        </ListItem>
         <ListItem.Accordion
           content={
             <>
@@ -159,7 +152,7 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
               </ListItem.Content>
             </>
           }
-          isExpanded={category === 'size' ? true : false}
+          isExpanded={expandSize}
           onPress={() => handleExpandSize()}
           bottomDivider
         >
@@ -198,22 +191,31 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
           ))}
         </ListItem.Accordion>
 
-        <ListItem onPress={() => handleDogFriendly()} bottomDivider>
-          <ListItem.Content>
-            <ListItem.Title style={{ fontWeight: '600' }}>
-              Dog Friendly
-              {'Dog Friendly' === category ? <Icon name="check" /> : null}
-            </ListItem.Title>
-          </ListItem.Content>
-        </ListItem>
-        <ListItem onPress={() => handlePeopleFriendly()} bottomDivider>
-          <ListItem.Content>
-            <ListItem.Title style={{ fontWeight: '600' }}>
-              People Friendly
-              {'People Friendly' === category ? <Icon name="check" /> : null}
-            </ListItem.Title>
-          </ListItem.Content>
-        </ListItem>
+        <ListItem.Accordion
+          content={
+            <>
+              <ListItem.Content>
+                <ListItem.Title style={{ fontWeight: '600' }}>Breed</ListItem.Title>
+              </ListItem.Content>
+            </>
+          }
+          isExpanded={category === 'breed' ? true : false}
+          onPress={() => handleExpandBreed()}
+          bottomDivider
+        >
+          <ScrollView>
+            {breeds.map((breed) => (
+              <ListItem key={breed} onPress={() => handleValue(breed)} bottomDivider>
+                <ListItem.Content>
+                  <ListItem.Title>
+                    {breed}
+                    {breed === value ? <Icon name="check" /> : null}
+                  </ListItem.Title>
+                </ListItem.Content>
+              </ListItem>
+            ))}
+          </ScrollView>
+        </ListItem.Accordion>
       </ListItem.Accordion>
     </View>
   );

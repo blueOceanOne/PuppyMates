@@ -11,6 +11,7 @@ const Home = () => {
   const initialFilter = { filterCategory: '', filterValue: '' };
   const [filter, setFilter] = useState(initialFilter);
   const [localUsers, setLocalUsers] = useState([]);
+  const [breeds, setBreeds] = useState([]);
 
   //SINGLE USERS
   // axios.get(`http://${config.localIP}:${config.port}/users`);
@@ -26,6 +27,18 @@ const Home = () => {
   //     })
   //     .catch((err) => console.log(err));
   // }, []);
+  useEffect(() => {
+    axios
+      .get(`http://${config.localIP}:${config.port}/breeds`)
+      .then((res) => {
+        // console.log(res.data, 'breed');
+        const breedList = res.data;
+        breedList.sort((a, b) => a.breed.localeCompare(b.breed));
+        const breedNames = breedList.map((breed) => breed.breed);
+        setBreeds(breedNames);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   //HANDLE FILTER FUNCTION
   const handleFilter = () => {
@@ -36,14 +49,19 @@ const Home = () => {
     //     )
     //     .then((data) => {
     //       setLocalUsers(data);
-    //       setFilter(initialFilter);
+    //       setFilter(initialFilter
     //     })
     //     .catch((err) => res.send(err));
   };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <FilterContainer filter={filter} setFilter={setFilter} handleFilter={handleFilter} />
+      <FilterContainer
+        filter={filter}
+        setFilter={setFilter}
+        handleFilter={handleFilter}
+        breeds={breeds}
+      />
       <CarouselCards localUsers={localUsers} />
     </SafeAreaView>
   );
