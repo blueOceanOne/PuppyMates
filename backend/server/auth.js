@@ -9,20 +9,7 @@ function hashPassword(password) {
   // Get rid of toString functions in favor of changing data type in User model. See comments in db/models/User.js
   const salt = crypto.randomBytes(128).toString('base64');
   const iterations = 10000;
-  const hash = crypto.pbkdf2(
-    password.toString(),
-    salt,
-    iterations,
-    64,
-    'sha512',
-    (err, derivedKey) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(derivedKey);
-      }
-    }
-  );
+  const hash = crypto.pbkdf2Sync(password, salt, iterations, 64, 'sha512');
 
   return {
     salt: salt,
@@ -34,7 +21,23 @@ function hashPassword(password) {
 function isPasswordCorrect(savedHash, savedSalt, savedIterations, passwordAttempt) {
   // TODO: Use pbkdf2Sync. See above. Also add keylen and digest params.
   // TODO: Saved hash and result of pbkdf2 are buffers, so use Buffer.compare to check for equality. See: https://masteringjs.io/tutorials/node/buffer-compare
-  return savedHash === Crypto.pbkdf2(passwordAttempt, savedSalt, savedIterations);
+  return (
+    savedHash ===
+    crypto.pbkdf2Synch(
+      passwordAttempt,
+      savedSalt,
+      savedIterations,
+      64,
+      'sha512',
+      (err, derivedKey) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(derivedKey);
+        }
+      }
+    )
+  );
 }
 
 module.exports = {
@@ -42,36 +45,51 @@ module.exports = {
     console.log('body: ', req.body);
     const encryption = hashPassword(req.body.hashed_password);
     // TODO: You're already aware of this one, but use breed_id rather than breed. You can do this by either running Breed.findOne or having the front-end pass the breed_id instead.
-    const newUser = {
-      email: req.body.user_email,
-      hashed_password: encryption.hash,
-      salt: encryption.salt,
-      iterations: encryption.iterations,
-      dog_name: req.body.dog_name,
-      breed: req.body.breed,
-      size: req.body.size,
-      dog_friendly: req.body.dog_friendly,
-      people_friendly: req.body.people_friendly,
-      energy: req.body.energy,
-      city: req.body.city,
-      state: req.body.state,
-      latitude: req.body.latitude,
-      longitude: req.body.longitude,
-      bio: req.body.bio,
-    };
+    Breed.findOne({
+      where: {
+        breed: req.body.breed,
+      },
+    }).then((result) => {
+      const newUser = {
+        email: req.body.user_email,
+        hashed_password: encryption.hash,
+        salt: encryption.salt,
+        iterations: encryption.iterations,
+        dog_name: req.body.dog_name,
+        breed_id: result.id,
+        size: req.body.size,
+        dog_friendly: req.body.dog_friendly,
+        people_friendly: req.body.people_friendly,
+        energy: req.body.energy,
+        city: req.body.city,
+        state: req.body.state,
+        latitude: req.body.latitude,
+        longitude: req.body.longitude,
+        bio: req.body.bio,
+      };
 
-    User.create(newUser)
-      .then(() => res.sendStatus(201))
-      .catch((err) => {
-        console.log(err);
-        res.sendStatus(400);
-      });
+      User.create(newUser)
+        .then((user) => {
+          for (var i = 0; i < req.body.photos.length; i ++) {
+            let photo = {
+              user_id: user.id,
+              url: req.body.photos[i],
+            };
+            Photo.create(photo);
+          }
+          res.sendStatus(201);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.sendStatus(400);
+        });
+    });
   },
 
   verify_email: function (req, res) {
     // TODO: Change to findOne since email should be unique. (We should also maybe consider making email a unique clause in our db, but not a priority ¯\_(ツ)_/¯)
     const { user_email } = req.query;
-    User.findAll({
+    User.findOne({
       attributes: [email],
       where: {
         email: user_email,
@@ -88,7 +106,7 @@ module.exports = {
   login: function (req, res) {
     const { user_email, hashed_password_attempt } = req.query;
     // TODO: Change to findOne since email should be unique.
-    User.findAll({
+    User.findOne({
       attributes: [id, hashed_password, salt, iterations],
       where: {
         email: user_email,
@@ -100,7 +118,7 @@ module.exports = {
         const { id, hashed_password, salt, iterations } = result[0];
         if (isPasswordCorrect(hashed_password, salt, iterations, hashed_password_attempt)) {
           // TODO: Change to findOne since email should be unique
-          User.findAll({
+          User.findOne({
             where: {
               email: user_email,
             },
