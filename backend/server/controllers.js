@@ -12,11 +12,15 @@ const { Op } = sequelize;
 
 module.exports = {
   getUser: function (req, res) {
-    User.findAll({
+    User.findOne({
       where: {
-        id: req.query.user_id,
+        id: req.params.userId,
       },
-      include: [Breed, Photo],
+      attributes: { exclude: ['createdAt, updatedAt'] },
+      include: [
+        { model: Breed, attributes: ['id', 'breed'] },
+        { model: Photo, attributes: ['id', 'url'] },
+      ],
     })
       .then((result) => {
         res.send(result);
@@ -28,7 +32,9 @@ module.exports = {
   },
 
   postUser: function (req, res) {
-    User.create(req.body)
+    Breed.findOne({ where: { breed: { [Op.iLike]: req.body.breed } } })
+      .then((result) => User.create({ ...req.body, breed_id: result.id }))
+
       .then(() => res.sendStatus(201))
       .catch((err) => {
         console.log(err);
@@ -41,9 +47,64 @@ module.exports = {
     res.sendStatus(200);
   },
 
-  swipe: function (req, res, direction) {
-    const senderId = req.body.sender_id;
-    const recipientId = req.body.recipient_id;
+  getNearbyUsers: function (req, res) {
+    const filterCategory = {};
+    if (req.query.filterCategory && req.query.filterValue) {
+      if (req.query.filterCategory === 'breed') {
+        filterCategory['$breed.breed$'] = req.query.filterValue;
+      } else {
+        filterCategory[req.query.filterCategory] = req.query.filterValue;
+      }
+    }
+
+    User.findOne({ where: { id: req.query.id } })
+      .then((result) =>
+        User.findAll({
+          where: {
+            [Op.and]: [
+              { id: { [Op.not]: req.query.id } },
+              sequelize.literal(
+                `6371 * acos(cos(radians(${result.latitude})) * cos(radians(latitude)) * cos(radians(${result.longitude}) - radians(longitude)) + sin(radians(${result.latitude})) * sin(radians(latitude))) <= 50`
+              ),
+              filterCategory,
+            ],
+          },
+          attributes: {
+            include: [
+              [
+                sequelize.literal(
+                  `6371 * acos(cos(radians(${result.latitude})) * cos(radians(latitude)) * cos(radians(${result.longitude}) - radians(longitude)) + sin(radians(${result.latitude})) * sin(radians(latitude)))`
+                ),
+                'distance',
+              ],
+            ],
+          },
+          include: [
+            { model: Breed, attributes: ['id', 'breed'] },
+            { model: Photo, attributes: ['id', 'url'] },
+          ],
+        })
+      )
+      .then((result) => res.status(200).json(result))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
+  },
+
+  getBreeds: function (req, res) {
+    Breed.findAll({ attributes: ['id', 'breed'] })
+      .then((result) => res.status(200).json(result))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
+  },
+
+  swipe: function (req, res) {
+    const senderId = req.body.user1_id;
+    const recipientId = req.body.user2_id;
+    const { direction } = req.body;
 
     const condition = {
       where: {
@@ -140,7 +201,13 @@ module.exports = {
 
   getAcceptedRequests: function (req, res) {
     const { user } = req.params;
-    // TODO: Photo should change whether person sending the request is the recipient_id or the sender_id;
+
+    const userWithPhoto = (as) => ({
+      model: User,
+      as: as,
+      attributes: ['id', 'dog_name'],
+      include: [{ model: Photo, limit: 1, attributes: ['id', 'url'] }],
+    });
 
     Request.findAll({
       where: {
@@ -149,16 +216,21 @@ module.exports = {
           { sender_id: user, status: 'accepted' },
         ],
       },
-      include: [
-        {
-          model: User,
-          as: 'request_sender',
-          attributes: ['id', 'dog_name'],
-          include: [{ model: Photo, limit: 1, attributes: ['id', 'url'] }],
-        },
-      ],
+      include: [userWithPhoto('request_sender'), userWithPhoto('request_recipient')],
     })
-      .then((result) => res.status(200).json(result))
+      .then((results) => {
+        const output = results.map((result) => {
+          const resultCopy = JSON.parse(JSON.stringify(result));
+          if (resultCopy.request_sender.id === parseInt(user, 10)) {
+            delete resultCopy.request_sender;
+          } else {
+            delete resultCopy.request_recipient;
+          }
+          return resultCopy;
+        });
+
+        res.status(200).json(output);
+      })
       .catch((err) => {
         console.log(err);
         res.sendStatus(404);
@@ -190,7 +262,7 @@ module.exports = {
     const { user } = req.params;
     const sender = req.query.participant_id;
     Request.update(
-      { status: 'rejected' },
+      { status: 'declined' },
       {
         where: {
           [Op.or]: [
@@ -200,7 +272,7 @@ module.exports = {
         },
       }
     )
-      .then(() => res.send('received'))
+      .then(() => res.sendStatus(200))
       .catch((err) => {
         console.log(err);
         res.sendStatus(400);
@@ -214,11 +286,27 @@ module.exports = {
         invitee_id: user,
         status: 'accepted',
       },
+      attributes: ['id'],
       include: [
         {
           model: Event,
+          attributes: { exclude: ['createdAt', 'updatedAt'] },
+          include: [
+            {
+              model: Invitation,
+              where: { status: 'accepted', invitee_id: { [Op.not]: user } },
+              attributes: { exclude: ['createdAt', 'updatedAt', 'event_id'] },
+              required: false,
+            },
+            {
+              model: User,
+              attributes: ['dog_name'],
+              include: [{ model: Photo, attributes: ['id', 'url'] }],
+            },
+          ],
         },
       ],
+      order: [[Event, 'date', 'DESC']],
     })
       .then((result) => res.status(200).json(result))
       .catch((err) => {
@@ -234,11 +322,19 @@ module.exports = {
         invitee_id: user,
         status: 'pending',
       },
+      attributes: ['id'],
       include: [
         {
           model: Event,
+          attributes: { exclude: ['createdAt', 'updatedAt'] },
+        },
+        {
+          model: User,
+          attributes: ['dog_name'],
+          include: [{ model: Photo, attributes: ['id', 'url'] }],
         },
       ],
+      order: [[Event, 'date', 'DESC']],
     })
       .then((result) => res.status(200).json(result))
       .catch((err) => {
@@ -248,8 +344,26 @@ module.exports = {
   },
 
   postEvent: function (req, res) {
-    Event.create(req.body)
-      .then(() => res.sendStatus(201))
+    const eventDetails = {
+      host_id: req.body.host_id,
+      title: req.body.event_title,
+      description: req.body.event_description,
+      date: req.body.event_date,
+      latitude: req.body.event_latitude,
+      longitude: req.body.event_longitude,
+    };
+
+    Event.create(eventDetails)
+      .then((result) =>
+        Promise.all(
+          req.body.invitees.map((invitee) =>
+            Invitation.create({ invitee_id: invitee, event_id: result.id, status: 'pending' })
+          )
+        )
+      )
+      .then(() => {
+        res.sendStatus(201);
+      })
       .catch((err) => {
         console.log(err);
         res.sendStatus(400);
