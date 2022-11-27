@@ -21,23 +21,9 @@ function hashPassword(password) {
 function isPasswordCorrect(savedHash, savedSalt, savedIterations, passwordAttempt) {
   // TODO: Use pbkdf2Sync. See above. Also add keylen and digest params.
   // TODO: Saved hash and result of pbkdf2 are buffers, so use Buffer.compare to check for equality. See: https://masteringjs.io/tutorials/node/buffer-compare
-  return (
-    savedHash ===
-    crypto.pbkdf2Synch(
-      passwordAttempt,
-      savedSalt,
-      savedIterations,
-      64,
-      'sha512',
-      (err, derivedKey) => {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log(derivedKey);
-        }
-      }
-    )
-  );
+  const attempt = crypto.pbkdf2Sync(passwordAttempt, savedSalt, savedIterations, 64, 'sha512');
+
+  return Buffer.compare(savedHash, attempt) === 0;
 }
 
 module.exports = {
@@ -90,15 +76,15 @@ module.exports = {
     // TODO: Change to findOne since email should be unique. (We should also maybe consider making email a unique clause in our db, but not a priority ¯\_(ツ)_/¯)
     const { user_email } = req.query;
     User.findOne({
-      attributes: [email],
+      attributes: ['email'],
       where: {
         email: user_email,
       },
     }).then((results) => {
-      if (results.length) {
+      if (!results) {
         res.send('true');
       } else {
-        res.send('false)');
+        res.send('false');
       }
     });
   },
@@ -107,24 +93,37 @@ module.exports = {
     const { user_email, hashed_password_attempt } = req.query;
     // TODO: Change to findOne since email should be unique.
     User.findOne({
-      attributes: [id, hashed_password, salt, iterations],
+      attributes: ['id', 'hashed_password', 'salt', 'iterations'],
       where: {
         email: user_email,
       },
     }).then((result) => {
-      if (!result.length) {
+      if (!result) {
         res.send('incorrect email');
       } else {
-        const { id, hashed_password, salt, iterations } = result[0];
+        const { hashed_password, salt, iterations } = result;
         if (isPasswordCorrect(hashed_password, salt, iterations, hashed_password_attempt)) {
           // TODO: Change to findOne since email should be unique
           User.findOne({
             where: {
               email: user_email,
             },
-            include: [Breed, Photo],
+            include: [
+              {
+                model: Breed,
+                attributes: {
+                 exclude: ['createdAt', 'updatedAt'],
+                },
+              },
+              {
+                model: Photo,
+                attributes: {
+                  exclude: ['createdAt', 'updatedAt'],
+                },
+              },
+            ],
             attributes: {
-              exclude: ['hashed_password', 'salt', 'iterations'],
+              exclude: ['hashed_password', 'salt', 'iterations', 'createdAt', 'updatedAt'],
             },
           }).then((userData) => res.send(userData));
         } else if (!isPasswordCorrect(hashed_password, salt, iterations, hashed_password_attempt)) {
