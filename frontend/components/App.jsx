@@ -11,7 +11,7 @@ export default App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-{/*         <Stack.Screen name="Log In Sign Up" options={{headerShown: false}} component={LogInSignUp} /> */}
+        <Stack.Screen name="Log In Sign Up" options={{headerShown: false}} component={LogInSignUp} />
         <Stack.Screen
           name="App"
           options={{
