@@ -32,7 +32,7 @@ io.on('connection', (socket) => {
     let newUser = { id: arg, socket_id: socket.id };
     let secondUser = false;
     Object.keys(clients).forEach((key) => {
-      if (clients[key] === 87) {
+      if (clients[key] === 91) {
         secondUser = true;
       }
     });
