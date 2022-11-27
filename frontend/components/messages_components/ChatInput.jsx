@@ -1,13 +1,27 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { Input, Icon, Button } from '@rneui/themed';
+import config from '../../config.js';
+import axios from 'axios';
 
 
-const ChatInput = ({socket, user})=>{
-  const [message, setMessage] = useState({sender_id: '', recipient_id: 2, content:''})
+const ChatInput = ({socket, user, recipient})=>{
+  const [message, setMessage] = useState({sender_id: user, recipient_id: recipient, content:''})
+
+  const sendMessage = (value) => {
+    axios.post(`http://${config.localIP}:${config.port}/messages`, value)
+      .then(() => {
+        console.log('message sent')
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 
   return (
     <View>
+        <Text>To recipient {recipient}</Text>
+        <Text>I am {user}</Text>
         <Input
             placeholder="Message here"
             leftIcon={{ type: 'font-awesome', name: 'comment' }}
@@ -18,10 +32,11 @@ const ChatInput = ({socket, user})=>{
           onPress={(event)=>{
             event.preventDefault();
             console.log(message);
-            socket.emit("send", {...message, sender_id: socket.id})
-            setMessage({sender_id: user, recipient_id:2, content:''})
+            socket.emit("send", message);
+            sendMessage(message);
+            setMessage({sender_id: user, recipient_id: recipient, content:''})
           }}
-        >Send</Button>
+        >Send to</Button>
     </View>
   )
 }
