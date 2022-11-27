@@ -21,7 +21,7 @@ const NavTabs = ({socket, user}) => {
       <Tab.Screen
         name="Messages"
         children={()=><MessagePageNav socket={socket} user={user}/>} />
-{/*       <Tab.Screen name="Events" component={EventsNav}/> */}
+      <Tab.Screen name="Events" component={EventsNav}/>
       <Tab.Screen name="Profile" component={Profile}/>
     </Tab.Navigator>
   );
