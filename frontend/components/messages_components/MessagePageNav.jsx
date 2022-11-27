@@ -28,10 +28,10 @@ const MessagePageNav = ({socket, user}) => {
   }, [])
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator style={{backgroundColor: 'white'}}>
       <Stack.Screen
         name="MessagePage"
-        options={{title: ''}}
+        options={{title: '', headerShown: false,}}
         children={()=>
           <MessagePage
             socket={socket}
@@ -47,13 +47,14 @@ const MessagePageNav = ({socket, user}) => {
           />} />
       <Stack.Screen
         name="RequestDetail"
-        options={{title: ''}}
+        options={{title: '',headerShadowVisible: false}}
         children={()=><RequestDetail selectedRequest={selectedRequest} user={user} setMatched={setMatched} setPending={setPending}/> }/>
       <Stack.Screen
         name="ChatPage"
         options={{
           title: selectedRecipient.request_sender.dog_name,
-          headerTintColor: 'black'
+          headerTintColor: 'black',
+          headerShadowVisible: false
         }}
         children={()=><ChatPage socket={socket} selectedRecipient={selectedRecipient} user={user}/>}
       />

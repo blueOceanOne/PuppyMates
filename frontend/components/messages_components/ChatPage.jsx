@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import ChatBody from './ChatBody.jsx';
 import ChatInput from './ChatInput.jsx';
 import config from '../../config.js';
@@ -29,11 +29,17 @@ const ChatPage = ({socket, selectedRecipient, user}) => {
   }, [socket, messages]);
 
   return (
-    <View>
+    <View style={style.container}>
       <ChatBody messages={messages} user={user} recipient={recipient}/>
       <ChatInput socket={socket} user={user} recipient={recipient}/>
     </View>
   )
 }
+const style = StyleSheet.create({
+  container: {
+    backgroundColor: 'white'
+  }
+})
+
 
 export default ChatPage;

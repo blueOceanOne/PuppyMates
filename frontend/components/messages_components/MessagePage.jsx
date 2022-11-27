@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: StatusBar.currentHeight,
+    backgroundColor: 'white'
   },
   scrollView: {
     marginHorizontal: 20,
