@@ -15,7 +15,7 @@ const MessagePageNav = ({socket, user}) => {
   const [matched, setMatched] = useState([]);
 
   useEffect (()=>{
-    let promise1 = axios.get(`http://${config.localIP}:${config.port}/requests/accepted/${user}`);
+    let promise1 = axios.get(`http://${config.localIP}:${config.port}/requests/matched/${user}`);
     let promise2 = axios.get(`http://${config.localIP}:${config.port}/requests/pending/${user}`)
     Promise.all([promise1, promise2])
       .then((values) => {

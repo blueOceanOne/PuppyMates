@@ -8,15 +8,6 @@ import config from '../../config.js';
 import axios from 'axios';
 
 const ChatsList = ({socket, setSelectedRecipient, user, matched, setMatched}) => {
-/*   useEffect (()=>{
-    axios.get(`http://${config.localIP}:${config.port}/requests/accepted/${user}`)
-    .then((response)=>{
-      setMatched(response.data)
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
-  }, []) */
 
   const navigation = useNavigation();
 
@@ -34,9 +25,9 @@ const ChatsList = ({socket, setSelectedRecipient, user, matched, setMatched}) =>
               navigation.navigate('ChatPage');
             }}
           >
-            <Avatar source={{uri: item.request_sender.photos[0].url}} />
+            <Avatar source={item.sender_id === user ? {uri: item.request_recipient.photos[0].url} : {uri: item.request_sender.photos[0].url}} />
             <ListItem.Content>
-              <ListItem.Title>{item.request_sender.dog_name}</ListItem.Title>
+              <ListItem.Title>{item.sender_id === user ? item.request_recipient.dog_name : item.request_sender.dog_name }</ListItem.Title>
               <ListItem.Subtitle style={{color: "grey"}}>Start chatting</ListItem.Subtitle>
             </ListItem.Content>
           </ListItem>
