@@ -5,10 +5,10 @@ import { View, Text } from 'react-native';
 const ChatBody = ({messages, user}) => {
 
   const renderMessages = (messages)=>{
-    return messages.map((message)=>{
+    return messages.map((message, i)=>{
       if (message.sender_id === user) {
         return (
-          <View key={message.content}>
+          <View key={i}>
             <Text style={{color: 'orange'}} >{message.content}</Text>
           </View>
         )
