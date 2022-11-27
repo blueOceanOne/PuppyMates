@@ -15,23 +15,26 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
   const [expandBreed, setExpandBreed] = useState(false);
   const [expandFilter, setExpandFilter] = useState(false);
   const [displayConfirm, setDisplayConfirm] = useState(false);
-  const [selection, setSelection] = useState({});
+  const initialSelect = { category: '', value: '' };
+  const [selection, setSelection] = useState();
   const [value, setValue] = useState('');
   const [category, setCategory] = useState('');
 
   const handleExpandFilter = () => {
-    if (expandFilter) {
-      setValue('');
-      setCategory('');
-      setExpandFilter(false);
-    } else {
-      setExpandFilter(true);
-    }
+    // if (expandFilter && !displayConfirm) {
+    //   setValue('');
+    //   setCategory('');
+    //   setExpandFilter(false);
+    // } else {
+    //   setExpandFilter(true);
+    // }
+    setExpandFilter(!expandFilter);
   };
 
   const handleExpandBreed = () => {
     if (expandBreed) {
       setCategory('');
+      setValue('');
       setExpandBreed(false);
     } else {
       setExpandBreed(true);
@@ -42,6 +45,7 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
   const handleExpandSize = () => {
     if (expandSize) {
       setCategory('');
+      setValue('');
       setExpandSize(false);
     } else {
       setExpandSize(true);
@@ -51,6 +55,7 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
   const handleExpandEnergy = () => {
     if (expandEnergy) {
       setCategory('');
+      setValue('');
       setExpandEnergy(false);
     } else {
       setExpandEnergy(true);
@@ -58,11 +63,10 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
     }
   };
 
-  const handleSelection = (string) => {
+  const handleSelection = () => {
     setDisplayConfirm(true);
-    setSelection({ category: category, value: string });
-    console.log(selection);
   };
+  console.log('category', category, 'value', value);
 
   const handleValue = (currVal) => {
     if (value === currVal) {
@@ -102,8 +106,10 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
     // filterCategory: "Breed", filterValue: "Corgi"}
 
     // set expandFilter to false to close the accordion + update/reset relevant states
+    setFilter({ ...filter, filterCategory: category, filterValue: value });
     setExpandFilter(false);
   };
+  console.log('filter', filter);
 
   return (
     <View style={{ flex: 0.5, zIndex: 2 }}>

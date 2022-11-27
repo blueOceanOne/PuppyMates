@@ -3,6 +3,7 @@ import { View, Text, SafeAreaView } from 'react-native';
 import axios from 'axios';
 import FilterContainer from './FilterContainer.jsx';
 import CarouselCards from './CarouselCards.jsx';
+import config from '../../config.js';
 //prop to be passed in to get current user's id
 const { useState, useEffect } = React;
 const Home = () => {
@@ -15,10 +16,15 @@ const Home = () => {
   // axios.get(`http://${config.localIP}:${config.port}/users`);
 
   //LOCAL USERS
+  // const id = 1;
   // useEffect(() => {
-  //   axios.get(`http://${config.localIP}:${config.port}/home?id=${id}`)
-  //     .then((data) => setLocalUsers(data))
-  //     .catch((err) => res.send(err))
+  //   axios
+  //     .get(`http://${config.localIP}:${config.port}/home?id=${id}`)
+  //     .then((data) => {
+  //       console.log(data, 'data');
+  //       setLocalUsers(data);
+  //     })
+  //     .catch((err) => console.log(err));
   // }, []);
 
   //HANDLE FILTER FUNCTION
