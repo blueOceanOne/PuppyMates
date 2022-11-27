@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { Input, Icon, Button } from '@rneui/themed';
+import { StyleSheet, View, Text, StatusBar, TextInput, Pressable, Keyboard } from 'react-native';
+import { Input, Icon} from '@rneui/themed';
 import config from '../../config.js';
 import axios from 'axios';
 
@@ -19,16 +19,18 @@ const ChatInput = ({socket, user, recipient})=>{
   }
 
   return (
-    <View>
-        <Text>To recipient {recipient}</Text>
-        <Text>I am {user}</Text>
-        <Input
+    <View style={styles.container}>
+{/*         <Text>To recipient {recipient}</Text>
+        <Text>I am {user}</Text> */}
+        <TextInput
+            style={styles.input}
             placeholder="Message here"
             leftIcon={{ type: 'font-awesome', name: 'comment' }}
             value={message.content}
             onChangeText={(value) => setMessage({...message, content: value})} />
-        <Button
-          color="warning"
+        <Pressable
+          style={styles.button}
+          title="Send"
           onPress={(event)=>{
             event.preventDefault();
             console.log(message);
@@ -36,7 +38,9 @@ const ChatInput = ({socket, user, recipient})=>{
             sendMessage(message);
             setMessage({sender_id: user, recipient_id: recipient, content:''})
           }}
-        >Send to</Button>
+        >
+          <Text style={{fontSize: 16, color: 'white', fontWeight: 'bold'}}>Send</Text>
+        </Pressable>
     </View>
   )
 }
@@ -45,7 +49,28 @@ export default ChatInput;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 20,
+    position: 'absolute',
+    bottom: 270,
+    flext: 2,
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 10,
   },
+  input:{
+    width: '69%',
+    borderWidth: 2,
+    borderColor: 'black',
+    borderRadius: 10,
+    fontSize: 16
+  },
+  button: {
+    width: '29%',
+    height: 40,
+    borderRadius: 10,
+    backgroundColor: '#F49D1A',
+    alignItems:'center',
+    justifyContent: 'center',
+    fontSize: 16
+  }
 });

@@ -37,6 +37,7 @@ const ChatPage = ({socket, selectedRecipient, user}) => {
 }
 const style = StyleSheet.create({
   container: {
+    flex:2,
     backgroundColor: 'white'
   }
 })
