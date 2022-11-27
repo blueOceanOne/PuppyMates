@@ -49,8 +49,6 @@ export default ChatInput;
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    bottom: 270,
     flext: 2,
     backgroundColor: 'white',
     flexDirection: 'row',

@@ -30,8 +30,8 @@ const ChatPage = ({socket, selectedRecipient, user}) => {
 
   return (
     <View style={style.container}>
-      <ChatBody messages={messages} user={user} recipient={recipient}/>
       <ChatInput socket={socket} user={user} recipient={recipient}/>
+      <ChatBody messages={messages} user={user} recipient={recipient}/>
     </View>
   )
 }
