@@ -1,68 +1,71 @@
 import React from 'react';
-import { View, Image, Dimensions, Animated, PanResponder } from 'react-native';
-import { Text, Card, Button, Icon, Divider, Badge, Header, ButtonGroup } from '@rneui/themed';
+import { View, Image, Dimensions, Animated, PanResponder, StyleSheet } from 'react-native';
+import { Text, Card, Button, Icon, Divider, Badge, Header, ButtonGroup, Chip } from '@rneui/themed';
 const { useState, useEffect, useRef } = React;
 import userData from '../home/exampleData/userData.js';
 
 const MoreInfo = ({ item }) => {
   return (
-    <Card width="100%" alignSelf="center" borderRadius="10">
-      <Text h4>{`${item.city}, ${item.state}`}</Text>
-      <View
-        style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          justifyContent: 'left',
-        }}
-      >
-        <Button
+    <View style={styles.moreInfo}>
+      <Text
+        style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: 5 }}
+      >{`${item.city}, ${item.state}`}</Text>
+      <View style={styles.chipView}>
+        <Chip
           title={item.breed}
           size="xs"
-          buttonStyle={{
-            backgroundColor: '#FFD8A9',
-            borderColor: 'transparent',
-            borderWidth: 0,
-            borderRadius: 10,
-            marginBottom: 6,
-          }}
+          color="#FFD8A9"
+          containerStyle={{ padding: 2 }}
+          titleStyle={{ color: 'black' }}
         />
-        <Button
-          title={`${item.energy} energy`}
+        <Chip
+          title={item.size}
           size="xs"
-          buttonStyle={{
-            backgroundColor: '#FFD8A9',
-            borderColor: 'transparent',
-            borderWidth: 0,
-            borderRadius: 10,
-          }}
+          color="#FFD8A9"
+          containerStyle={{ padding: 2 }}
+          titleStyle={{ color: 'black' }}
+        />
+        <Chip
+          title={`${item.energy} Energy`}
+          size="xs"
+          color="#FFD8A9"
+          containerStyle={{ padding: 2 }}
+          titleStyle={{ color: 'black' }}
         />
         {item.people_friendly ? (
-          <Button
-            title="People friendly"
+          <Chip
+            title="People Friendly"
             size="xs"
-            buttonStyle={{
-              backgroundColor: '#FFD8A9',
-              borderColor: 'transparent',
-              borderWidth: 0,
-              borderRadius: 10,
-            }}
+            color="#FFD8A9"
+            containerStyle={{ padding: 2 }}
+            titleStyle={{ color: 'black' }}
           />
         ) : null}
         {item.dog_friendly ? (
-          <Button
-            title="Dog friendly"
+          <Chip
+            title="Dog Friendly"
             size="xs"
-            buttonStyle={{
-              backgroundColor: '#FFD8A9',
-              borderColor: 'transparent',
-              borderWidth: 0,
-              borderRadius: 10,
-            }}
+            color="#FFD8A9"
+            containerStyle={{ padding: 2 }}
+            titleStyle={{ color: 'black' }}
           />
         ) : null}
       </View>
-      <Text>{item.bio}</Text>
-    </Card>
+      <Text style={{ fontSize: 18, paddingLeft: 5 }}>{item.bio}</Text>
+    </View>
   );
 };
 export default MoreInfo;
+const styles = StyleSheet.create({
+  moreInfo: {
+    backgroundColor: '#F5EFE6',
+    padding: 5,
+    borderRadius: 10,
+    margin: 10,
+  },
+  chipView: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start',
+  },
+});
