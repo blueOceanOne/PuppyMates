@@ -1,23 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { events, userData, pendingEvents } from '../../sampleData/events.js';
+import { events, userData } from '../../sampleData/events.js';
 import { SafeAreaView, ScrollView, StyleSheet, Avatar, Text, View, Button, Pressable, Alert } from 'react-native';
 import CreateEvent from './createEvent.jsx';
 import Map from './Map.jsx';
+import axios from 'axios';
 import { format } from 'date-fns';
 import * as Location from 'expo-location';
-
+import config from '../../config.js';
 
 const PendingEvents = ({DYNAMICUSERINFO}) => {
-  // REQUIRES HTTP REQUEST TO GET DATA
-  // const eventList = [];
+  const [pendingEvents, setPendingEvents] = useState([]);
 
-  // axios.get('/events/pending/whatever')
-  //   .then((results) => {
-  //     events = results.data
-  //   )}
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
+  // There is something wrong with the way that address is being interpolated via reverse geo-coding
+  // Need to look into it later
+  useEffect(() => {
+    axios.get(`http://${config.localIP}:${config.port}/pendingEvents/${userData[0].id}`)
+      .then(async (results) => {
+        const rawEvents = results.data;
+        await rawEvents.forEach(async (element) => {
+          const coordinates = {latitude: element.event.latitude, longitude: element.event.longitude}
+          await Location.reverseGeocodeAsync(coordinates)
+            .then((addressObj) => {
+              element.event.address =
+              `${addressObj[0].streetNumber ? `${addressObj[0].streetNumber} ` : ''}${addressObj[0].street}, ${addressObj[0].city} ${addressObj[0].region} ${addressObj[0].postalCode}`
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+        })
+        await setPendingEvents(rawEvents);
+        console.log(pendingEvents);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    }, [])
 
   const handleAccept = (eventId) => {
     Alert.alert('See you there!');
@@ -29,40 +46,29 @@ const PendingEvents = ({DYNAMICUSERINFO}) => {
     // perform axios request
   }
 
+  // if (loading) {
+  //   return (<></>)
+  // }
+
   return (
     <View style={styles.container}>
       {pendingEvents.map((each) => {
-        const [loading, setLoading] = useState(true)
-        const [address, setAddress] = useState(null);
-        const unformattedDate = each.eventDate;
-        const niceDate = format(unformattedDate, 'MMM do, yy')
+        console.log('each element while rendering: ', each);
+        const unformattedDate = new Date(each.event.createdAt);
+        const niceDate = format(unformattedDate, 'MMM do, yy');
         const niceTime = format(unformattedDate, 'h:mmaa');
-        const geocodingInput = {
-          latitude: each.eventLocation[0],
-          longitude: each.eventLocation[1]
-        };
-        useEffect(() => {
-          Location.reverseGeocodeAsync(geocodingInput)
-          .then((geocodedAddress) => {
-            setAddress(
-              `${geocodedAddress[0].streetNumber ? `${geocodedAddress[0].streetNumber} ` : ''}${geocodedAddress[0].street}, ${geocodedAddress[0].city} ${geocodedAddress[0].region} ${geocodedAddress[0].postalCode}`
-            );
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-        }, []);
+        console.log(niceDate, niceTime);
 
         return (
-          <View style={styles.singleEvent} key={each.eventId}>
-            <Text style={styles.name}>{each.eventTitle}</Text>
-            <Text style={styles.host}>{each.hostUsername}</Text>
-            <Text style={styles.address}>{address}</Text>
+          <View style={styles.singleEvent} key={each.event.id}>
+            <Text style={styles.name}>{each.event.title}</Text>
+            <Text style={styles.host}>{each.event.host_id}</Text>
+            <Text style={styles.address}>{each.event.address}</Text>
             <Text style={styles.datetime}>{niceDate}</Text>
             <Text style={styles.datetime}>{niceTime}</Text>
-            <Text style={styles.description}>{each.eventDescription}</Text>
-            <Button title="Accept" onPress={() => {handleAccept(each.eventId)}}/>
-            <Button color="#FF0000" title="Reject" onPress={() => {handleReject(each.eventId)}}/>
+            <Text style={styles.description}>{each.event.description}</Text>
+            <Button title="Accept" onPress={() => {handleAccept(each.event_id)}}/>
+            <Button color="#FF0000" title="Reject" onPress={() => {handleReject(each.event_id)}}/>
           </View>
         )
       })}

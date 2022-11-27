@@ -3,8 +3,6 @@ import { SafeAreaView, View, StyleSheet, StatusBar, Text } from 'react-native';
 import * as Location from 'expo-location';
 
 const EventList = ({eventList}) => {
-  console.log('event list within eventlist.jsx: ', eventList);
-
   if (eventList.length === 0) {
     return (
       <>
@@ -19,7 +17,6 @@ const EventList = ({eventList}) => {
         const coords = {latitude: each.event.latitude, longitude: each.event.longitude};
         Location.reverseGeocodeAsync(coords)
           .then((geocodedAddress) => {
-            console.log(geocodedAddress);
             setAddress(
               `${geocodedAddress[0].streetNumber ? `${geocodedAddress[0].streetNumber} ` : ''}${geocodedAddress[0].street} ${geocodedAddress[0].city}, ${geocodedAddress[0].region} ${geocodedAddress[0].postalCode}`
             )
