@@ -298,6 +298,11 @@ module.exports = {
               attributes: { exclude: ['createdAt', 'updatedAt', 'event_id'] },
               required: false,
             },
+            {
+              model: User,
+              attributes: ['dog_name'],
+              include: [{ model: Photo, attributes: ['id', 'url'] }],
+            },
           ],
         },
       ],
@@ -322,6 +327,11 @@ module.exports = {
         {
           model: Event,
           attributes: { exclude: ['createdAt', 'updatedAt'] },
+        },
+        {
+          model: User,
+          attributes: ['dog_name'],
+          include: [{ model: Photo, attributes: ['id', 'url'] }],
         },
       ],
       order: [[Event, 'date', 'DESC']],
