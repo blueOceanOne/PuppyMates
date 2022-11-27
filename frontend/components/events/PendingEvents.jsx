@@ -7,6 +7,7 @@ import axios from 'axios';
 import { format } from 'date-fns';
 import * as Location from 'expo-location';
 import config from '../../config.js';
+import { useNavigation } from '@react-navigation/native';
 
 const PendingEvents = ({DYNAMICUSERINFO}) => {
   const [pendingEvents, setPendingEvents] = useState([]);
@@ -36,14 +37,37 @@ const PendingEvents = ({DYNAMICUSERINFO}) => {
       })
     }, [])
 
+  const cleanup = (targetId) => {
+    for (var i = 0; i < pendingEvents.length; i++) {
+      if (pendingEvents[i].event.event_id === targetId) {
+        const pendingCopy = [...pendingEvents];
+        pendingCopy.splice(i, 1);
+        setPendingEvents([...pendingCopy]);
+        return;
+      }
+    }
+  }
+
   const handleAccept = (eventId) => {
     Alert.alert('See you there!');
-    // perform axios request
+    axios.put(`http://${config.localIP}:${config.port}/pendingEvents/confirm/${sampleUserData[0].id}?event_id=${eventId}`)
+      .then(() => {
+        cleanup(eventId);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   const handleReject = (eventId) => {
     Alert.alert(`Event Rejected`);
-    // perform axios request
+    axios.put(`http://${config.localIP}:${config.port}/pendingEvents/reject/${sampleUserData[0].id}?event_id=${eventId}`)
+      .then(() => {
+        cleanup(eventId);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   // if (loading) {

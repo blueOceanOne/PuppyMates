@@ -26,6 +26,7 @@ export default function Map({attendingEvents}) {
         initialRegion={{
           // latitude: 37.831234648041054,
           // longitude: -122.29168866522882,
+          // TEMPORARY INTIAL REGION.
           latitude: attendingEvents[0].event.latitude,
           longitude: attendingEvents[0].event.longitude,
           longitudeDelta: 0.4,
