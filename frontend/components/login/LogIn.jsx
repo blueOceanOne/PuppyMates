@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
+import * as Crypto from 'expo-crypto';
 
 export default LogIn = ({ navigation }) => {
-  const [ email, setEmail ] = useState('');
+  const [ user_email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
 
   const handleEmailChange = text => {
@@ -13,11 +14,16 @@ export default LogIn = ({ navigation }) => {
     setPassword(text);
   }
 
-  const onLogIn = () => {
+  const onLogIn = async () => {
+    const digest = await Crypto.digestStringAsync(
+      Crypto.CryptoDigestAlgorithm.SHA256,
+      password
+    );
+    console.log(digest)
     navigation.navigate('App');
   }
 
-  const LogInBtn = email.length && password.length ? (
+  const LogInBtn = user_email.length && password.length ? (
     <Button onPress={onLogIn} title="Log In" />
   ) : (
     <Button title="Log In" disabled />
@@ -30,7 +36,7 @@ export default LogIn = ({ navigation }) => {
   return (
     <View>
       <Text>PuppyMates</Text>
-      <TextInput textContentType="emailAddress" value={email} onChangeText={handleEmailChange} placeholder="Email" />
+      <TextInput textContentType="emailAddress" value={user_email} onChangeText={handleEmailChange} placeholder="Email" />
       <TextInput textContentType="password" value={password} onChangeText={handlePasswordChange} placeholder="Password" secureTextEntry={true} />
       {LogInBtn}
       <Button title="Create an account" onPress={SignUp} />
