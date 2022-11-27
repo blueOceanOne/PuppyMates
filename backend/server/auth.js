@@ -1,14 +1,26 @@
 require('../db/models/models');
-const pbkdf2 = require('pbkdf2');
-const Crypto = require('crypto');
+const crypto = require('crypto');
 const User = require('../db/models/User');
 const Breed = require('../db/models/Breed');
 const Photo = require('../db/models/Photo');
 
 function hashPassword(password) {
-  const salt = Crypto.randomBytes(128).toString('base64');
+  const salt = crypto.randomBytes(128).toString('base64');
   const iterations = 10000;
-  const hash = pbkdf2(password, salt, iterations);
+  const hash = crypto.pbkdf2(
+    password.toString(),
+    salt,
+    iterations,
+    64,
+    'sha512',
+    (err, derivedKey) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(derivedKey);
+      }
+    }
+  );
 
   return {
     salt: salt,
@@ -18,10 +30,39 @@ function hashPassword(password) {
 }
 
 function isPasswordCorrect(savedHash, savedSalt, savedIterations, passwordAttempt) {
-  return savedHash === pbkdf2(passwordAttempt, savedSalt, savedIterations);
+  return savedHash === Crypto.pbkdf2(passwordAttempt, savedSalt, savedIterations);
 }
 
 module.exports = {
+  signup: function (req, res) {
+    console.log('body: ', req.body);
+    const encryption = hashPassword(req.body.hashed_password);
+    const newUser = {
+      email: req.body.user_email,
+      hashed_password: encryption.hash,
+      salt: encryption.salt,
+      iterations: encryption.iterations,
+      dog_name: req.body.dog_name,
+      breed: req.body.breed,
+      size: req.body.size,
+      dog_friendly: req.body.dog_friendly,
+      people_friendly: req.body.people_friendly,
+      energy: req.body.energy,
+      city: req.body.city,
+      state: req.body.state,
+      latitude: req.body.latitude,
+      longitude: req.body.longitude,
+      bio: req.body.bio,
+    };
+
+    User.create(newUser)
+      .then(() => res.sendStatus(201))
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(400);
+      });
+  },
+
   verify_email: function(req, res) {
     const { user_email } = req.query;
     User.findAll({

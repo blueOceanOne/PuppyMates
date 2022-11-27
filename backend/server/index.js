@@ -47,6 +47,11 @@ app.get('/email', (req, res) => {
   auth.verify_email(req, res);
 });
 
+app.post('/signup', (req, res) => {
+  console.log('post received');
+  auth.signup(req, res);
+});
+
 app.get('/users', (req, res) => {
   controllers.getUser(req, res);
 });
