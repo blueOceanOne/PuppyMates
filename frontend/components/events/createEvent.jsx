@@ -2,6 +2,8 @@ import React, {useRef, useState, useEffect, Form} from 'react';
 import { ScrollView, View, StyleSheet, Text, TextInput, Button, Pressable, Alert } from 'react-native';
 import { ListItem, Avatar } from '@rneui/themed';
 import userData from '../home/exampleData/userData.js'
+import axios from 'axios';
+import config from '../../config.js';
 import * as eventsSampleData from '../../sampleData/events.js';
 import { Input } from '@rneui/themed';
 import Guests from './Guests.jsx';
@@ -15,13 +17,13 @@ const CreateEvent = ({invitees, DYNAMICUSERINFO}) => {
   const sampleData = userData;
   const hostData = eventsSampleData.userData;
 
-  const [open, setOpen] = useState(false);
   const [event, setEvent] = useState({
-    host: hostData[0].id,
+    host_id: hostData[0].id,
     description: null,
     title: null,
     date: (new Date()),
-    address: null,
+    latitude: null,
+    longitude: null,
     invitees: null
   })
 
@@ -44,20 +46,22 @@ const CreateEvent = ({invitees, DYNAMICUSERINFO}) => {
   })
 
   const coordinatify = async () => {
-    await Location.geocodeAsync(event.address)
-    .then((results) => {
+    try {
+      const coordinates = await Location.geocodeAsync(event.address);
       const eventCopy = {...event};
-      eventCopy.address = [results[0].latitude, results[0].longitude];
-      setEvent(eventCopy);
-    })
-    .catch((err) => {
-      Alert.alert('The address is invalid');
-    });
+      eventCopy.longitude = coordinates[0].longitude;
+      eventCopy.latitude = coordinates[0].latitude;
+      await setEvent(eventCopy);
+      return eventCopy;
+    }
+    catch (err) {
+      Alert.alert('Invalid address');
+      return err;
+    }
   }
 
-  const handleCreate = async () => {
-    await coordinatify();
-    const anyNullValues = Object.values(event).reduce((memo, currElement) => {
+  const send = (input) => {
+    const anyNullValues = Object.values(input).reduce((memo, currElement) => {
       if (memo === true) {
         return true;
       }
@@ -65,10 +69,23 @@ const CreateEvent = ({invitees, DYNAMICUSERINFO}) => {
     }, false
     )
     if (!anyNullValues) {
-      Alert.alert('Successfully created event');
+      axios.post(`http://${config.localIP}:${config.port}/attendingEvents`, input)
+      .then(() => {
+        Alert.alert('Successfully created event');
+      })
+      .catch((err) => {
+        Alert.alert('We had a little oopsie daisy bingo boingo :( Could not create event');
+      })
     } else {
       Alert.alert('The event details are incomplete');
     }
+  }
+
+  const handleCreate = () => {
+    coordinatify()
+      .then((results) => {
+        send(results);
+      })
   }
 
   return (
