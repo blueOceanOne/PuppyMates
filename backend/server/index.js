@@ -33,7 +33,7 @@ io.on('connection', (socket) => {
       }
     });
     if (secondUser) {
-      newUser = { id: 34, socket_id: socket.id };
+      newUser = { id: 43, socket_id: socket.id };
       clients[socket.id] = newUser.id;
       clientsById[newUser.id] = socket.id;
       socket.emit('sendID', newUser);
