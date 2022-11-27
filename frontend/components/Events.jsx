@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View, Button, Pressable } from 'react-native';
 import { events, userData } from '../sampleData/events.js';
 import EventList from '../components/events/EventList.jsx';
@@ -7,13 +8,33 @@ import Map from '../components/events/Map.jsx';
 import { useNavigation } from '@react-navigation/native';
 import PendingEvents from './events/PendingEvents.jsx';
 import { FAB } from '@rneui/themed';
+import config from '../config.js';
 
 const Events = () => {
+  const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
   const [tab, setTab] = useState('attending');
+  const [attendingEvents, setAttendingEvents] = useState([]);
 
-  const sampleEvents = events;
+  const sampleUserData = userData;
 
+  useEffect(() => {
+    // axios.get(`http://${config.localIP}:${config.port}/attendingEvents/${sampleUserData[0].id}`)
+    axios.get(`http://${config.localIP}:${config.port}/attendingEvents/2`)
+      .then((results) => {
+        setAttendingEvents(results.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  if (loading) {
+    return (
+     <></>
+    )
+  }
   return (
     <SafeAreaView styles={styles.container}>
       <ScrollView>
@@ -28,9 +49,9 @@ const Events = () => {
           {(tab === 'attending') ?
             <>
               <View style={styles.mapView}>
-                <Map />
+                <Map attendingEvents={attendingEvents} />
               </View>
-              <EventList eventList={sampleEvents} />
+              <EventList eventList={attendingEvents} />
               <Button title='Create Event' onPress={() => {
                 navigation.navigate('Create Event');
               }}/>

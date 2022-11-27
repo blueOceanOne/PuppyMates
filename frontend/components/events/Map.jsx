@@ -3,15 +3,15 @@ import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { events } from '../../sampleData/events.js';
 
-export default function Map({DYNAMICEVENTINFO}) {
-  const localEvents = events;
+export default function Map({attendingEvents}) {
+  const localEvents = attendingEvents;
   const markerRender = (localEvent) => {
     return (
       <Marker
-        key={localEvent.eventId}
+        key={localEvent.event.id}
         coordinate={{
-          latitude : localEvent.eventLocation[0],
-          longitude : localEvent.eventLocation[1]
+          latitude : localEvent.event.latitude,
+          longitude : localEvent.event.longitude
         }}
         title={localEvent.eventTitle}
         description={localEvent.eventDescription}
@@ -24,8 +24,10 @@ export default function Map({DYNAMICEVENTINFO}) {
       <MapView
         style={styles.mapBounds}
         initialRegion={{
-          latitude: 37.831234648041054,
-          longitude: -122.29168866522882,
+          // latitude: 37.831234648041054,
+          // longitude: -122.29168866522882,
+          latitude: attendingEvents[0].event.latitude,
+          longitude: attendingEvents[0].event.longitude,
           longitudeDelta: 0.4,
           latitudeDelta: 0.3
         }}
