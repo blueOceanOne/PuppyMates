@@ -4,11 +4,12 @@ import Requests from './Requests.jsx';
 import ChatsList from './ChatsList.jsx';
 import { Button } from '@rneui/themed';
 
-const MessagePage = ({socket, selectedRequest, setSelectedRequest}) => {
+const MessagePage = ({socket, user, selectedRequest, setSelectedRequest, selectedRecipient, setSelectedRecipient, pending, setPending, matched, setMatched}) => {
+
   return (
     <View>
-      <Requests selectedRequest={selectedRequest} setSelectedRequest={setSelectedRequest}/>
-      <ChatsList socket={socket}/>
+      <Requests selectedRequest={selectedRequest} setSelectedRequest={setSelectedRequest} user={user} pending={pending} setPending={setPending}/>
+      <ChatsList socket={socket} selectedRecipient={selectedRecipient} setSelectedRecipient={setSelectedRecipient} user={user} matched={matched} setMatched={setMatched}/>
     </View>
   )
 }

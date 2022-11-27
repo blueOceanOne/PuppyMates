@@ -2,17 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import ChatBody from './ChatBody.jsx';
 import ChatInput from './ChatInput.jsx';
+import config from '../../config.js';
+import axios from 'axios';
 
-const ChatPage = ({socket}) => {
+const ChatPage = ({socket, selectedRecipient, user}) => {
 
-  const [messages, setMessages]=useState([]);
-  const [user, setUser]=useState('');
-
-  useEffect(()=>{
-    socket.emit('requestID', null);
-    socket.on('sendID', (arg)=>{
-      setUser(arg);
-    })
+  const [messages, setMessages] = useState([]);
+  const [recipient, setRecipient] = useState(selectedRecipient)
+  useEffect(() => {
+    axios.get(`http://${config.localIP}:${config.port}/messages/${user}`, { params: {participant_id: selectedRecipient}})
+      .then((response)=>{
+        setMessages(response.data);
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
   }, [])
 
   useEffect(() => {
@@ -26,8 +30,8 @@ const ChatPage = ({socket}) => {
 
   return (
     <View>
-      <ChatBody messages={messages} user={user}/>
-      <ChatInput socket={socket} user={user}/>
+      <ChatBody messages={messages} user={user} recipient={recipient}/>
+      <ChatInput socket={socket} user={user} recipient={recipient}/>
     </View>
   )
 }

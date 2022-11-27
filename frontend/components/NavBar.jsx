@@ -13,6 +13,7 @@ import * as Location from 'expo-location';
 const socket = io(`http://${config.localIP}:${config.port}`);
 
 export default function NavBar() {
+  const [user, setUser] = useState(87);
   const [errorMsg, setErrorMsg] = useState(null);
   const [coordinates, setCoordinates] = useState(null);
 
@@ -28,8 +29,16 @@ export default function NavBar() {
     })();
   }, []);
 
+  useEffect(()=>{
+    socket.emit('requestID', user);
+    socket.on('sendID', (newUser)=>{
+      console.log('new user is ', newUser);
+      setUser(newUser.id);
+    })
+  }, [])
+
   return (
-    <NavTabs socket={socket}/>
+    <NavTabs socket={socket} user={user}/>
   );
 }
 
