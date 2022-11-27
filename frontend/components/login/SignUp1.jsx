@@ -1,33 +1,22 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
-import RadioButtonRN from 'radio-buttons-react-native';
+import CheckBox from 'expo-checkbox';
 
 export default SignUp1 = ({ navigation }) => {
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ repeatPassword, setRepeatPassword ] = useState('');
-  const [ under18, setUnder18 ] = useState(null);
-
-  const under18Btns = [
-    {
-      label: 'Yes',
-      value: false,
-     },
-     {
-      label: 'No',
-      value: true,
-     }
-  ];
+  const [ toggleCheckBox, setToggleCheckBox ] = useState(false);
 
   const nextPage = () => {
     if (password === repeatPassword) {
-      navigation.navigate('Sign Up 2', { email, password, under18 })
+      navigation.navigate('Sign Up 2', { email, password })
     } else {
       Alert.alert('Passwords don\'t match');
     }
   }
 
-  const nextPageBtn = email.length && password.length && under18 !== null ? (
+  const nextPageBtn = email.length && password.length && toggleCheckBox ? (
     <Button title="Next" onPress={nextPage} />
   ) : (
     <Button title="Next" disabled />
@@ -40,9 +29,9 @@ export default SignUp1 = ({ navigation }) => {
       <TextInput textContentType="newPassword" value={password} onChangeText={setPassword} placeholder="Password" secureTextEntry={true} />
       <TextInput textContentType="newPassword" value={repeatPassword} onChangeText={setRepeatPassword} placeholder="Repeat Password" secureTextEntry={true} />
       <Text>Are you 18 or older?</Text>
-      <RadioButtonRN
-        data={under18Btns}
-        selectedBtn={ e => setUnder18(e.value) }
+      <CheckBox
+        value={toggleCheckBox}
+        onValueChange={setToggleCheckBox}
       />
       {nextPageBtn}
     </View>
