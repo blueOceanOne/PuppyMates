@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator();
 
 const MessagePageNav = ({socket, user}) => {
   const [selectedRequest, setSelectedRequest] = useState({});
-  const [selectedRecipient, setSelectedRecipient] = useState({request_sender:{dog_name: ''}});
+  const [selectedRecipient, setSelectedRecipient] = useState({request_sender:{dog_name: ''}, request_recipient:{dog_name:''}});
   const [pending, setPending] = useState([]);
   const [matched, setMatched] = useState([]);
 
@@ -25,7 +25,9 @@ const MessagePageNav = ({socket, user}) => {
       .catch((err)=>{
         console.log(err);
       })
-  }, [])
+  }, []);
+
+  const chatTitle = selectedRecipient.sender_id === user? selectedRecipient.request_recipient.dog_name : selectedRecipient.request_sender.dog_name;
 
   return (
     <Stack.Navigator style={{backgroundColor: 'white'}}>
@@ -52,7 +54,7 @@ const MessagePageNav = ({socket, user}) => {
       <Stack.Screen
         name="ChatPage"
         options={{
-          title: selectedRecipient.request_sender.dog_name,
+          title: chatTitle,
           headerTintColor: 'black',
           headerShadowVisible: false,
           headerTitleStyle: {

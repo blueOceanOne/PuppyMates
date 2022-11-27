@@ -8,8 +8,8 @@ const ChatBody = ({messages, user}) => {
     return messages.map((message, i)=>{
       if (message.sender_id === user) {
         return (
-          <View style={styles.wrapper}>
-            <View style={styles.sender} key={i}>
+          <View style={styles.wrapper}  key={i}>
+            <View style={styles.sender}>
               <Text style={styles.content} >{message.content}</Text>
             </View>
           </View>
