@@ -11,11 +11,11 @@ export default SignUp1 = ({ navigation }) => {
   const under18Btns = [
     {
       label: 'Yes',
-      value: true,
+      value: false,
      },
      {
       label: 'No',
-      value: false,
+      value: true,
      }
   ];
 
