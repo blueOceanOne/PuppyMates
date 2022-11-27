@@ -1,6 +1,7 @@
 export const userData = [
   {
     id: 1,
+    username: 'OneDog',
     dog_name: 'Luffy',
     breed: 'Corgi',
     size: 'Small',
@@ -21,6 +22,7 @@ export const userData = [
   },
   {
     id: 2,
+    username: 'imFastAfBoy',
     dog_name: 'Coffee',
     breed: 'Shiba',
     size: 'Medium',
@@ -36,6 +38,7 @@ export const userData = [
   },
   {
     id: 3,
+    username: 'ShepZuko',
     dog_name: 'Zuko',
     breed: 'German Sheperd',
     size: 'Large',
@@ -55,10 +58,11 @@ export const userData = [
   },
   {
     id: 4,
+    username: 'Cocopuff',
     dog_name: 'Coco',
     breed: 'Pomeranian',
-    size: 'small',
-    energy: 'high',
+    size: 'Small',
+    energy: 'High',
     people_friendly: true,
     dog_friendly: false,
     bio: 'Smol and fiesty',

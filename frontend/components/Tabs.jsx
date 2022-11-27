@@ -5,16 +5,25 @@ import MessagePageNav from './messages_components/MessagePageNav.jsx';
 import Home from './home/Home.jsx';
 import Events from './Events.jsx';
 import Profile from './Profile.jsx';
+import EventsSub from './EventsSub.jsx';
+import EventsNav from './events/EventsNav.jsx';
 
 const Tab = createBottomTabNavigator();
 
-const NavTabs = ({socket}) => {
+const NavTabs = ({socket, user}) => {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Messages" children={()=><MessagePageNav socket={socket}/>} />
-      <Tab.Screen name="Events" component={Events} />
-      <Tab.Screen name="Profile" component={Profile} />
+    <Tab.Navigator
+      screenOptions={
+        {headerShown: false}
+      }
+    >
+      <Tab.Screen name="Home" component={Home}/>
+      <Tab.Screen
+        name="Messages"
+        children={()=><MessagePageNav socket={socket} user={user}/>} />
+      <Tab.Screen name="Events" component={EventsNav}
+        />
+      <Tab.Screen name="Profile" component={Profile}/>
     </Tab.Navigator>
   );
 };

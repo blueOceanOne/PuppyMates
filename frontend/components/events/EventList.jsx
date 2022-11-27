@@ -1,7 +1,8 @@
 import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, StatusBar, Text } from 'react-native';
+import { SafeAreaView, View, StyleSheet, StatusBar, Text } from 'react-native';
 
 const EventList = ({eventList}) => {
+  // console.log('event list within eventlist.jsx: ', eventList);
   return (
     <View style={styles.container}>
       {eventList.map((each) => {

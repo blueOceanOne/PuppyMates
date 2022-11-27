@@ -162,7 +162,7 @@ module.exports = {
       .then((result) => res.status(200).json(result))
       .catch((err) => {
         console.log(err);
-        res.sendStatus(400);
+        res.sendStatus(404);
       });
   },
 
@@ -233,7 +233,7 @@ module.exports = {
       })
       .catch((err) => {
         console.log(err);
-        res.sendStatus(400);
+        res.sendStatus(404);
       });
   },
 
