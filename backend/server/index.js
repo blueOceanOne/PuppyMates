@@ -30,14 +30,15 @@ io.on('connection', (socket) => {
   socket.join(socket.id);
   socket.on('requestID', (arg) => {
     let newUser = { id: arg, socket_id: socket.id };
+    // ---------Below for demo users 93 and 101. Comment out line 34-45 and line 49 for real application-----------
     let secondUser = false;
     Object.keys(clients).forEach((key) => {
-      if (clients[key] === 87) {
+      if (clients[key] === 93) {
         secondUser = true;
       }
     });
     if (secondUser) {
-      newUser = { id: 34, socket_id: socket.id };
+      newUser = { id: 8, socket_id: socket.id };
       clients[socket.id] = newUser.id;
       clientsById[newUser.id] = socket.id;
       socket.emit('sendID', newUser);
