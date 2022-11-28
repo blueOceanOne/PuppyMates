@@ -15,11 +15,11 @@ export default LogIn = ({ navigation }) => {
   }
 
   const onLogIn = async () => {
-    const digest = await Crypto.digestStringAsync(
+    const hashed_password_attempt = await Crypto.digestStringAsync(
       Crypto.CryptoDigestAlgorithm.SHA256,
       password
     );
-    console.log(digest)
+    console.log({ user_email, hashed_password_attempt })
     navigation.navigate('App');
   }
 

@@ -2,16 +2,21 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 import _ from 'underscore';
 import * as Crypto from 'expo-crypto';
+import * as Location from 'expo-location';
 
 export default SignUp5 = ({ navigation, route }) => {
   const [ bio, setBio ] = useState('');
 
   const finish = async () => {
     const props = _.extend(route.params, { bio });
-    props.password = await Crypto.digestStringAsync(
+    props.hashed_password = await Crypto.digestStringAsync(
       Crypto.CryptoDigestAlgorithm.SHA256,
       props.password
     );
+    const location = await Location.getCurrentPositionAsync({});
+    props.longitude = location.coords.longitude;
+    props.latitude = location.coords.latitude;
+    delete props.password;
     console.log(props);
     navigation.navigate('App')
   }

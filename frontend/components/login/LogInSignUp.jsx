@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LogIn from './LogIn.jsx';
 import SignUp1 from './SignUp1.jsx';

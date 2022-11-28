@@ -3,20 +3,20 @@ import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
 import CheckBox from 'expo-checkbox';
 
 export default SignUp1 = ({ navigation }) => {
-  const [ email, setEmail ] = useState('');
+  const [ user_email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ repeatPassword, setRepeatPassword ] = useState('');
   const [ toggleCheckBox, setToggleCheckBox ] = useState(false);
 
   const nextPage = () => {
     if (password === repeatPassword) {
-      navigation.navigate('Sign Up 2', { email, password })
+      navigation.navigate('Sign Up 2', { user_email, password })
     } else {
       Alert.alert('Passwords don\'t match');
     }
   }
 
-  const nextPageBtn = email.length && password.length && toggleCheckBox ? (
+  const nextPageBtn = user_email.length && password.length && toggleCheckBox ? (
     <Button title="Next" onPress={nextPage} />
   ) : (
     <Button title="Next" disabled />
@@ -25,7 +25,7 @@ export default SignUp1 = ({ navigation }) => {
   return (
     <View>
       <Text>Create your account</Text>
-      <TextInput textContentType="emailAddress" value={email} onChangeText={setEmail} placeholder="Email" />
+      <TextInput textContentType="emailAddress" value={user_email} onChangeText={setEmail} placeholder="Email" />
       <TextInput textContentType="newPassword" value={password} onChangeText={setPassword} placeholder="Password" secureTextEntry={true} />
       <TextInput textContentType="newPassword" value={repeatPassword} onChangeText={setRepeatPassword} placeholder="Repeat Password" secureTextEntry={true} />
       <Text>Are you 18 or older?</Text>
