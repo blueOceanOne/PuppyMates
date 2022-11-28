@@ -3,9 +3,21 @@ import { View, Text, TextInput, Button } from 'react-native';
 import _ from 'underscore';
 import * as Crypto from 'expo-crypto';
 import * as Location from 'expo-location';
+import axios from 'axios';
+import config from '../../config.js';
 
 export default SignUp5 = ({ navigation, route }) => {
   const [ bio, setBio ] = useState('');
+
+  const addUser = (obj) => {
+    axios.post('/signup', obj)
+      .then(() => {
+        axios.get(`/login?user_email=${obj.user_email}&hashed_password_attempt=${obj.hashed_password}`)
+          .then(result  => {
+            navigation.navigate('App', { user: result.id });
+          })
+      })
+  }
 
   const finish = async () => {
     const props = _.extend(route.params, { bio });
@@ -17,8 +29,7 @@ export default SignUp5 = ({ navigation, route }) => {
     props.longitude = location.coords.longitude;
     props.latitude = location.coords.latitude;
     delete props.password;
-    console.log(props);
-    navigation.navigate('App')
+    addUser(props);
   }
 
   const finishBtn = bio.length ? (

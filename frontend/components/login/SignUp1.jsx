@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
 import CheckBox from 'expo-checkbox';
+import axios from 'axios';
 
 export default SignUp1 = ({ navigation }) => {
   const [ user_email, setEmail ] = useState('');
@@ -8,9 +9,17 @@ export default SignUp1 = ({ navigation }) => {
   const [ repeatPassword, setRepeatPassword ] = useState('');
   const [ toggleCheckBox, setToggleCheckBox ] = useState(false);
 
+  const checkEmail = (email) => {
+    axios.get(`email?user_email=${email}`)
+      .then(result => {
+        if (result) navigation.navigate('Sign Up 2', { user_email, password });
+        else Alert.alert('There is already an account associated with this email');
+      })
+  }
+
   const nextPage = () => {
     if (password === repeatPassword) {
-      navigation.navigate('Sign Up 2', { user_email, password })
+
     } else {
       Alert.alert('Passwords don\'t match');
     }

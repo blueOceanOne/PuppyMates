@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
@@ -12,7 +11,7 @@ import * as Location from 'expo-location';
 
 const socket = io(`http://${config.localIP}:${config.port}`);
 
-export default function NavBar() {
+export default function NavBar({ route }) {
   const [user, setUser] = useState(87);
   const [errorMsg, setErrorMsg] = useState(null);
   const [coordinates, setCoordinates] = useState(null);
@@ -36,6 +35,10 @@ export default function NavBar() {
       setUser(newUser.id);
     })
   }, [])
+
+  useEffect(() => {
+    setUser(route.params.user);
+  }, [ route.params.user ])
 
   return (
     <NavTabs socket={socket} user={user}/>

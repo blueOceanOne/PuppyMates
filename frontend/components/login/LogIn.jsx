@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
 import * as Crypto from 'expo-crypto';
+import axios from 'axios';
+import config from '../../config.js';
 
 export default LogIn = ({ navigation }) => {
   const [ user_email, setEmail ] = useState('');
@@ -14,13 +16,26 @@ export default LogIn = ({ navigation }) => {
     setPassword(text);
   }
 
+  const authenticateUser = (email, pwd) => {
+    axios.get(`/login?user_email=${email}$hashed_password_attempt=${pwd}`)
+      .then(result => {
+        console.log(result);
+        if (result === 'incorrect email') {
+          Alert.alert('Incorrect email')
+        } else if (result === 'incorrect password') {
+          Alert.alert('Incorrect password')
+        } else {
+          navigation.navigate('App', { user: result.id });
+        }
+      })
+  }
+
   const onLogIn = async () => {
     const hashed_password_attempt = await Crypto.digestStringAsync(
       Crypto.CryptoDigestAlgorithm.SHA256,
       password
     );
-    console.log({ user_email, hashed_password_attempt })
-    navigation.navigate('App');
+    authenticateUser(user_email, hashed_password_attempt);
   }
 
   const LogInBtn = user_email.length && password.length ? (
