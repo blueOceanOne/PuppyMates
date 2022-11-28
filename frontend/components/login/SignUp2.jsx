@@ -63,13 +63,13 @@ export default SignUp2 = ({ navigation, route }) => {
       />
       <Text>Breed</Text>
       <SelectList
-        setSelected={setBreed}
+        setSelected={e => setBreed(e.toUpperCase())}
         data={breedData}
         save="value"
       />
       <Text>Size</Text>
       <SelectList
-        setSelected={ e => setSize(e.toLowerCase())}
+        setSelected={e => setSize(e.toLowerCase())}
         data={sizeData}
         save="value"
       />
