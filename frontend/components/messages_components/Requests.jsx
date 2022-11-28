@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableWithoutFeedback, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
 import { ListItem, Avatar } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
 import RequestDetail from './RequestDetail.jsx';
@@ -7,43 +7,69 @@ import config from '../../config.js';
 import axios from 'axios';
 
 const Requests = ({selectedRequest, setSelectedRequest, user, pending, setPending}) => {
-  //const [pendingData, setPendingData] = useState([]);
-
-/*   useEffect (()=>{
-    axios.get(`http://${config.localIP}:${config.port}/requests/pending/${user}`)
-    .then((response)=>{
-      setPending(response.data)
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
-  }, []); */
-
   const navigation = useNavigation();
 
   return (
-    <View>
-      <Text>Pending requests</Text>
-      {
-        pending.map((item, i) => (
-          <ListItem
-            key={i}
-            bottomDivider
-            onPress = {(event) => {
+    <SafeAreaView>
+      <Text style={styles.text}>Pending requests</Text>
+      <ScrollView horizontal={true}>
+        <View style={styles.requestCards}>
+        {
+          pending.map((item, i) => (
+            <TouchableOpacity
+              key={i}
+              onPress = {(event) => {
               event.preventDefault();
               setSelectedRequest(item.sender_id);
               navigation.navigate('RequestDetail');
-            }}
-          >
-            <Avatar source={{uri: item.request_sender.photos[0].url}} />
-            <ListItem.Content>
-              <ListItem.Title>{item.request_sender.dog_name}</ListItem.Title>
-            </ListItem.Content>
-          </ListItem>
-        ))
-      }
-    </View>
+            }}>
+              <View style={styles.request}>
+                <Image style={styles.image} source={{uri:item.request_sender.photos[0].url}}></Image>
+                <Text style={styles.name}>{item.request_sender.dog_name}</Text>
+              </View>
+            </TouchableOpacity>
+          ))
+        }
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
 export default Requests;
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginHorizontal: 8
+  },
+
+  requestCards: {
+    flexDirection: 'row',
+    justifyContent: 'space'
+  },
+
+  request: {
+    width: 90,
+    height: 120,
+    borderRadius: 15,
+    backgroundColor: '#FFE15D',
+    marginHorizontal: 8,
+    marginTop: 10
+  },
+
+  image: {
+    height: 90,
+    width: 90,
+    borderRadius: 15
+  },
+
+  name: {
+    textAlign: 'center',
+    marginTop: 5,
+    fontWeight: '500'
+  }
+})
+
+
