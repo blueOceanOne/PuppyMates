@@ -17,7 +17,7 @@ export default LogIn = ({ navigation }) => {
   }
 
   const authenticateUser = (email, pwd) => {
-    axios.get(`/login?user_email=${email}$hashed_password_attempt=${pwd}`)
+    axios.get(`http://${config.localIP}:${config.port}/login?user_email=${email}$hashed_password_attempt=${pwd}`)
       .then(result => {
         console.log(result);
         if (result === 'incorrect email') {
