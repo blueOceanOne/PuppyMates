@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Details from './Details.jsx'
 import config from '../../config.js';
 import axios from 'axios';
 
@@ -43,7 +44,7 @@ const RequestDetail = ({selectedRequest, user, setMatched, setPending}) => {
   if (selectedUser!=='empty') {
     return (
       <View>
-        <Text>Dog Detail page of {selectedUser.dog_name}</Text>
+        <Details selectedUser={selectedUser}/>
         <Button
           title="Accept"
           onPress = {(event)=>{
