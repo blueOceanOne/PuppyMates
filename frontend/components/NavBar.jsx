@@ -13,7 +13,7 @@ import * as Location from 'expo-location';
 const socket = io(`http://${config.localIP}:${config.port}`);
 
 export default function NavBar() {
-  const [user, setUser] = useState(91);
+  const [user, setUser] = useState(72);
   const [errorMsg, setErrorMsg] = useState(null);
   const [coordinates, setCoordinates] = useState(null);
 
