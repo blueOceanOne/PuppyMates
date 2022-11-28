@@ -3,7 +3,7 @@ id,email,dog_name,breed_id,size,dog_friendly,people_friendly,energy,city,state,b
 2,Noodlelover26@test.com,Noodle,242,small,FALSE,FALSE,average,San Francisco,CA,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08,37.75604387,-122.4588889
 3,Sukilover24@test.com,Suki,336,large,FALSE,FALSE,average,San Francisco,CA,null,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08,37.77432261,-122.4129165
 4,Marleylover10@test.com,Marley,2,small,TRUE,FALSE,average,San Francisco,CA,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08,37.74981749,-122.4826788
-5,Luffylover15@test.com,Luffy,178,small,FALSE,TRUE,average,San Francisco,CA,A little shy at first but will become your pet's best friend in no time,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08,37.7576679,-122.4848442
+5,Luffylover15@test.com,Luffy,34,small,FALSE,TRUE,average,San Francisco,CA,A little shy at first but will become your pet's best friend in no time,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08,37.7576679,-122.4848442
 6,Zukolover29@test.com,Zuko,10,extra large,FALSE,TRUE,high,San Francisco,CA,Could spend hours hiking everyday. They're a handful but they're the best.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08,37.77215498,-122.4587781
 7,Astrolover9@test.com,Astro,58,extra small,FALSE,TRUE,average,San Francisco,CA,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08,37.75260658,-122.4382322
 8,Snowylover3@test.com,Snowy,193,extra small,FALSE,TRUE,average,San Francisco,CA,null,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08,37.7680413,-122.4736159

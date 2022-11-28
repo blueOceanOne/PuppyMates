@@ -22,7 +22,7 @@ const Home = () => {
         const users = res.data.slice(10);
         setLocalUsers(users);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => err);
   }, []);
 
   const handleFilter = (currCategory, currVal) => {
@@ -37,7 +37,7 @@ const Home = () => {
         setLocalUsers(filterUsers);
         setFilter(initialFilter);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => err);
   };
 
   return (

@@ -28,7 +28,7 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
         const breedNames = breedList.map((breed) => breed.breed);
         setBreeds(breedNames);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => err);
   }, []);
 
   const handleExpandFilter = () => {
