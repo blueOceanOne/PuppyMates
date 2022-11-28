@@ -3,26 +3,17 @@ import { View, Image, Dimensions, Animated, PanResponder, StyleSheet } from 'rea
 import { Text, Card, Button, Icon, Divider } from '@rneui/themed';
 const { useState, useEffect, useRef } = React;
 
-const ImageGallery = ({ photos, setImgIndex, imgIndex }) => {
+const ImageGallery = ({ photos, setImgIndex, imgIndex, email, id }) => {
   return (
     <View style={styles.dotContainer}>
-      {photos.map((photo, index) =>
-        imgIndex === index ? (
-          <Button
-            buttonStyle={{ backgroundColor: '#F49D1A' }}
-            key={photo}
-            style={styles.dots}
-            onPress={() => setImgIndex(index)}
-          />
-        ) : (
-          <Button
-            buttonStyle={{ backgroundColor: '#FFE15D' }}
-            key={photo}
-            style={styles.dots}
-            onPress={() => setImgIndex(index)}
-          />
-        )
-      )}
+      {photos.map((photo, index) => (
+        <Button
+          buttonStyle={{ backgroundColor: imgIndex === index ? '#F49D1A' : '#FFE15D' }}
+          key={`${photo.url} - ${email} - ${id} - ${index}`}
+          style={styles.dots}
+          onPress={() => setImgIndex(index)}
+        />
+      ))}
     </View>
   );
 };

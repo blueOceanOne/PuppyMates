@@ -136,17 +136,23 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
             }}
             borderRadius="10"
             source={{
-              uri: item.photos[imgIndex],
+              uri: item.photos[imgIndex].url,
             }}
           />
         </TouchableWithoutFeedback>
-        <ImageGallery photos={item.photos} setImgIndex={setImgIndex} imgIndex={imgIndex} />
+        <ImageGallery
+          photos={item.photos}
+          setImgIndex={setImgIndex}
+          imgIndex={imgIndex}
+          email={item.email}
+          id={item.id}
+        />
         <View flexDirection="row" justifyContent="space-between" style={{ paddingHorizontal: 5 }}>
           <Text h4 style={{ fontWeight: 'bold', padding: 2 }}>
             {item.dog_name}
           </Text>
           <Text h4 style={{ fontWeight: 'bold', padding: 2 }}>
-            {calcDistance(item)} miles away
+            {Math.round(item.distance)} miles away
           </Text>
         </View>
         {viewMore ? (

@@ -1,15 +1,17 @@
 import React from 'react';
+import axios from 'axios';
 import { View, Text, FlatList, ScrollView } from 'react-native';
 import { ListItem, Button, Badge, Icon } from '@rneui/themed';
-const { useState } = React;
+const { useState, useEffect } = React;
 import userData from '../home/exampleData/userData.js';
+import config from '../../config.js';
 
 // will look to access breed options in db
 
 const sizes = ['Small', 'Medium', 'Large'];
-const energy = ['Low', 'Medium', 'High'];
+const energy = ['Low', 'Average', 'High'];
 
-const FilterContainer = ({ filter, setFilter, handleFilter, breeds }) => {
+const FilterContainer = ({ filter, setFilter, handleFilter }) => {
   const [expandSize, setExpandSize] = useState(false);
   const [expandEnergy, setExpandEnergy] = useState(false);
   const [expandBreed, setExpandBreed] = useState(false);
@@ -19,6 +21,20 @@ const FilterContainer = ({ filter, setFilter, handleFilter, breeds }) => {
   const [selection, setSelection] = useState();
   const [value, setValue] = useState('');
   const [category, setCategory] = useState('');
+  const [breeds, setBreeds] = useState([]);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://${config.localIP}:${config.port}/breeds`)
+  //     .then((res) => {
+  //       // console.log(res.data, 'breed');
+  //       const breedList = res.data;
+  //       breedList.sort((a, b) => a.breed.localeCompare(b.breed));
+  //       const breedNames = breedList.map((breed) => breed.breed);
+  //       setBreeds(breedNames);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   const handleExpandFilter = () => {
     // if (expandFilter && !displayConfirm) {
@@ -66,7 +82,6 @@ const FilterContainer = ({ filter, setFilter, handleFilter, breeds }) => {
   const handleSelection = () => {
     setDisplayConfirm(true);
   };
-  console.log('category', category, 'value', value);
 
   const handleValue = (currVal) => {
     if (value === currVal) {
@@ -106,10 +121,10 @@ const FilterContainer = ({ filter, setFilter, handleFilter, breeds }) => {
     // filterCategory: "Breed", filterValue: "Corgi"}
 
     // set expandFilter to false to close the accordion + update/reset relevant states
-    setFilter({ ...filter, filterCategory: category, filterValue: value });
+
+    handleFilter(category, value);
     setExpandFilter(false);
   };
-  console.log('filter', filter);
 
   return (
     <View style={{ zIndex: 2 }}>

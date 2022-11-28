@@ -17,41 +17,33 @@ const Home = () => {
   // axios.get(`http://${config.localIP}:${config.port}/users`);
 
   //LOCAL USERS
-  // const id = 1;
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://${config.localIP}:${config.port}/home?id=${id}`)
-  //     .then((data) => {
-  //       console.log(data, 'data');
-  //       setLocalUsers(data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
+  const id = 50;
   useEffect(() => {
     axios
-      .get(`http://${config.localIP}:${config.port}/breeds`)
+      .get(`http://${config.localIP}:${config.port}/home?id=${id}`)
       .then((res) => {
-        // console.log(res.data, 'breed');
-        const breedList = res.data;
-        breedList.sort((a, b) => a.breed.localeCompare(b.breed));
-        const breedNames = breedList.map((breed) => breed.breed);
-        setBreeds(breedNames);
+        const users = res.data;
+        users.reverse();
+        setLocalUsers(users);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [id]);
 
   //HANDLE FILTER FUNCTION
-  const handleFilter = () => {
-    console.log('handle filter');
-    //   axios
-    //     .get(
-    //       `http://${config.localIP}:${config.port}/home?id=${id}&filterCategory=${filter.filterCategory}&filterValue=${filter.filterValue}`
-    //     )
-    //     .then((data) => {
-    //       setLocalUsers(data);
-    //       setFilter(initialFilter
-    //     })
-    //     .catch((err) => res.send(err));
+  const handleFilter = (currCategory, currVal) => {
+    const val = currVal.toLowerCase();
+
+    axios
+      .get(
+        `http://${config.localIP}:${config.port}/home?id=${id}&filterCategory=${currCategory}&filterValue=${val}`
+      )
+      .then((res) => {
+        const filterUsers = res.data;
+        filterUsers.reverse();
+        setLocalUsers(filterUsers);
+        setFilter(initialFilter);
+      })
+      .catch((err) => res.send(err));
   };
 
   return (
@@ -62,7 +54,7 @@ const Home = () => {
         handleFilter={handleFilter}
         breeds={breeds}
       />
-      <CarouselCards localUsers={localUsers} />
+      <CarouselCards localUsers={localUsers} setLocalUsers={setLocalUsers} id={id} />
     </SafeAreaView>
   );
 };

@@ -12,7 +12,7 @@ const MoreInfo = ({ item }) => {
       >{`${item.city}, ${item.state}`}</Text>
       <View style={styles.chipView}>
         <Chip
-          title={item.breed}
+          title={item.breed.breed}
           size="xs"
           color="#FFD8A9"
           containerStyle={{ padding: 2 }}
