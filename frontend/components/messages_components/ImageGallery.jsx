@@ -31,12 +31,12 @@ const ImageGallery = ({ photos, setImgIndex, imgIndex }) => {
 export default ImageGallery;
 const styles = StyleSheet.create({
   dotContainer: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     height: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    top: '50%',
-    left: '90%',
+    top: '4%',
+    left: '33%',
     position: 'absolute',
     zIndex: 3,
   },

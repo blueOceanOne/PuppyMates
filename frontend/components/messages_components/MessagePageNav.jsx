@@ -49,7 +49,14 @@ const MessagePageNav = ({socket, user}) => {
           />} />
       <Stack.Screen
         name="RequestDetail"
-        options={{title: '',headerShadowVisible: false}}
+        options={{
+          title: '',
+          headerShadowVisible: false,
+          headerTintColor: '#F49D1A',
+          headerStyle: {
+            height: 100
+          }
+        }}
         children={()=><RequestDetail selectedRequest={selectedRequest} user={user} setMatched={setMatched} setPending={setPending}/> }/>
       <Stack.Screen
         name="ChatPage"

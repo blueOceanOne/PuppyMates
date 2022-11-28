@@ -21,8 +21,8 @@ const Details = ({selectedUser}) => {
   };
 
   return (
-    <Card style={styles.card}>
-        <TouchableWithoutFeedback onPress={() => handleDisplayImage()}>
+    <View style={styles.card} >
+        <TouchableWithoutFeedback onPress={() => handleDisplayImage()} >
           <Image style= {styles.image}
             source={{
               uri: selectedUser.photos[imgIndex].url,
@@ -56,7 +56,7 @@ const Details = ({selectedUser}) => {
         )}
 
         {viewMore ? <MoreInfo selectedUser={selectedUser} /> : null}
-      </Card>
+      </View>
   )
 }
 
@@ -65,9 +65,10 @@ export default Details;
 const styles = StyleSheet.create({
   card: {
     padding: 0,
-    marginTop: 40,
+    marginTop: 5,
+    marginHorizontal: 5,
     backgroundColor: '#FFE15D',
-    borderRadius: 10
+    borderRadius: 20,
   },
 
   image: {
@@ -75,8 +76,7 @@ const styles = StyleSheet.create({
     width: 350,
     alignSelf: 'center',
     zIndex: 2,
-    borderRadius: 10
+    borderRadius: 20,
+    margin:10
   }
-
-
 })

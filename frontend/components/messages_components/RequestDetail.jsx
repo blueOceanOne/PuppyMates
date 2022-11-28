@@ -43,7 +43,7 @@ const RequestDetail = ({selectedRequest, user, setMatched, setPending}) => {
 
   if (selectedUser!=='empty') {
     return (
-      <View>
+      <View style={{backgroundColor: 'white', height: '100%'}}>
         <Details selectedUser={selectedUser}/>
         <Button
           title="Accept"
