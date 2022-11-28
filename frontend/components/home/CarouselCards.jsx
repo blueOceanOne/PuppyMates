@@ -33,10 +33,11 @@ const CarouselCards = ({ localUsers, setLocalUsers, id }) => {
     const req = { user1_id: id, user2_id: swipedOn_id, direction: direction };
     axios
       .post(`http://${config.localIP}:${config.port}/home`, req)
-      .then(() => console.log('swipe right', direction))
+      .then(() => {
+        console.log('swipe right', direction);
+        setSwipeDirection(swipeDirection);
+      })
       .catch((err) => console.log(err));
-
-    setSwipeDirection(swipeDirection);
   };
 
   return (

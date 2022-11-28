@@ -17,7 +17,7 @@ const Home = () => {
   // axios.get(`http://${config.localIP}:${config.port}/users`);
 
   //LOCAL USERS
-  const id = 50;
+  const id = 100;
   useEffect(() => {
     axios
       .get(`http://${config.localIP}:${config.port}/home?id=${id}`)

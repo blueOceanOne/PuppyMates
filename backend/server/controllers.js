@@ -106,6 +106,7 @@ module.exports = {
     const senderId = req.body.user1_id;
     const recipientId = req.body.user2_id;
     const { direction } = req.body;
+    console.log(req.body);
 
     const condition = {
       where: {
