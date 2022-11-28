@@ -86,7 +86,7 @@ module.exports = {
           ],
         })
       )
-      .then((result) => res.status(200).json(result))
+      .then((result) => res.status(200).json(result.reverse()))
       .catch((err) => {
         console.log(err);
         res.sendStatus(400);
@@ -106,6 +106,7 @@ module.exports = {
     const senderId = req.body.user1_id;
     const recipientId = req.body.user2_id;
     const { direction } = req.body;
+    console.log(req.body);
 
     const condition = {
       where: {

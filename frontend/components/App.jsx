@@ -11,7 +11,11 @@ export default App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Log In Sign Up" options={{headerShown: false}} component={LogInSignUp} />
+        <Stack.Screen
+          name="Log In Sign Up"
+          options={{ headerShown: false }}
+          component={LogInSignUp}
+        />
         <Stack.Screen
           name="App"
           options={{
@@ -21,8 +25,8 @@ export default App = () => {
             headerTintColor: '#F49D1A',
             headerTitleStyle: {
               color: '#F49D1A',
-              fontSize: '24px'
-            }
+              fontSize: '24px',
+            },
           }}
           component={NavBar}
         />
