@@ -91,7 +91,7 @@ const CreateEvent = ({invitees, DYNAMICUSERINFO}) => {
   return (
     <ScrollView>
       <View style={styles.eventContainer}>
-        <Text style={styles.formText}>Event Title</Text>
+        <Text style={styles.title}>Event Title</Text>
         <Input value={event.title} onChange={(e) => {handleChange(e.nativeEvent.text, 'title')}}/>
         <Text style={styles.formText}>Event Location</Text>
         <Input value={event.address} onChange={(e) => {handleChange(e.nativeEvent.text, 'address')}}/>
@@ -109,33 +109,39 @@ const CreateEvent = ({invitees, DYNAMICUSERINFO}) => {
             }}
           />
         </View>
-        <Pressable onPress={() => {navigation.navigate('Guests')}}>
+        <Pressable style={styles.inviteButton} onPress={() => {navigation.navigate('Guests')}}>
           <Text color='#2D70F9' style={styles.invite}>Invite Guests</Text>
         </Pressable>
-        { guestlist ?
-          (guestlist.map((each) => {
-            return (
-              <ListItem
-                key={each.id}
-              >
-                <Avatar source={{uri: each.photos[0]}} />
-                <ListItem.Title>
-                  {each['dog_name']}
-                </ListItem.Title>
-                <Text>
-                  {each.username}
-                </Text>
-              </ListItem>
-            )
-          }))
-        : null }
-        <Button title='Create' onPress={handleCreate}/>
+        <View style={styles.guestlist}>
+          { guestlist ?
+            (guestlist.map((each) => {
+              return (
+                <View
+                  key={each.id}
+                  style={styles.individualGuest}
+                >
+                  <Avatar rounded source={{uri: each.photos[0]}} />
+                  <Text style={styles.guestInfo}>
+                    {`${each['dog_name']} | ${each.username}`}
+                  </Text>
+                </View>
+              )
+            }))
+          : null }
+        </View>
+        <View style={styles.buttonLine}>
+          <Pressable style={styles.createButton} onPress={handleCreate}>
+            <Text style={styles.createText}>Create</Text>
+          </Pressable>
+        </View>
       </View>
     </ScrollView>
   )
 }
 
 export default CreateEvent;
+
+const regularFont = 16;
 
 const styles = StyleSheet.create({
   eventContainer: {
@@ -145,16 +151,55 @@ const styles = StyleSheet.create({
     marginLeft: 6,
     marginRight: 6,
   },
+  title: {
+    paddingTop: 10,
+    fontSize: regularFont,
+  },
+  buttonLine: {
+    padding: 20,
+    flex: 1,
+    alignItems: 'center',
+  },
+  createText: {
+    color: 'white',
+    fontSize: regularFont
+  },
+  createButton: {
+    backgroundColor: '#007AFF',
+    width: 150,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+  },
+  inviteButton: {
+    borderRadius: 10,
+    backgroundColor: 'white',
+    marginVertical: 7,
+  },
   invite: {
-    fontSize: 20,
-    align: 'center',
-    justify: 'center',
+    fontSize: regularFont,
     backgroundColor: 'white',
     margin: 6,
     padding: 5,
   },
+  guestlist: {
+    borderRadius: 10,
+    backgroundColor: 'white',
+    paddingBottom: 15
+  },
+  individualGuest: {
+    marginTop: 15,
+    marginHorizontal: 10,
+    flex: 1,
+    flexDirection: 'row',
+  },
+  guestInfo: {
+    paddingLeft: 10,
+    paddingTop: 8
+  },
   formText: {
-    fontSize: 18,
+    fontSize: regularFont,
   },
   date: {
     flex: 1,
