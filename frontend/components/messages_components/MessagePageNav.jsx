@@ -55,6 +55,7 @@ const MessagePageNav = ({socket, user}) => {
   }
 
   const chatTitle = selectedRecipient.sender_id === user? selectedRecipient.request_recipient.dog_name : selectedRecipient.request_sender.dog_name;
+  const chatRecipient = selectedRecipient.sender_id === user? selectedRecipient.recipient_id: selectedRecipient.sender_id;
 
   return (
     <Stack.Navigator style={{backgroundColor: 'white'}}>
@@ -102,7 +103,7 @@ const MessagePageNav = ({socket, user}) => {
           />
           )
         }}
-        children={()=><ChatPage socket={socket} selectedRecipient={selectedRecipient} user={user}/>}
+        children={()=><ChatPage socket={socket} chatRecipient={chatRecipient} user={user}/>}
       />
     </Stack.Navigator>
   )
