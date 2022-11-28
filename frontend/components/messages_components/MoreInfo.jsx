@@ -12,7 +12,7 @@ const MoreInfo = ({ selectedUser }) => {
       >{`${selectedUser.city}, ${selectedUser.state}`}</Text>
       <View style={styles.chipView}>
         <Chip
-          title={selectedUser.breed.breed}
+          title={selectedUser.breed.breed.toLowerCase()}
           size="xs"
           color="#FFD8A9"
           containerStyle={{ padding: 2 }}
@@ -51,7 +51,7 @@ const MoreInfo = ({ selectedUser }) => {
           />
         ) : null}
       </View>
-      <Text style={{ fontSize: 18, paddingLeft: 5 }}>{selectedUser.bio}</Text>
+      <Text style={{ fontSize: 16, paddingLeft: 5 }}>{selectedUser.bio}</Text>
     </View>
   );
 };
