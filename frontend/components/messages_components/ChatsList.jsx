@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import ChatPage from './ChatPage.jsx';
 import { Button } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
@@ -8,21 +8,12 @@ import config from '../../config.js';
 import axios from 'axios';
 
 const ChatsList = ({socket, setSelectedRecipient, user, matched, setMatched}) => {
-/*   useEffect (()=>{
-    axios.get(`http://${config.localIP}:${config.port}/requests/accepted/${user}`)
-    .then((response)=>{
-      setMatched(response.data)
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
-  }, []) */
 
   const navigation = useNavigation();
 
   return (
     <View>
-      <Text>ChatsList</Text>
+      <Text style={styles.text}>Messages</Text>
       {
         matched.map((item, i)=>(
           <ListItem
@@ -30,13 +21,17 @@ const ChatsList = ({socket, setSelectedRecipient, user, matched, setMatched}) =>
             bottomDivider
             onPress = {(event)=>{
               event.preventDefault();
-              setSelectedRecipient(item.sender_id);
+              setSelectedRecipient(item);
               navigation.navigate('ChatPage');
             }}
           >
-            <Avatar source={{uri: item.request_sender.photos[0].url}} />
+            <Avatar
+              size={52}
+              rounded
+              source={item.sender_id === user ? {uri: item.request_recipient.photos[0].url} : {uri: item.request_sender.photos[0].url}}
+            />
             <ListItem.Content>
-              <ListItem.Title>{item.request_sender.dog_name}</ListItem.Title>
+              <ListItem.Title>{item.sender_id === user ? item.request_recipient.dog_name : item.request_sender.dog_name }</ListItem.Title>
               <ListItem.Subtitle style={{color: "grey"}}>Start chatting</ListItem.Subtitle>
             </ListItem.Content>
           </ListItem>
@@ -47,3 +42,12 @@ const ChatsList = ({socket, setSelectedRecipient, user, matched, setMatched}) =>
 }
 
 export default ChatsList;
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginTop: 20,
+    marginHorizontal: 8
+  }
+})
