@@ -48,7 +48,6 @@ const PendingEvents = ({DYNAMICUSERINFO}) => {
   useEffect(() => {
     axios.get(`http://${config.localIP}:${config.port}/pendingEvents/${userData[0].id}`)
       .then((results) => {
-        console.log(results.data);
         const rawEvents = results.data;
         Promise.all(addressify(rawEvents))
           .then((addresses) => {
@@ -169,8 +168,6 @@ const styles = StyleSheet.create({
   },
   host: {
     fontStyle: 'italic',
-    // paddingRight: 4,
-    // paddingTop: 4
   },
   specifics:{
     flex: 1,

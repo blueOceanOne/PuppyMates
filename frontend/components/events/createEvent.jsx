@@ -12,7 +12,7 @@ import { useNavigation, route } from '@react-navigation/native';
 import * as Location from 'expo-location';
 
 
-const CreateEvent = ({invitees, matches}) => {
+const CreateEvent = ({invitees, setInvitees, matches}) => {
   const navigation = useNavigation();
   const sampleData = userData;
   const hostData = eventsSampleData.userData;
@@ -37,8 +37,9 @@ const CreateEvent = ({invitees, matches}) => {
     setEvent({...event});
   }
 
+  console.log(event);
+
   const guestlist = invitees.map((each) => {
-    console.log(invitees);
     for (var i = 0; i < matches.length; i++) {
       if (matches[i].recipient_id === each) {
         return matches[i];
@@ -70,6 +71,7 @@ const CreateEvent = ({invitees, matches}) => {
     }, false
     )
     if (!anyNullValues) {
+      console.log(input);
       axios.post(`http://${config.localIP}:${config.port}/attendingEvents`, input)
       .then(() => {
         Alert.alert('Successfully created event');
@@ -82,20 +84,28 @@ const CreateEvent = ({invitees, matches}) => {
     }
   }
 
-  const handleCreate = () => {
+  const handleCreate = (e) => {
+    e.preventDefault();
     coordinatify()
       .then((results) => {
+        console.log('results after coodinatifying: ', results);
         send(results);
-        navigation.navigate('Event Home');
-        setEvent({
-          host_id: hostData[0].id,
-          description: null,
-          title: null,
-          date: (new Date()),
-          latitude: null,
-          longitude: null,
-          invitees: null
-        });
+        navigation.navigate('Events Home');
+      })
+      // .then(() => {
+      //   setEvent({
+      //     host_id: hostData[0].id,
+      //     description: null,
+      //     title: null,
+      //     date: (new Date()),
+      //     latitude: null,
+      //     longitude: null,
+      //     invitees: null
+      //   });
+      //   setInvitees([]);
+      // })
+      .catch((err) => {
+        console.log(err);
       })
   }
 
@@ -150,7 +160,7 @@ const CreateEvent = ({invitees, matches}) => {
           </View>
         ) : null }
         <View style={styles.buttonLine}>
-          <Pressable style={styles.createButton} onPress={handleCreate}>
+          <Pressable style={styles.createButton} onPress={(e)=> {handleCreate(e)}}>
             <Text style={styles.createText}>Create</Text>
           </Pressable>
         </View>

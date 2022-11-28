@@ -29,9 +29,8 @@ const Guests = ({invitees, matches, setInvitees}) => {
     <ScrollView>
       <Button title='Confirm Guests' onPress={handleConfirm}/>
       { matches.map((each) => {
-        console.log(each);
         return (
-        <Guest handleInvite={handleInvite} guest={each} />
+        <Guest key={each.id} handleInvite={handleInvite} guest={each} />
         )
       })}
     </ScrollView>

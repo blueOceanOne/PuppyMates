@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { SafeAreaView, View, StyleSheet, StatusBar, Text } from 'react-native';
+import { Avatar } from '@rneui/themed';
 import * as Location from 'expo-location';
 import { format } from 'date-fns';
 
@@ -35,9 +36,12 @@ const EventList = ({eventList}) => {
               <Text style={styles.name}>{each.event.title}</Text>
               <Text style={styles.host}>{each.event.user.dog_name}</Text>
             </View>
-            <View style={styles.specifics}>
-              <Text style={styles.address}>{address}</Text>
-              <Text style={styles.datetime}>{`${niceTime}, ${niceDate}`}</Text>
+            <View style={[styles.specifics, {justifyContent: 'space-between'}]}>
+              <View style={{flexDirection: 'column'}}>
+                <Text style={styles.address}>{address}</Text>
+                <Text style={styles.datetime}>{`${niceTime}, ${niceDate}`}</Text>
+              </View>
+              <Avatar rounded source={{uri: each.event.user.photos[0].url}} />
             </View>
             <Text style={styles.description}>{each.event.description}</Text>
           </View>
@@ -76,7 +80,6 @@ const styles = StyleSheet.create({
   },
   datetime: {
     fontSize: 14,
-    marginHorizontal: gap / 2,
   },
   description: {
     fontSize: 16,
