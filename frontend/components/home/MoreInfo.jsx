@@ -6,7 +6,7 @@ import userData from '../home/exampleData/userData.js';
 
 const MoreInfo = ({ item }) => {
   return (
-    <Card width="100%" alignSelf="center" borderRadius="10">
+    <Card width="100%" alignSelf="center" /* borderRadius="10" */>
       <Text h4>{`${item.city}, ${item.state}`}</Text>
       <View
         style={{
@@ -22,7 +22,7 @@ const MoreInfo = ({ item }) => {
             backgroundColor: '#FFD8A9',
             borderColor: 'transparent',
             borderWidth: 0,
-            borderRadius: 10,
+            // borderRadius: 10,
             marginBottom: 6,
           }}
         />
@@ -33,7 +33,7 @@ const MoreInfo = ({ item }) => {
             backgroundColor: '#FFD8A9',
             borderColor: 'transparent',
             borderWidth: 0,
-            borderRadius: 10,
+            // borderRadius: 10,
           }}
         />
         {item.people_friendly ? (
@@ -44,7 +44,7 @@ const MoreInfo = ({ item }) => {
               backgroundColor: '#FFD8A9',
               borderColor: 'transparent',
               borderWidth: 0,
-              borderRadius: 10,
+              // borderRadius: 10,
             }}
           />
         ) : null}
@@ -56,7 +56,7 @@ const MoreInfo = ({ item }) => {
               backgroundColor: '#FFD8A9',
               borderColor: 'transparent',
               borderWidth: 0,
-              borderRadius: 10,
+              // borderRadius: 10,
             }}
           />
         ) : null}
