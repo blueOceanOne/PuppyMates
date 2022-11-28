@@ -14,7 +14,7 @@ const EventList = ({eventList}) => {
   return (
     <View style={styles.container}>
       {eventList.map((each) => {
-        const unformattedDate = new Date(each.event.createdAt);
+        const unformattedDate = new Date(each.event.date);
         const niceDate = format(unformattedDate, 'MM/dd/yy');
         const niceTime = format(unformattedDate, 'h:mmaa');
         const [address, setAddress] = useState('');
@@ -33,7 +33,7 @@ const EventList = ({eventList}) => {
           <View style={styles.singleEvent} key={each.event.id}>
             <View style={styles.heading}>
               <Text style={styles.name}>{each.event.title}</Text>
-              <Text style={styles.host}>{each.event.host_id}</Text>
+              <Text style={styles.host}>{each.event.user.dog_name}</Text>
             </View>
             <View style={styles.specifics}>
               <Text style={styles.address}>{address}</Text>

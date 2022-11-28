@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, ScrollView, Text, Pressable, Button, StyleSheet } from 'react-native';
 import { ListItem, Avatar } from '@rneui/themed';
 import userData from '../home/exampleData/userData.js';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
+import config from '../../config.js';
+import Guest from './Guest.jsx';
 
-const Guests = ({invitees, setInvitees}) => {
+const Guests = ({invitees, matches, setInvitees}) => {
   const navigation = useNavigation();
   const sampleData = userData;
 
@@ -25,20 +28,10 @@ const Guests = ({invitees, setInvitees}) => {
   return (
     <ScrollView>
       <Button title='Confirm Guests' onPress={handleConfirm}/>
-      { sampleData.map((each) => {
-        const [invited, setInvited] = useState(false);
+      { matches.map((each) => {
+        console.log(each);
         return (
-          <Pressable
-            key={each.id}
-            style={({pressed}) => [{backgroundColor: invited ? 'lightgrey' : 'white'}, styles.guestPressable]}
-            onPress={() => {handleInvite(each.id); setInvited(!invited);}}>
-            <View style={styles.guestCard}>
-              <Avatar rounded source={{uri: each.photos[0]}} />
-              <Text style={styles.info}>
-                {`${each['dog_name']} | ${each.username}`}
-              </Text>
-            </View>
-          </Pressable>
+        <Guest handleInvite={handleInvite} guest={each} />
         )
       })}
     </ScrollView>
@@ -67,3 +60,32 @@ const styles = StyleSheet.create({
     paddingTop: 8
   }
 })
+
+//DELET AFTER USE
+// [
+//   {
+//     "createdAt": "2022-11-22T23:56:46.615Z", "id": 9, "recipient_id": 7,
+//     "request_recipient": { "dog_name": "Astro", "id": 7, "photos": [Array] },
+//     "sender_id": 1, "status": "accepted", "updatedAt": "2022-11-22T23:56:46.615Z"
+//     }
+//   {
+//     "createdAt": "2022-11-22T23:56:46.615Z", "id": 2, "recipient_id": 51,
+//     "request_recipient": {"dog_name": "Bobby", "id": 51, "photos": [Array]},
+//     "sender_id": 1, "status": "accepted", "updatedAt": "2022-11-22T23:56:46.615Z"
+//   },
+//   {
+//     "createdAt": "2022-11-22T23:56:46.615Z", "id": 5, "recipient_id": 77,
+//     "request_recipient": {"dog_name": "Tess", "id": 77, "photos": [Array]},
+//     "sender_id": 1, "status": "accepted", "updatedAt": "2022-11-22T23:56:46.615Z"
+//   },
+//   {
+//     "createdAt": "2022-11-22T23:56:46.615Z", "id": 4, "recipient_id": 105,
+//     "request_recipient": {"dog_name": "Petra", "id": 105, "photos": [Array]},
+//     "sender_id": 1, "status": "accepted", "updatedAt": "2022-11-22T23:56:46.615Z"
+//   },
+//   {
+//     "createdAt": "2022-11-22T23:56:46.615Z", "id": 11, "recipient_id": 116,
+//     "request_recipient": {"dog_name": "Tiger", "id": 116, "photos": [Array]},
+//     "sender_id": 1, "status": "accepted", "updatedAt": "2022-11-22T23:56:46.615Z"
+//   }
+// ]

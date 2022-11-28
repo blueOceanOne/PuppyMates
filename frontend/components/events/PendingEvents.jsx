@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { events, userData } from '../../sampleData/events.js';
-import { SafeAreaView, ScrollView, StyleSheet, Avatar, Text, View, Button, Pressable, Alert } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Text, View, Button, Pressable, Alert } from 'react-native';
+import { Avatar } from '@rneui/themed';
 import CreateEvent from './createEvent.jsx';
 import Map from './Map.jsx';
 import axios from 'axios';
@@ -12,10 +13,6 @@ import { useNavigation } from '@react-navigation/native';
 const PendingEvents = ({DYNAMICUSERINFO}) => {
   const [pendingEvents, setPendingEvents] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // There is something wrong with the way that address is being interpolated via reverse geo-coding
-  // Need to look into it later
-  console.log('-----------------TRIAL START-----------------');
 
   // useEffect(() => {
   //   axios.get(`http://${config.localIP}:${config.port}/pendingEvents/${userData[0].id}`)
@@ -51,6 +48,7 @@ const PendingEvents = ({DYNAMICUSERINFO}) => {
   useEffect(() => {
     axios.get(`http://${config.localIP}:${config.port}/pendingEvents/${userData[0].id}`)
       .then((results) => {
+        console.log(results.data);
         const rawEvents = results.data;
         Promise.all(addressify(rawEvents))
           .then((addresses) => {
@@ -58,7 +56,6 @@ const PendingEvents = ({DYNAMICUSERINFO}) => {
               rawEvents[i].event.address =
                 `${address[0].streetNumber ? `${address[0].streetNumber} ` : ''}${address[0].street}, ${address[0].city}`;
               })
-            console.log('AFTER SHAPING: ', rawEvents);
             setPendingEvents(rawEvents);
             setLoading(false);
             })
@@ -80,7 +77,6 @@ const PendingEvents = ({DYNAMICUSERINFO}) => {
     }
   }
 
-  console.log('AT RENDER: ', pendingEvents);
 
   const cleanup = (targetId) => {
     for (var i = 0; i < pendingEvents.length; i++) {
@@ -116,14 +112,13 @@ const PendingEvents = ({DYNAMICUSERINFO}) => {
   }
 
   if (loading) {
-    console.log('LOADING...');
     return (<></>)
   }
 
   return (
     <View style={styles.container}>
       {pendingEvents.map((each) => {
-        const unformattedDate = new Date(each.event.createdAt);
+        const unformattedDate = new Date(each.event.date);
         const niceDate = format(unformattedDate, 'MM/dd/yy');
         const niceTime = format(unformattedDate, 'h:mmaa');
 
@@ -131,17 +126,22 @@ const PendingEvents = ({DYNAMICUSERINFO}) => {
           <View style={styles.singleEvent} key={each.event.id}>
             <View style={styles.heading}>
               <Text style={styles.name}>{each.event.title}</Text>
-              <Text style={styles.host}>{each.event.host_id}</Text>
+                <Text style={styles.host}>{each.user.dog_name}</Text>
             </View>
-            <View style={styles.specifics}>
-              <Text style={styles.address}>{each.event.address}</Text>
-              <Text style={styles.datetime}>{`${niceTime}, ${niceDate}`}</Text>
+
+
+            <View style={styles.eventLine2}>
+              <View style={styles.specifics}>
+                <Text style={styles.address}>{each.event.address}</Text>
+                <Text style={styles.datetime}>{`${niceTime}, ${niceDate}`}</Text>
+              </View>
+              <Avatar rounded source={{uri: each.user.photos[0].url}} />
             </View>
-            <Text style={styles.description}>{each.event.description}</Text>
-            <View style={styles.buttons}>
-              <Button title="Accept" onPress={() => {handleAccept(each.event_id)}}/>
-              <Button color="#FF0000" title="Reject" onPress={() => {handleReject(each.event_id)}}/>
-            </View>
+              <Text style={styles.description}>{each.event.description}</Text>
+              <View style={styles.buttons}>
+                <Button title="Accept" onPress={() => {handleAccept(each.event_id)}}/>
+                <Button color="#FF0000" title="Reject" onPress={() => {handleReject(each.event_id)}}/>
+              </View>
           </View>
         )
       })}
@@ -168,6 +168,8 @@ const styles = StyleSheet.create({
   },
   host: {
     fontStyle: 'italic',
+    // paddingRight: 4,
+    // paddingTop: 4
   },
   specifics:{
     flex: 1,
@@ -193,5 +195,9 @@ const styles = StyleSheet.create({
     paddingTop: 13,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
+  },
+  eventLine2: {
+    flexDirection: 'row',
+    alignItems: 'center'
   }
 });

@@ -1,6 +1,6 @@
 import React, {useRef, useState, useEffect, Form} from 'react';
-import { ScrollView, View, StyleSheet, Text, TextInput, Button, Pressable, Alert } from 'react-native';
-import { ListItem, Avatar } from '@rneui/themed';
+import { ScrollView, View, StyleSheet, Text, TextInput, Pressable, Alert, Image } from 'react-native';
+import { Avatar, Icon, Button } from '@rneui/themed';
 import userData from '../home/exampleData/userData.js'
 import axios from 'axios';
 import config from '../../config.js';
@@ -12,7 +12,7 @@ import { useNavigation, route } from '@react-navigation/native';
 import * as Location from 'expo-location';
 
 
-const CreateEvent = ({invitees, DYNAMICUSERINFO}) => {
+const CreateEvent = ({invitees, matches}) => {
   const navigation = useNavigation();
   const sampleData = userData;
   const hostData = eventsSampleData.userData;
@@ -38,9 +38,10 @@ const CreateEvent = ({invitees, DYNAMICUSERINFO}) => {
   }
 
   const guestlist = invitees.map((each) => {
-    for (var i = 0; i < userData.length; i++) {
-      if (userData[i].id === each) {
-        return userData[i];
+    console.log(invitees);
+    for (var i = 0; i < matches.length; i++) {
+      if (matches[i].recipient_id === each) {
+        return matches[i];
       }
     }
   })
@@ -85,6 +86,16 @@ const CreateEvent = ({invitees, DYNAMICUSERINFO}) => {
     coordinatify()
       .then((results) => {
         send(results);
+        navigation.navigate('Event Home');
+        setEvent({
+          host_id: hostData[0].id,
+          description: null,
+          title: null,
+          date: (new Date()),
+          latitude: null,
+          longitude: null,
+          invitees: null
+        });
       })
   }
 
@@ -109,26 +120,35 @@ const CreateEvent = ({invitees, DYNAMICUSERINFO}) => {
             }}
           />
         </View>
-        <Pressable style={styles.inviteButton} onPress={() => {navigation.navigate('Guests')}}>
-          <Text color='#2D70F9' style={styles.invite}>Invite Guests</Text>
-        </Pressable>
-        <View style={styles.guestlist}>
-          { guestlist ?
+        <Button type='solid' color='white' radius='md' onPress={() => {navigation.navigate('Guests')}}>
+          <View style={styles.inviteButton2}>
+            <Text style={[styles.createText, {color: 'black'}]}>Invite Guests</Text>
+            <Icon
+              name={"chevron-right"}
+              type='material-community'
+              alignSelf='flex-end'
+            />
+          </View>
+        </Button>
+        { guestlist.length > 0 ? (
+          <View style={styles.guestlist}>
+            {
             (guestlist.map((each) => {
               return (
                 <View
                   key={each.id}
                   style={styles.individualGuest}
                 >
-                  <Avatar rounded source={{uri: each.photos[0]}} />
+                  <Avatar rounded source={{uri: each.request_recipient.photos[0].url}} />
                   <Text style={styles.guestInfo}>
-                    {`${each['dog_name']} | ${each.username}`}
+                    {each.request_recipient.dog_name}
                   </Text>
                 </View>
               )
             }))
-          : null }
-        </View>
+          }
+          </View>
+        ) : null }
         <View style={styles.buttonLine}>
           <Pressable style={styles.createButton} onPress={handleCreate}>
             <Text style={styles.createText}>Create</Text>
@@ -177,6 +197,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginVertical: 7,
   },
+  inviteButton2: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderRadius: 10,
+  },
   invite: {
     fontSize: regularFont,
     backgroundColor: 'white',
@@ -186,7 +212,8 @@ const styles = StyleSheet.create({
   guestlist: {
     borderRadius: 10,
     backgroundColor: 'white',
-    paddingBottom: 15
+    paddingBottom: 15,
+    marginTop: 15
   },
   individualGuest: {
     marginTop: 15,
@@ -195,8 +222,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   guestInfo: {
-    paddingLeft: 10,
-    paddingTop: 8
+    paddingLeft: 15,
+    paddingTop: 8,
+    fontSize: regularFont
   },
   formText: {
     fontSize: regularFont,

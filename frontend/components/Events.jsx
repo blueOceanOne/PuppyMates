@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { SafeAreaView, ScrollView, StyleSheet, Text, View, Button, Pressable } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Text, View, Dimensions, Pressable } from 'react-native';
+import { Button } from '@rneui/themed';
 import { events, userData } from '../sampleData/events.js';
 import EventList from '../components/events/EventList.jsx';
 import CreateEvent from './events/createEvent.jsx';
@@ -39,12 +40,12 @@ const Events = () => {
     <SafeAreaView styles={styles.container}>
       <ScrollView>
           <View styles={styles.tabContainer}>
-            <Pressable onPress={() => {setTab('attending')}} style={styles.singleTab}>
+            <Button color='#F0F0F0' onPress={() => {setTab('attending')}} style={styles.singleTab}>
               <Text style={[styles.tabText, {color: (tab === 'attending') ? '#F49D1A' : '#000000'}]}>Attending</Text>
-            </Pressable>
-            <Pressable onPress={() => {setTab('pending')}} style={styles.singleTab}>
+            </Button>
+            <Button color='#F0F0F0' onPress={() => {setTab('pending')}} style={styles.singleTab}>
               <Text style={[styles.tabText, {color: (tab === 'pending') ? '#F49D1A' : '#000000'}]}>Pending</Text>
-            </Pressable>
+            </Button>
           </View>
           {(tab === 'attending') ?
             <>
@@ -52,12 +53,20 @@ const Events = () => {
                 <Map attendingEvents={attendingEvents} />
               </View>
               <EventList eventList={attendingEvents} />
-              <Button title='Create Event' onPress={() => {
-                navigation.navigate('Create Event');
-              }}/>
             </>
           : <PendingEvents /> }
       </ScrollView>
+      <View style={styles.createButton}>
+        <FAB
+          visible={true}
+          placement='right'
+          icon={{ name: 'add', color: 'white' }}
+          color="#007AFF"
+          onPress={() => {
+            navigation.navigate('Create Event');
+          }}
+        />
+      </View>
     </SafeAreaView>
   )
 }
@@ -74,15 +83,21 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   tabContainer: {
+    flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
   },
   singleTab: {
     borderRadius: 3,
+    // width: 150,
+    backgroundColor: 'gray'
   },
   tabText: {
     fontSize: 18,
     fontWeight: 'bold',
-    lineHeight: 35,
+  },
+  createButton: {
+    //position: 'absolute',
+    bottom: 0,
+    // left: (Dimensions.get('window').width) * 1,
   },
 })
