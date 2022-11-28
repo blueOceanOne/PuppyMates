@@ -16,7 +16,7 @@ module.exports = {
       where: {
         id: req.params.userId,
       },
-      attributes: { exclude: ['createdAt, updatedAt'] },
+      attributes: { exclude: ['createdAt, updatedAt', 'hashed_password', 'salt', 'iterations'] },
       include: [
         { model: Breed, attributes: ['id', 'breed'] },
         { model: Photo, attributes: ['id', 'url'] },
@@ -78,6 +78,7 @@ module.exports = {
                 'distance',
               ],
             ],
+            exclude: ['hashed_password', 'salt', 'iterations'],
           },
           include: [
             { model: Breed, attributes: ['id', 'breed'] },
