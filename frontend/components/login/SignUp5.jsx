@@ -10,9 +10,9 @@ export default SignUp5 = ({ navigation, route }) => {
   const [ bio, setBio ] = useState('');
 
   const addUser = (obj) => {
-    axios.post('/signup', obj)
+    axios.post(`http://${config.localIP}:${config.port}/signup`, obj)
       .then(() => {
-        axios.get(`/login?user_email=${obj.user_email}&hashed_password_attempt=${obj.hashed_password}`)
+        axios.get(`http://${config.localIP}:${config.port}/login?user_email=${obj.user_email}&hashed_password_attempt=${obj.hashed_password}`)
           .then(result  => {
             navigation.navigate('App', { user: result.id });
           })
