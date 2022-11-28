@@ -88,16 +88,6 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
     },
   });
 
-  // const calcDistance = (currItem) => {
-  //   // will switch to current user's geolocation - geolocation.latitude, geolocation.longitude
-  //   const start = { latitude: 34.0533447265625, longitude: -118.24234771728516 };
-  //   //current card
-  //   const end = { latitude: currItem.latitude, longitude: currItem.longitude };
-  //   const meters = getDistance(start, end);
-  //   const miles = Math.round(meters / 1609.344);
-  //   return miles;
-  // };
-
   const handleDisplayImage = () => {
     imgIndex === item.photos.length - 1 ? setImgIndex(0) : setImgIndex(imgIndex + 1);
   };
@@ -124,6 +114,7 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
           padding: 0,
           marginTop: 40,
           backgroundColor: '#FFE15D',
+          borderColor: 'transparent',
         }}
       >
         <TouchableWithoutFeedback onPress={() => handleDisplayImage()}>

@@ -86,7 +86,7 @@ module.exports = {
           ],
         })
       )
-      .then((result) => res.status(200).json(result))
+      .then((result) => res.status(200).json(result.reverse()))
       .catch((err) => {
         console.log(err);
         res.sendStatus(400);

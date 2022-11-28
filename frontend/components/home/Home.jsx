@@ -23,7 +23,7 @@ const Home = () => {
       .get(`http://${config.localIP}:${config.port}/home?id=${id}`)
       .then((res) => {
         const users = res.data;
-        users.reverse();
+        // users.reverse();
         setLocalUsers(users);
       })
       .catch((err) => console.log(err));
@@ -43,11 +43,11 @@ const Home = () => {
         setLocalUsers(filterUsers);
         setFilter(initialFilter);
       })
-      .catch((err) => res.send(err));
+      .catch((err) => console.log(err));
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <FilterContainer
         filter={filter}
         setFilter={setFilter}
