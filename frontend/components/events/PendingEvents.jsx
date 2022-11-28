@@ -1,68 +1,116 @@
 import React, { useState, useEffect } from 'react';
-import { events, userData, pendingEvents } from '../../sampleData/events.js';
-import { SafeAreaView, ScrollView, StyleSheet, Avatar, Text, View, Button, Pressable, Alert } from 'react-native';
+import { events, userData } from '../../sampleData/events.js';
+import { SafeAreaView, ScrollView, StyleSheet, Text, View, Button, Pressable, Alert } from 'react-native';
+import { Avatar } from '@rneui/themed';
 import CreateEvent from './createEvent.jsx';
 import Map from './Map.jsx';
+import axios from 'axios';
 import { format } from 'date-fns';
 import * as Location from 'expo-location';
-
+import config from '../../config.js';
+import { useNavigation } from '@react-navigation/native';
 
 const PendingEvents = ({DYNAMICUSERINFO}) => {
-  // REQUIRES HTTP REQUEST TO GET DATA
-  // const eventList = [];
+  const [pendingEvents, setPendingEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // axios.get('/events/pending/whatever')
-  //   .then((results) => {
-  //     events = results.data
-  //   )}
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
+  useEffect(() => {
+    axios.get(`http://${config.localIP}:${config.port}/pendingEvents/${userData[0].id}`)
+      .then((results) => {
+        const rawEvents = results.data;
+        Promise.all(addressify(rawEvents))
+          .then((addresses) => {
+            addresses.forEach((address, i) => {
+              rawEvents[i].event.address =
+                `${address[0].streetNumber ? `${address[0].streetNumber} ` : ''}${address[0].street}, ${address[0].city}`;
+              })
+            setPendingEvents(rawEvents);
+            setLoading(false);
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    }, [])
+
+  const addressify = (input) => {
+    if (input.length > 0) {
+      return input.map((element) => {
+        const coordinates = {latitude: element.event.latitude, longitude: element.event.longitude}
+        return Location.reverseGeocodeAsync(coordinates);
+      })
+    }
+  }
+
+  const cleanup = (targetId) => {
+    for (var i = 0; i < pendingEvents.length; i++) {
+      if (pendingEvents[i].event.event_id === targetId) {
+        const pendingCopy = [...pendingEvents];
+        pendingCopy.splice(i, 1);
+        setPendingEvents([...pendingCopy]);
+        return;
+      }
+    }
+  }
 
   const handleAccept = (eventId) => {
     Alert.alert('See you there!');
-    // perform axios request
+    axios.put(`http://${config.localIP}:${config.port}/pendingEvents/confirm/${sampleUserData[0].id}?event_id=${eventId}`)
+      .then(() => {
+        cleanup(eventId);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   const handleReject = (eventId) => {
     Alert.alert(`Event Rejected`);
-    // perform axios request
+    axios.put(`http://${config.localIP}:${config.port}/pendingEvents/reject/${sampleUserData[0].id}?event_id=${eventId}`)
+      .then(() => {
+        cleanup(eventId);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  if (loading) {
+    return (<></>)
   }
 
   return (
     <View style={styles.container}>
       {pendingEvents.map((each) => {
-        const [loading, setLoading] = useState(true)
-        const [address, setAddress] = useState(null);
-        const unformattedDate = each.eventDate;
-        const niceDate = format(unformattedDate, 'MMM do, yy')
+        const unformattedDate = new Date(each.event.date);
+        const niceDate = format(unformattedDate, 'MM/dd/yy');
         const niceTime = format(unformattedDate, 'h:mmaa');
-        const geocodingInput = {
-          latitude: each.eventLocation[0],
-          longitude: each.eventLocation[1]
-        };
-        useEffect(() => {
-          Location.reverseGeocodeAsync(geocodingInput)
-          .then((geocodedAddress) => {
-            setAddress(
-              `${geocodedAddress[0].streetNumber ? `${geocodedAddress[0].streetNumber} ` : ''}${geocodedAddress[0].street}, ${geocodedAddress[0].city} ${geocodedAddress[0].region} ${geocodedAddress[0].postalCode}`
-            );
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-        }, []);
 
         return (
-          <View style={styles.singleEvent} key={each.eventId}>
-            <Text style={styles.name}>{each.eventTitle}</Text>
-            <Text style={styles.host}>{each.hostUsername}</Text>
-            <Text style={styles.address}>{address}</Text>
-            <Text style={styles.datetime}>{niceDate}</Text>
-            <Text style={styles.datetime}>{niceTime}</Text>
-            <Text style={styles.description}>{each.eventDescription}</Text>
-            <Button title="Accept" onPress={() => {handleAccept(each.eventId)}}/>
-            <Button color="#FF0000" title="Reject" onPress={() => {handleReject(each.eventId)}}/>
+          <View style={styles.singleEvent} key={each.event.id}>
+            <View style={styles.heading}>
+              <Text style={styles.name}>{each.event.title}</Text>
+              <Text style={styles.host}>{each.user.dog_name}</Text>
+            </View>
+
+            <View style={styles.eventLine2}>
+              <View style={styles.specifics}>
+                <View style={{flexDirection: 'column', justifyContent:'start'}}>
+                <Text style={styles.address}>{each.event.address}</Text>
+                <Text style={[styles.datetime, {marginHorizontal: 0}]}>{niceDate}</Text>
+                </View>
+                  <Text style={styles.datetime}>{niceTime}</Text>
+              </View>
+              <Avatar rounded source={{uri: each.user.photos[0].url}} />
+            </View>
+              <Text style={styles.description}>{each.event.description}</Text>
+              <View style={styles.buttons}>
+                <Button title="Accept" onPress={() => {handleAccept(each.event_id)}}/>
+                <Button color="#FF0000" title="Reject" onPress={() => {handleReject(each.event_id)}}/>
+              </View>
           </View>
         )
       })}
@@ -72,9 +120,36 @@ const PendingEvents = ({DYNAMICUSERINFO}) => {
 
 export default PendingEvents;
 
+const gap = 8;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  heading: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  name: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  host: {
+    fontStyle: 'italic',
+  },
+  specifics:{
+    flex: 1,
+    flexDirection: 'row',
+    paddingHorizontal: (gap / -2),
+    paddingBottom: 16,
+    paddingTop: 3
+  },
+  datetime: {
+    fontSize: 14,
+    marginHorizontal: gap/2,
+  },
+  description: {
+    fontSize: 16,
   },
   singleEvent: {
     backgroundColor: '#F5EFE6',
@@ -82,4 +157,13 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 25,
   },
+  buttons: {
+    paddingTop: 13,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  eventLine2: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  }
 });

@@ -3,15 +3,15 @@ import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { events } from '../../sampleData/events.js';
 
-export default function Map({DYNAMICEVENTINFO}) {
-  const localEvents = events;
+export default function Map({attendingEvents}) {
+  const localEvents = attendingEvents;
   const markerRender = (localEvent) => {
     return (
       <Marker
-        key={localEvent.eventId}
+        key={localEvent.event.id}
         coordinate={{
-          latitude : localEvent.eventLocation[0],
-          longitude : localEvent.eventLocation[1]
+          latitude : localEvent.event.latitude,
+          longitude : localEvent.event.longitude
         }}
         title={localEvent.eventTitle}
         description={localEvent.eventDescription}
@@ -20,12 +20,15 @@ export default function Map({DYNAMICEVENTINFO}) {
     )
   }
   return (
-    <View style={styles.container}>
+    <View>
       <MapView
         style={styles.mapBounds}
         initialRegion={{
-          latitude: 37.831234648041054,
-          longitude: -122.29168866522882,
+          // latitude: 37.831234648041054,
+          // longitude: -122.29168866522882,
+          // TEMPORARY INTIAL REGION.
+          latitude: attendingEvents[0].event.latitude,
+          longitude: attendingEvents[0].event.longitude,
           longitudeDelta: 0.4,
           latitudeDelta: 0.3
         }}
@@ -37,15 +40,9 @@ export default function Map({DYNAMICEVENTINFO}) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F0F0F0',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   mapBounds: {
     width: (Dimensions.get('window').width) * .95,
-    height: (Dimensions.get('window').height) * .3,
+    height: (Dimensions.get('window').height) * .32,
     borderRadius: 25,
     backgroundColor: '#F0F0F0',
   },
