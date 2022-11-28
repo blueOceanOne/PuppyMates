@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
-const path = require('path');
-const controllers = require('./controllers');
+
+const authRouter = require('./routers/auth');
 const homeRouter = require('./routers/home');
 const messagesRouter = require('./routers/messages');
 const eventsRouter = require('./routers/events');
@@ -64,5 +64,6 @@ app.use('/', homeRouter);
 app.use('/', messagesRouter);
 app.use('/', eventsRouter);
 app.use('/', usersRouter);
+app.use('/', authRouter);
 
 module.exports = http;

@@ -2,7 +2,7 @@ const path = require('path');
 const db = require('./db');
 const { Breed, User, Photo, Invitation, Event, Request, Message } = require('./models/models');
 
-db.sync()
+db.sync({ force: true })
   .then(() =>
     db.query(
       `
