@@ -4,7 +4,7 @@ import { View, Text, Button, Image } from 'react-native';
 export default ViewProfile = ({ navigation }) => {
   const exampleProfile = {
     "bio": "Bio ",
-    "breed": "Dachsund",
+    "breed": "DACHSUND",
     "city": "Peoria",
     "dog_friendly": true,
     "dog_name": "Lucy",
@@ -28,15 +28,15 @@ export default ViewProfile = ({ navigation }) => {
       <View>
         <Text>{`${exampleProfile.city}, ${exampleProfile.state}`}</Text>
         <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-          <Text>{exampleProfile.breed}</Text>
-          <Text>{exampleProfile.size}</Text>
+          <Text>{` ${exampleProfile.breed[0] + exampleProfile.breed.slice(1).toLowerCase()} `}</Text>
+          <Text>{` ${exampleProfile.size[0].toUpperCase() + exampleProfile.size.slice(1)} `}</Text>
           {exampleProfile.dog_friendly ? (
-            <Text>Dog-Friendly</Text>
+            <Text> Dog-Friendly </Text>
           ) : null}
           {exampleProfile.people_friendly ? (
-            <Text>People-Friendly</Text>
+            <Text> People-Friendly </Text>
           ) : null}
-          <Text>{exampleProfile.energy}</Text>
+          <Text>{` ${exampleProfile.energy[0].toUpperCase() + exampleProfile.energy.slice(1)} energy `}</Text>
         </View>
         <Text>{exampleProfile.bio}</Text>
       </View>
