@@ -1,6 +1,6 @@
 id,email,dog_name,breed_id,size,dog_friendly,people_friendly,energy,city,state,bio,createdAt,updatedAt,latitude,longitude
 1,Baileylover7@test.com,Bailey,1,extra large,TRUE,TRUE,high,San Francisco,CA,Total cuddlebug Loves nothing more than curling up next to the fire on a cold evening.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08,37.75686785,-122.4728669
-2,Noodlelover26@test.com,Noodle,139,small,FALSE,FALSE,average,San Francisco,CA,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08,37.75604387,-122.4588889
+2,Noodlelover26@test.com,Noodle,242,small,FALSE,FALSE,average,San Francisco,CA,Loves to run and jump and play with all sorts of new friends. Total sweetheart!,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08,37.75604387,-122.4588889
 3,Sukilover24@test.com,Suki,336,large,FALSE,FALSE,average,San Francisco,CA,null,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08,37.77432261,-122.4129165
 4,Marleylover10@test.com,Marley,2,small,TRUE,FALSE,average,San Francisco,CA,Rambunctious little fellow who loves playing with their siblings.,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08,37.74981749,-122.4826788
 5,Luffylover15@test.com,Luffy,178,small,FALSE,TRUE,average,San Francisco,CA,A little shy at first but will become your pet's best friend in no time,2022-11-22 15:56:46.615-08,2022-11-22 15:56:46.615-08,37.7576679,-122.4848442

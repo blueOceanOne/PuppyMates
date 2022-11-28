@@ -6,9 +6,7 @@ const { useState, useEffect } = React;
 import userData from '../home/exampleData/userData.js';
 import config from '../../config.js';
 
-// will look to access breed options in db
-
-const sizes = ['Small', 'Medium', 'Large'];
+const sizes = ['Extra Small', 'Small', 'Medium', 'Large', 'Extra Large'];
 const energy = ['Low', 'Average', 'High'];
 
 const FilterContainer = ({ filter, setFilter, handleFilter }) => {
@@ -17,34 +15,29 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
   const [expandBreed, setExpandBreed] = useState(false);
   const [expandFilter, setExpandFilter] = useState(false);
   const [displayConfirm, setDisplayConfirm] = useState(false);
-  const initialSelect = { category: '', value: '' };
-  const [selection, setSelection] = useState();
   const [value, setValue] = useState('');
   const [category, setCategory] = useState('');
   const [breeds, setBreeds] = useState([]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://${config.localIP}:${config.port}/breeds`)
-  //     .then((res) => {
-  //       // console.log(res.data, 'breed');
-  //       const breedList = res.data;
-  //       breedList.sort((a, b) => a.breed.localeCompare(b.breed));
-  //       const breedNames = breedList.map((breed) => breed.breed);
-  //       setBreeds(breedNames);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
+  useEffect(() => {
+    axios
+      .get(`http://${config.localIP}:${config.port}/breeds`)
+      .then((res) => {
+        const breedList = res.data;
+        breedList.sort((a, b) => a.breed.localeCompare(b.breed));
+        const breedNames = breedList.map((breed) => breed.breed);
+        setBreeds(breedNames);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const handleExpandFilter = () => {
-    // if (expandFilter && !displayConfirm) {
-    //   setValue('');
-    //   setCategory('');
-    //   setExpandFilter(false);
-    // } else {
-    //   setExpandFilter(true);
-    // }
     setExpandFilter(!expandFilter);
+    if (!expandFilter) {
+      setCategory('');
+      setValue('');
+      setDisplayConfirm(false);
+    }
   };
 
   const handleExpandBreed = () => {
@@ -117,108 +110,112 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
   };
 
   const handleConfirm = () => {
-    //invoke handle func for get req in home page
-    // filterCategory: "Breed", filterValue: "Corgi"}
-
-    // set expandFilter to false to close the accordion + update/reset relevant states
-
     handleFilter(category, value);
     setExpandFilter(false);
   };
 
   return (
-    <View style={{ zIndex: 2 }}>
-      <ListItem.Accordion
-        content={
-          <>
-            <ListItem.Content flexDirection="row" alignItems="center" justifyContent="flex-start">
-              <ListItem.Title>Filter By </ListItem.Title>
-              {category && expandFilter ? <Badge value={category} status="warning" /> : null}
-              {displayConfirm && expandFilter ? (
-                <Button title="Confirm" type="clear" onPress={() => handleConfirm()} />
-              ) : null}
+    <View style={{ zIndex: 3 }}>
+      <ScrollView>
+        <ListItem.Accordion
+          content={
+            <>
+              <ListItem.Content
+                flexDirection="row"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <ListItem.Title>Filter By </ListItem.Title>
+                {category && expandFilter ? <Badge value={category} status="warning" /> : null}
+                {displayConfirm && expandFilter ? (
+                  <Button
+                    title="Confirm"
+                    type="clear"
+                    titleStyle={{ color: 'black', fontWeight: '500' }}
+                    onPress={() => handleConfirm()}
+                  />
+                ) : null}
+              </ListItem.Content>
+            </>
+          }
+          isExpanded={expandFilter}
+          onPress={() => handleExpandFilter()}
+        >
+          <ListItem onPress={() => handleDogFriendly()} bottomDivider>
+            <ListItem.Content>
+              <ListItem.Title style={{ fontWeight: '600' }}>
+                Dog Friendly
+                {'Dog Friendly' === category ? <Icon name="check" /> : null}
+              </ListItem.Title>
             </ListItem.Content>
-          </>
-        }
-        isExpanded={expandFilter}
-        onPress={() => handleExpandFilter()}
-      >
-        <ListItem onPress={() => handleDogFriendly()} bottomDivider>
-          <ListItem.Content>
-            <ListItem.Title style={{ fontWeight: '600' }}>
-              Dog Friendly
-              {'Dog Friendly' === category ? <Icon name="check" /> : null}
-            </ListItem.Title>
-          </ListItem.Content>
-        </ListItem>
-        <ListItem onPress={() => handlePeopleFriendly()} bottomDivider>
-          <ListItem.Content>
-            <ListItem.Title style={{ fontWeight: '600' }}>
-              People Friendly
-              {'People Friendly' === category ? <Icon name="check" /> : null}
-            </ListItem.Title>
-          </ListItem.Content>
-        </ListItem>
-        <ListItem.Accordion
-          content={
-            <>
-              <ListItem.Content>
-                <ListItem.Title style={{ fontWeight: '600' }}>Size</ListItem.Title>
-              </ListItem.Content>
-            </>
-          }
-          isExpanded={expandSize}
-          onPress={() => handleExpandSize()}
-          bottomDivider
-        >
-          {sizes.map((size) => (
-            <ListItem key={size} onPress={() => handleValue(size)} bottomDivider>
-              <ListItem.Content>
-                <ListItem.Title>
-                  {size}
-                  {size === value ? <Icon name="check" /> : null}
-                </ListItem.Title>
-              </ListItem.Content>
-            </ListItem>
-          ))}
-        </ListItem.Accordion>
-        <ListItem.Accordion
-          content={
-            <>
-              <ListItem.Content>
-                <ListItem.Title style={{ fontWeight: '600' }}>Energy</ListItem.Title>
-              </ListItem.Content>
-            </>
-          }
-          isExpanded={category === 'energy' ? true : false}
-          onPress={() => handleExpandEnergy()}
-          bottomDivider
-        >
-          {energy.map((level) => (
-            <ListItem key={level} onPress={() => handleValue(level)} bottomDivider>
-              <ListItem.Content>
-                <ListItem.Title>
-                  {level}
-                  {level === value ? <Icon name="check" /> : null}
-                </ListItem.Title>
-              </ListItem.Content>
-            </ListItem>
-          ))}
-        </ListItem.Accordion>
+          </ListItem>
+          <ListItem onPress={() => handlePeopleFriendly()} bottomDivider>
+            <ListItem.Content>
+              <ListItem.Title style={{ fontWeight: '600' }}>
+                People Friendly
+                {'People Friendly' === category ? <Icon name="check" /> : null}
+              </ListItem.Title>
+            </ListItem.Content>
+          </ListItem>
+          <ListItem.Accordion
+            content={
+              <>
+                <ListItem.Content>
+                  <ListItem.Title style={{ fontWeight: '600' }}>Size</ListItem.Title>
+                </ListItem.Content>
+              </>
+            }
+            isExpanded={expandSize}
+            onPress={() => handleExpandSize()}
+            bottomDivider
+          >
+            {sizes.map((size) => (
+              <ListItem key={size} onPress={() => handleValue(size)} bottomDivider>
+                <ListItem.Content>
+                  <ListItem.Title>
+                    {size}
+                    {size === value ? <Icon name="check" /> : null}
+                  </ListItem.Title>
+                </ListItem.Content>
+              </ListItem>
+            ))}
+          </ListItem.Accordion>
+          <ListItem.Accordion
+            content={
+              <>
+                <ListItem.Content>
+                  <ListItem.Title style={{ fontWeight: '600' }}>Energy</ListItem.Title>
+                </ListItem.Content>
+              </>
+            }
+            isExpanded={expandEnergy}
+            onPress={() => handleExpandEnergy()}
+            bottomDivider
+          >
+            {energy.map((level) => (
+              <ListItem key={level} onPress={() => handleValue(level)} bottomDivider>
+                <ListItem.Content>
+                  <ListItem.Title>
+                    {level}
+                    {level === value ? <Icon name="check" /> : null}
+                  </ListItem.Title>
+                </ListItem.Content>
+              </ListItem>
+            ))}
+          </ListItem.Accordion>
 
-        <ListItem.Accordion
-          content={
-            <>
-              <ListItem.Content>
-                <ListItem.Title style={{ fontWeight: '600' }}>Breed</ListItem.Title>
-              </ListItem.Content>
-            </>
-          }
-          isExpanded={category === 'breed' ? true : false}
-          onPress={() => handleExpandBreed()}
-          bottomDivider
-        >
-          <ScrollView>
+          <ListItem.Accordion
+            content={
+              <>
+                <ListItem.Content>
+                  <ListItem.Title style={{ fontWeight: '600' }}>Breed</ListItem.Title>
+                </ListItem.Content>
+              </>
+            }
+            isExpanded={expandBreed}
+            onPress={() => handleExpandBreed()}
+            bottomDivider
+          >
             {breeds.map((breed) => (
               <ListItem key={breed} onPress={() => handleValue(breed)} bottomDivider>
                 <ListItem.Content>
@@ -229,9 +226,9 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
                 </ListItem.Content>
               </ListItem>
             ))}
-          </ScrollView>
+          </ListItem.Accordion>
         </ListItem.Accordion>
-      </ListItem.Accordion>
+      </ScrollView>
     </View>
   );
 };

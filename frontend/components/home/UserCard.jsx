@@ -7,15 +7,14 @@ import {
   PanResponder,
   StyleSheet,
   TouchableWithoutFeedback,
+  Pressable,
 } from 'react-native';
 import { Text, Card, Button, Icon, Divider } from '@rneui/themed';
-import { getDistance } from 'geolib';
 
-import userData from '../home/exampleData/userData.js';
 import MoreInfo from '../home/MoreInfo.jsx';
 import ImageGallery from '../home/ImageGallery.jsx';
 
-const { useState, useEffect, useRef } = React;
+const { useState, useEffect } = React;
 const dWidth = Dimensions.get('window').width;
 const dHeight = Dimensions.get('window').height;
 
@@ -112,25 +111,23 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
         borderRadius="10"
         containerStyle={{
           padding: 0,
-          marginTop: 40,
           backgroundColor: '#FFE15D',
-          borderColor: 'transparent',
         }}
       >
-        <TouchableWithoutFeedback onPress={() => handleDisplayImage()}>
+        <Pressable onPress={() => handleDisplayImage()}>
           <Image
             style={{
               height: imgHeight,
               width: dWidth * 0.91,
               alignSelf: 'center',
-              zIndex: 3,
+              zIndex: 2,
             }}
             borderRadius="10"
             source={{
               uri: item.photos[imgIndex].url,
             }}
           />
-        </TouchableWithoutFeedback>
+        </Pressable>
         <ImageGallery
           photos={item.photos}
           setImgIndex={setImgIndex}
@@ -176,7 +173,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    borderRadius: 7,
+    borderRadius: 10,
     height: dHeight * 0.8,
   },
 });

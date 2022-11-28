@@ -8,8 +8,10 @@ const ImageGallery = ({ photos, setImgIndex, imgIndex, email, id }) => {
     <View style={styles.dotContainer}>
       {photos.map((photo, index) => (
         <Button
-          buttonStyle={{ backgroundColor: imgIndex === index ? '#F49D1A' : '#FFE15D' }}
-          key={`${photo.url} - ${email} - ${id} - ${index}`}
+          buttonStyle={{
+            backgroundColor: imgIndex === index ? '#F49D1A' : '#FFE15D',
+          }}
+          key={` ${email} - ${id} - ${index}`}
           style={styles.dots}
           onPress={() => setImgIndex(index)}
         />
@@ -21,18 +23,18 @@ export default ImageGallery;
 const styles = StyleSheet.create({
   dotContainer: {
     flexDirection: 'column',
-    height: 5,
+    height: 10,
     justifyContent: 'center',
     alignItems: 'center',
     top: '50%',
     left: '90%',
     position: 'absolute',
-    zIndex: 3,
+    zIndex: 2,
   },
   dots: {
     height: 10,
-    width: 5,
+    width: 10,
     padding: 10,
-    zIndex: 3,
+    zIndex: 2,
   },
 });

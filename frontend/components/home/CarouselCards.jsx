@@ -3,18 +3,17 @@ import axios from 'axios';
 import { View, FlatList, Dimensions, SafeAreaView, StyleSheet } from 'react-native';
 import { Text, Card, Button, Icon } from '@rneui/themed';
 import UserCard from './UserCard.jsx';
-import userData from '../home/exampleData/userData.js';
+
 import config from '../../config.js';
 
-const { useState, useRef } = React;
+const { useState } = React;
 
 const CarouselCards = ({ localUsers, setLocalUsers, id }) => {
   const [userIndex, setUserIndex] = useState(0);
   const [noMoreUsers, setNoMoreUsers] = useState(false);
-  const initialList = localUsers.slice(0);
   const [userList, setUserList] = useState(localUsers);
-  console.log(userList.length, 'length');
   const [swipeDirection, setSwipeDirection] = useState('');
+
   const omitCard = (id) => {
     const currInd = localUsers.findIndex((item) => item.id === id);
     localUsers.splice(currInd, 1);
@@ -26,17 +25,10 @@ const CarouselCards = ({ localUsers, setLocalUsers, id }) => {
   };
 
   const handleSwipe = (direction, swipedOn_id) => {
-    // on swipe right  - send req to server to  update match status
-    // if right swipe - send post req
-    console.log('direction', direction);
-
     const req = { user1_id: id, user2_id: swipedOn_id, direction: direction };
     axios
       .post(`http://${config.localIP}:${config.port}/home`, req)
-      .then(() => {
-        console.log('swipe right', direction);
-        setSwipeDirection(swipeDirection);
-      })
+      .then(() => setSwipeDirection(swipeDirection))
       .catch((err) => console.log(err));
   };
 
@@ -65,5 +57,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
+    zIndex: 2,
   },
 });
