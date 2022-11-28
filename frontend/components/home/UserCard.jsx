@@ -7,15 +7,14 @@ import {
   PanResponder,
   StyleSheet,
   TouchableWithoutFeedback,
+  Pressable,
 } from 'react-native';
 import { Text, Card, Button, Icon, Divider } from '@rneui/themed';
-import { getDistance } from 'geolib';
 
-import userData from '../home/exampleData/userData.js';
 import MoreInfo from '../home/MoreInfo.jsx';
 import ImageGallery from '../home/ImageGallery.jsx';
 
-const { useState, useEffect, useRef } = React;
+const { useState, useEffect } = React;
 const dWidth = Dimensions.get('window').width;
 const dHeight = Dimensions.get('window').height;
 
@@ -88,16 +87,6 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
     },
   });
 
-  const calcDistance = (currItem) => {
-    // will switch to current user's geolocation - geolocation.latitude, geolocation.longitude
-    const start = { latitude: 34.0533447265625, longitude: -118.24234771728516 };
-    //current card
-    const end = { latitude: currItem.latitude, longitude: currItem.longitude };
-    const meters = getDistance(start, end);
-    const miles = Math.round(meters / 1609.344);
-    return miles;
-  };
-
   const handleDisplayImage = () => {
     imgIndex === item.photos.length - 1 ? setImgIndex(0) : setImgIndex(imgIndex + 1);
   };
@@ -122,11 +111,10 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
         borderRadius="10"
         containerStyle={{
           padding: 0,
-          marginTop: 40,
           backgroundColor: '#FFE15D',
         }}
       >
-        <TouchableWithoutFeedback onPress={() => handleDisplayImage()}>
+        <Pressable onPress={() => handleDisplayImage()}>
           <Image
             style={{
               height: imgHeight,
@@ -136,17 +124,23 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
             }}
             borderRadius="10"
             source={{
-              uri: item.photos[imgIndex],
+              uri: item.photos[imgIndex].url,
             }}
           />
-        </TouchableWithoutFeedback>
-        <ImageGallery photos={item.photos} setImgIndex={setImgIndex} imgIndex={imgIndex} />
+        </Pressable>
+        <ImageGallery
+          photos={item.photos}
+          setImgIndex={setImgIndex}
+          imgIndex={imgIndex}
+          email={item.email}
+          id={item.id}
+        />
         <View flexDirection="row" justifyContent="space-between" style={{ paddingHorizontal: 5 }}>
           <Text h4 style={{ fontWeight: 'bold', padding: 2 }}>
             {item.dog_name}
           </Text>
           <Text h4 style={{ fontWeight: 'bold', padding: 2 }}>
-            {calcDistance(item)} miles away
+            {Math.round(item.distance)} miles away
           </Text>
         </View>
         {viewMore ? (
@@ -179,7 +173,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    borderRadius: 7,
+    borderRadius: 10,
     height: dHeight * 0.8,
   },
 });

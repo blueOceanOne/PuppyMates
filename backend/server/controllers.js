@@ -86,7 +86,7 @@ module.exports = {
           ],
         })
       )
-      .then((result) => res.status(200).json(result))
+      .then((result) => res.status(200).json(result.reverse()))
       .catch((err) => {
         console.log(err);
         res.sendStatus(400);
@@ -106,6 +106,7 @@ module.exports = {
     const senderId = req.body.user1_id;
     const recipientId = req.body.user2_id;
     const { direction } = req.body;
+    console.log(req.body);
 
     const condition = {
       where: {
@@ -347,11 +348,11 @@ module.exports = {
   postEvent: function (req, res) {
     const eventDetails = {
       host_id: req.body.host_id,
-      title: req.body.event_title,
-      description: req.body.event_description,
-      date: req.body.event_date,
-      latitude: req.body.event_latitude,
-      longitude: req.body.event_longitude,
+      title: req.body.title,
+      description: req.body.description,
+      date: req.body.date,
+      latitude: req.body.latitude,
+      longitude: req.body.longitude,
     };
 
     Event.create(eventDetails)
