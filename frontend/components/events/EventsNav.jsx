@@ -23,8 +23,6 @@ const EventsNav = () => {
       });
   }, []);
 
-
-
   return (
     <Stack.Navigator>
       <Stack.Screen name='Events Home' options={{headerShown: false}} children={() => <Events />} />
