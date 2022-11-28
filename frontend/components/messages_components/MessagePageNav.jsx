@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Button} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import ChatPage from './ChatPage.jsx';
 import MessagePage from './MessagePage.jsx';
 import RequestDetail from './RequestDetail.jsx';
@@ -27,6 +28,31 @@ const MessagePageNav = ({socket, user}) => {
         console.log(err);
       })
   }, []);
+
+  const navigation = useNavigation();
+
+  const handleAcceptorReject = (action) => {
+    let target = selectedRecipient.sender_id === user ? selectedRecipient.recipient_id : selectedRecipient.sender_id;
+
+    axios.put(`http://${config.localIP}:${config.port}/requests/${action}/${user}`, null, { params: { participant_id: target}})
+    .then(()=>{
+      console.log(action);
+      let promise1 = axios.get(`http://${config.localIP}:${config.port}/requests/matched/${user}`);
+      let promise2 = axios.get(`http://${config.localIP}:${config.port}/requests/pending/${user}`)
+      Promise.all([promise1, promise2])
+        .then((values) => {
+          setMatched(values[0].data);
+          setPending(values[1].data);
+          navigation.navigate('MessagePage');
+        })
+        .catch((err)=>{
+          console.log(err);
+        })
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  }
 
   const chatTitle = selectedRecipient.sender_id === user? selectedRecipient.request_recipient.dog_name : selectedRecipient.request_sender.dog_name;
 
@@ -70,7 +96,7 @@ const MessagePageNav = ({socket, user}) => {
           },
           headerRight: () => (
             <Button
-            onPress={() => alert('This is a button!')}
+            onPress={() => handleAcceptorReject('reject', )}
             title="Unmatch"
             color="#EC7272"
           />

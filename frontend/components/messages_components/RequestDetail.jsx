@@ -22,7 +22,6 @@ const RequestDetail = ({selectedRequest, user, setMatched, setPending}) => {
   const handleAcceptorReject = (action) => {
     axios.put(`http://${config.localIP}:${config.port}/requests/${action}/${user}`, null, { params: { participant_id: selectedRequest}})
     .then(()=>{
-      console.log('accepted');
       let promise1 = axios.get(`http://${config.localIP}:${config.port}/requests/matched/${user}`);
       let promise2 = axios.get(`http://${config.localIP}:${config.port}/requests/pending/${user}`)
       Promise.all([promise1, promise2])
