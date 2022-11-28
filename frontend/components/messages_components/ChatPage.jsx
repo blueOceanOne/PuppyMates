@@ -6,15 +6,15 @@ import ChatInput from './ChatInput.jsx';
 import config from '../../config.js';
 import axios from 'axios';
 
-const ChatPage = ({socket, selectedRecipient, user}) => {
+const ChatPage = ({socket, chatRecipient, user}) => {
 
   const [messages, setMessages] = useState([]);
-  const [recipient, setRecipient] = useState(selectedRecipient.sender_id);
+  const [recipient, setRecipient] = useState(chatRecipient);
   const [keyboardStatus, setKeyboardStatus] = useState(undefined);
   const scrollViewRef = useRef();
 
   useEffect(() => {
-    axios.get(`http://${config.localIP}:${config.port}/messages/${user}`, { params: {participant_id: selectedRecipient.sender_id}})
+    axios.get(`http://${config.localIP}:${config.port}/messages/${user}`, { params: {participant_id: chatRecipient}})
       .then((response)=>{
         setMessages(response.data);
       })
