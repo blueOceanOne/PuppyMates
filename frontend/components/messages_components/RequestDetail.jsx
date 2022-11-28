@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Pressable, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Details from './Details.jsx'
 import config from '../../config.js';
@@ -43,25 +43,62 @@ const RequestDetail = ({selectedRequest, user, setMatched, setPending}) => {
 
   if (selectedUser!=='empty') {
     return (
-      <View style={{backgroundColor: 'white', height: '100%'}}>
-        <Details selectedUser={selectedUser}/>
-        <Button
-          title="Accept"
-          onPress = {(event)=>{
-            event.preventDefault();
-            handleAcceptorReject('accept');
-          }}
-          >Accept</Button>
-        <Button
-          title="Reject"
-          onPress={(event)=>{
-            event.preventDefault();
-            handleAcceptorReject('reject');
-          }}
-          >Reject</Button>
-      </View>
+      <SafeAreaView style={{backgroundColor: 'white', height: '100%'}}>
+        <ScrollView>
+          <Details selectedUser={selectedUser}/>
+          <View style={styles.buttonContainer}>
+            <Pressable
+              style = {styles.accept}
+              title="Accept"
+              onPress = {(event)=>{
+                event.preventDefault();
+                handleAcceptorReject('accept');
+              }}
+              >
+                <Text style={{fontSize: 18, color: 'black', fontWeight: 'bold'}}>Accept</Text>
+              </Pressable>
+            <Pressable
+              style={styles.reject}
+              title="Reject"
+              onPress={(event)=>{
+                event.preventDefault();
+                handleAcceptorReject('reject');
+              }}
+              >
+                <Text style={{fontSize: 18, color: 'black', fontWeight: 'bold'}}>Reject</Text>
+            </Pressable>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     )
   }
 }
 
 export default RequestDetail;
+
+const styles = StyleSheet.create({
+  accept: {
+    width: 140,
+    height: 40,
+    backgroundColor: '#B6E2A1',
+    margin: 10,
+    borderRadius: 10,
+    alignItems:'center',
+    justifyContent: 'center',
+  },
+
+  reject: {
+    width: 140,
+    height: 40,
+    backgroundColor: '#EC7272',
+    margin: 10,
+    borderRadius: 10,
+    alignItems:'center',
+    justifyContent: 'center',
+  },
+
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center'
+  }
+})

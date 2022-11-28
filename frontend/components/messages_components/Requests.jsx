@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableWithoutFeedback, SafeAreaView, ScrollView } from 'react-native';
 import { ListItem, Avatar } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
 import RequestDetail from './RequestDetail.jsx';
@@ -10,8 +10,9 @@ const Requests = ({selectedRequest, setSelectedRequest, user, pending, setPendin
   const navigation = useNavigation();
 
   return (
-    <View>
+    <SafeAreaView>
       <Text style={styles.text}>Pending requests</Text>
+      <ScrollView horizontal={true}>
         <View style={styles.requestCards}>
         {
           pending.map((item, i) => (
@@ -30,7 +31,8 @@ const Requests = ({selectedRequest, setSelectedRequest, user, pending, setPendin
           ))
         }
         </View>
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
