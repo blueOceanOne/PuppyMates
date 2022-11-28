@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {Button} from 'react-native';
 import ChatPage from './ChatPage.jsx';
 import MessagePage from './MessagePage.jsx';
 import RequestDetail from './RequestDetail.jsx';
@@ -66,7 +67,14 @@ const MessagePageNav = ({socket, user}) => {
           headerShadowVisible: false,
           headerTitleStyle: {
             fontSize: '24px'
-          }
+          },
+          headerRight: () => (
+            <Button
+            onPress={() => alert('This is a button!')}
+            title="Unmatch"
+            color="#EC7272"
+          />
+          )
         }}
         children={()=><ChatPage socket={socket} selectedRecipient={selectedRecipient} user={user}/>}
       />

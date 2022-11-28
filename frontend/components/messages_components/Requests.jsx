@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, TouchableWithoutFeedback, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableWithoutFeedback, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
 import { ListItem, Avatar } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
 import RequestDetail from './RequestDetail.jsx';
@@ -16,7 +16,7 @@ const Requests = ({selectedRequest, setSelectedRequest, user, pending, setPendin
         <View style={styles.requestCards}>
         {
           pending.map((item, i) => (
-            <TouchableWithoutFeedback
+            <TouchableOpacity
               key={i}
               onPress = {(event) => {
               event.preventDefault();
@@ -27,7 +27,7 @@ const Requests = ({selectedRequest, setSelectedRequest, user, pending, setPendin
                 <Image style={styles.image} source={{uri:item.request_sender.photos[0].url}}></Image>
                 <Text style={styles.name}>{item.request_sender.dog_name}</Text>
               </View>
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
           ))
         }
         </View>

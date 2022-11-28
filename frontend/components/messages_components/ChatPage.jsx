@@ -12,11 +12,6 @@ const ChatPage = ({socket, selectedRecipient, user}) => {
   const [recipient, setRecipient] = useState(selectedRecipient.sender_id);
   const [keyboardStatus, setKeyboardStatus] = useState(undefined);
   const scrollViewRef = useRef();
-/*   const keyboardHeight = useKeyboardHeight() */
-/*   const [keyBoardOffset, setKeyBoardOffset] = useState(0);
-  const [keyboardStatus, setKeyboardStatus] = useState(undefined);
-  const keyboardHeight = useKeyboardHeight();
-  console.log('keyboardHeight is ', keyboardHeight) */
 
   useEffect(() => {
     axios.get(`http://${config.localIP}:${config.port}/messages/${user}`, { params: {participant_id: selectedRecipient.sender_id}})
@@ -36,24 +31,6 @@ const ChatPage = ({socket, selectedRecipient, user}) => {
       socket.off('response');
     }
   }, [socket, messages]);
-
-/*   useEffect(() => {
-    const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
-      setKeyboardStatus("Shown");
-    });
-    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
-      setKeyboardStatus("Hidden");
-    });
-
-    return () => {
-      showSubscription.remove();
-      hideSubscription.remove();
-    };
-  }, []);
-
-  const onLayout=(event)=>{
-    const {x, y, height, width} = event.nativeEvent.layout;
-  } */
 
   return (
     <SafeAreaView style={styles.container}>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, StatusBar, TextInput, Pressable, Keyboard } from 'react-native';
+import { StyleSheet, View, Text, StatusBar, TextInput, TouchableOpacity, Keyboard } from 'react-native';
 import { Input, Icon} from '@rneui/themed';
 import config from '../../config.js';
 import axios from 'axios';
@@ -20,15 +20,13 @@ const ChatInput = ({socket, user, recipient})=>{
 
   return (
     <View style={styles.container}>
-{/*         <Text>To recipient {recipient}</Text>
-        <Text>I am {user}</Text> */}
         <TextInput
             style={styles.input}
             placeholder="Message here"
             leftIcon={{ type: 'font-awesome', name: 'comment' }}
             value={message.content}
             onChangeText={(value) => setMessage({...message, content: value})} />
-        <Pressable
+        <TouchableOpacity
           style={styles.button}
           title="Send"
           onPress={(event)=>{
@@ -40,7 +38,7 @@ const ChatInput = ({socket, user, recipient})=>{
           }}
         >
           <Text style={{fontSize: 16, color: 'white', fontWeight: 'bold'}}>Send</Text>
-        </Pressable>
+        </TouchableOpacity>
     </View>
   )
 }

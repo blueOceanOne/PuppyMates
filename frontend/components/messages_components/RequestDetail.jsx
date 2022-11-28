@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Pressable, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, Pressable, StyleSheet, SafeAreaView, ScrollView,TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Details from './Details.jsx'
 import config from '../../config.js';
@@ -47,7 +47,7 @@ const RequestDetail = ({selectedRequest, user, setMatched, setPending}) => {
         <ScrollView>
           <Details selectedUser={selectedUser}/>
           <View style={styles.buttonContainer}>
-            <Pressable
+            <TouchableOpacity
               style = {styles.accept}
               title="Accept"
               onPress = {(event)=>{
@@ -56,8 +56,8 @@ const RequestDetail = ({selectedRequest, user, setMatched, setPending}) => {
               }}
               >
                 <Text style={{fontSize: 18, color: 'black', fontWeight: 'bold'}}>Accept</Text>
-              </Pressable>
-            <Pressable
+              </TouchableOpacity>
+            <TouchableOpacity
               style={styles.reject}
               title="Reject"
               onPress={(event)=>{
@@ -66,7 +66,7 @@ const RequestDetail = ({selectedRequest, user, setMatched, setPending}) => {
               }}
               >
                 <Text style={{fontSize: 18, color: 'black', fontWeight: 'bold'}}>Reject</Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </SafeAreaView>
