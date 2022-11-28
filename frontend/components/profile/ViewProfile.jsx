@@ -2,7 +2,9 @@ import React from 'react';
 import { View, Text, Button, Image } from 'react-native';
 
 export default ViewProfile = ({ navigation }) => {
-  const exampleProfile = {
+  const dWidth = Dimensions.get('window').width;
+  const dHeight = Dimensions.get('window').height;
+  const selectedUser = {
     "bio": "Bio ",
     "breed": "DACHSUND",
     "city": "Peoria",
@@ -17,30 +19,119 @@ export default ViewProfile = ({ navigation }) => {
     ],
     "size": "small",
     "state": "AZ",
-    "under18": true
+    "under18": false
   }
 
   return (
-    <View>
-      <Button title="Log Out" />
-      <Image style={{ width: 100, height: 100 }} source={exampleProfile.photos[0]} />
-      <Text>{exampleProfile.dog_name}</Text>
+    <View style={styles.moreInfo}>
+      <Button title="Log Out" style={{
+        float: 'right',
+        width: 50,
+        backgroundColor: '#fff',
+        color: '#000'
+      }} />
+      <Image style={{
+        alignSelf: 'center',
+        zIndex: 2,
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        margin: 10,
+        borderRadius: 20
+      }}
+      source={selectedUser.photos[0]} />
+      <Text style={{
+        alignSelf: 'center'
+      }}>{selectedUser.dog_name}</Text>
       <View>
-        <Text>{`${exampleProfile.city}, ${exampleProfile.state}`}</Text>
+        <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: 5 }}>
+          {`${selectedUser.city}, ${selectedUser.state}`}
+        </Text>
         <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-          <Text>{` ${exampleProfile.breed[0] + exampleProfile.breed.slice(1).toLowerCase()} `}</Text>
-          <Text>{` ${exampleProfile.size[0].toUpperCase() + exampleProfile.size.slice(1)} `}</Text>
-          {exampleProfile.dog_friendly ? (
-            <Text> Dog-Friendly </Text>
+          <Chip
+            title={selectedUser.breed[0] + selectedUser.breed.slice(1).toLowerCase()}
+            size="xs"
+            color="#FFD8A9"
+            containerStyle={{ padding: 2 }}
+            titleStyle={{ color: 'black' }}
+          />
+
+          <Chip
+            title={selectedUser.size[0].toUpperCase() + selectedUser.size.slice(1)}
+            size="xs"
+            color="#FFD8A9"
+            containerStyle={{ padding: 2 }}
+            titleStyle={{ color: 'black' }}
+          />
+
+          <Chip
+            title={`${selectedUser.energy[0].toUpperCase() + selectedUser.energy.slice(1)} Energy`}
+            size="xs"
+            color="#FFD8A9"
+            containerStyle={{ padding: 2 }}
+            titleStyle={{ color: 'black' }}
+          />
+
+          {selectedUser.people_friendly ? (
+            <Chip
+              title="People Friendly"
+              size="xs"
+              color="#FFD8A9"
+              containerStyle={{ padding: 2 }}
+              titleStyle={{ color: 'black' }}
+            />
           ) : null}
-          {exampleProfile.people_friendly ? (
-            <Text> People-Friendly </Text>
+
+          {selectedUser.dog_friendly ? (
+            <Chip
+              title="Dog Friendly"
+              size="xs"
+              color="#FFD8A9"
+              containerStyle={{ padding: 2 }}
+              titleStyle={{ color: 'black' }}
+            />
           ) : null}
-          <Text>{` ${exampleProfile.energy[0].toUpperCase() + exampleProfile.energy.slice(1)} energy `}</Text>
         </View>
-        <Text>{exampleProfile.bio}</Text>
+        <Text style={{ fontSize: 16, paddingLeft: 5 }}>{selectedUser.bio}</Text>
       </View>
-      <Button title="Edit Profile" />
+      <Button title="Edit Profile" style={{
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        borderColor: '#000',
+        borderWidth: 4
+      }} />
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  card: {
+    padding: 0,
+    marginTop: 5,
+    marginHorizontal: 5,
+    backgroundColor: '#FFE15D',
+    borderRadius: 20,
+  },
+
+  image: {
+    height: 250,
+    width: 350,
+    alignSelf: 'center',
+    zIndex: 2,
+    borderRadius: 20,
+    margin:10
+  },
+
+  moreInfo: {
+    backgroundColor: '#F5EFE6',
+    padding: 5,
+    borderRadius: 10,
+    margin: 10,
+  },
+
+  chipView: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start',
+  },
+})
