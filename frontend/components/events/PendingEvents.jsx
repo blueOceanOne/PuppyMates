@@ -126,14 +126,16 @@ const PendingEvents = ({DYNAMICUSERINFO}) => {
           <View style={styles.singleEvent} key={each.event.id}>
             <View style={styles.heading}>
               <Text style={styles.name}>{each.event.title}</Text>
-                <Text style={styles.host}>{each.user.dog_name}</Text>
+              <Text style={styles.host}>{each.user.dog_name}</Text>
             </View>
-
 
             <View style={styles.eventLine2}>
               <View style={styles.specifics}>
+                <View style={{flexDirection: 'column', justifyContent:'start'}}>
                 <Text style={styles.address}>{each.event.address}</Text>
-                <Text style={styles.datetime}>{`${niceTime}, ${niceDate}`}</Text>
+                <Text style={[styles.datetime, {marginHorizontal: 0}]}>{niceDate}</Text>
+                </View>
+                  <Text style={styles.datetime}>{niceTime}</Text>
               </View>
               <Avatar rounded source={{uri: each.user.photos[0].url}} />
             </View>
@@ -158,7 +160,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   heading: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -180,7 +181,7 @@ const styles = StyleSheet.create({
   },
   datetime: {
     fontSize: 14,
-    marginHorizontal: gap / 2,
+    marginHorizontal: gap/2,
   },
   description: {
     fontSize: 16,
