@@ -1,21 +1,54 @@
 import React from 'react';
 import { View, Text, SafeAreaView } from 'react-native';
-const { useState } = React;
+import axios from 'axios';
 import FilterContainer from './FilterContainer.jsx';
 import CarouselCards from './CarouselCards.jsx';
+import config from '../../config.js';
 //prop to be passed in to get current user's id
+const { useState, useEffect } = React;
+
 const Home = () => {
-  const [filter, setFilter] = useState({});
+  // const Home = ({id}) => {
+  const initialFilter = { filterCategory: '', filterValue: '' };
+  const [filter, setFilter] = useState(initialFilter);
   const [localUsers, setLocalUsers] = useState([]);
+  const [breeds, setBreeds] = useState([]);
 
-  //useEffect to render users on load and set to setLocalUsers state
+  const id = 1;
+  useEffect(() => {
+    axios
+      .get(`http://${config.localIP}:${config.port}/home?id=${id}`)
+      .then((res) => {
+        const users = res.data.slice(10);
+        setLocalUsers(users);
+      })
+      .catch((err) => err);
+  }, []);
 
-  //create handleFilter func to send get request
+  const handleFilter = (currCategory, currVal) => {
+    const val = currVal.toLowerCase();
+    axios
+      .get(
+        `http://${config.localIP}:${config.port}/home?id=${id}&filterCategory=${currCategory}&filterValue=${val}`
+      )
+      .then((res) => {
+        const filterUsers = res.data;
+        filterUsers.reverse();
+        setLocalUsers(filterUsers);
+        setFilter(initialFilter);
+      })
+      .catch((err) => err);
+  };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <FilterContainer filter={filter} setFilter={setFilter} />
-      <CarouselCards localUsers={localUsers} />
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+      <FilterContainer
+        filter={filter}
+        setFilter={setFilter}
+        handleFilter={handleFilter}
+        breeds={breeds}
+      />
+      <CarouselCards localUsers={localUsers} setLocalUsers={setLocalUsers} id={id} />
     </SafeAreaView>
   );
 };
