@@ -2,7 +2,7 @@ const path = require('path');
 const db = require('./db');
 const { Breed, User, Photo, Invitation, Event, Request, Message } = require('./models/models');
 
-db.sync()
+db.sync({ force: true })
   .then(() =>
     db.query(
       `
@@ -23,7 +23,7 @@ TRUNCATE TABLE breeds CASCADE;`
   .then((count) => db.query(`ALTER SEQUENCE "breeds_id_seq" RESTART WITH ${count + 1}`))
   .then(() =>
     db.query(`
-COPY users("id", "email", "dog_name", "breed_id", "size", "dog_friendly", "people_friendly", "energy", "city", "state", "bio", "createdAt", "updatedAt")
+COPY users("id", "email", "dog_name", "breed_id", "size", "dog_friendly", "people_friendly", "energy", "city", "state", "bio", "createdAt", "updatedAt", "latitude", "longitude")
 FROM '${path.join(__dirname, './sampleData/example_users.csv')}'
 DELIMITER ','
 NULL AS 'null'

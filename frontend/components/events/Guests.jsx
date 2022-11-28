@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { View, ScrollView, Text, Pressable, Button, StyleSheet } from 'react-native';
 import { ListItem, Avatar } from '@rneui/themed';
 import userData from '../home/exampleData/userData.js';
+import { useNavigation } from '@react-navigation/native';
 
-const Guests = ({setOpen, DYNAMICUSERINFO}) => {
+const Guests = ({invitees, setInvitees}) => {
+  const navigation = useNavigation();
   const sampleData = userData;
-  const [invitees, setInvitees] = useState([]);
 
   const handleInvite = (guestId) => {
     const userIdInList = invitees.indexOf(guestId);
@@ -17,11 +18,19 @@ const Guests = ({setOpen, DYNAMICUSERINFO}) => {
     }
   };
 
+  const handleConfirm = () => {
+    navigation.navigate('Create Event');
+  }
+
   return (
     <ScrollView>
+      <Button title='Confirm Guests' onPress={handleConfirm}/>
       { sampleData.map((each) => {
         return (
-          <ListItem key={each.id} style={{ backgroundColor: ((!!invitees.indexOf(each.id)) ? '#2D70F9' : 'white' )}}>
+          <ListItem
+            key={each.id}
+            style={ invitees.indexOf(each.id) === -1 ? styles.unselectedGuest : styles.selectedGuest }
+          >
             <Pressable onPress={() => {handleInvite(each.id)}}>
             <Avatar source={{uri: each.photos[0]}} />
               <ListItem.Title>
