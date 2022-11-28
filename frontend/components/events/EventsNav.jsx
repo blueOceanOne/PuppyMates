@@ -27,7 +27,7 @@ const EventsNav = () => {
 
   return (
     <Stack.Navigator>
-      <Stack.Screen name='Events Home' children={() => <Events />} />
+      <Stack.Screen name='Events Home' options={{headerShown: false}} children={() => <Events />} />
       <Stack.Screen name='Create Event' children={() => <CreateEvent matches={matches} invitees={invitees}/>} />
       <Stack.Screen name='Guests' children={() => <Guests invitees={invitees} matches={matches} setInvitees={setInvitees}/>} />
       <Stack.Screen name='Pending' children={() => <PendingEvents />} />

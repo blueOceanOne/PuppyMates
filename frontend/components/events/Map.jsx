@@ -20,7 +20,7 @@ export default function Map({attendingEvents}) {
     )
   }
   return (
-    <View style={styles.container}>
+    <View>
       <MapView
         style={styles.mapBounds}
         initialRegion={{
@@ -40,12 +40,6 @@ export default function Map({attendingEvents}) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F0F0F0',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   mapBounds: {
     width: (Dimensions.get('window').width) * .95,
     height: (Dimensions.get('window').height) * .32,

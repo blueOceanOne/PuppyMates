@@ -37,36 +37,34 @@ const Events = () => {
     )
   }
   return (
-    <SafeAreaView>
-      <ScrollView styles={styles.container}>
-          <View styles={styles.tabContainer}>
-            <Button color='#F0F0F0' onPress={() => {setTab('attending')}} style={styles.singleTab}>
-              <Text style={[styles.tabText, {color: (tab === 'attending') ? '#F49D1A' : '#000000'}]}>Attending</Text>
-            </Button>
-            <Button color='#F0F0F0' onPress={() => {setTab('pending')}} style={styles.singleTab}>
-              <Text style={[styles.tabText, {color: (tab === 'pending') ? '#F49D1A' : '#000000'}]}>Pending</Text>
-            </Button>
+    <SafeAreaView style={styles.container}>
+      <View styles={styles.tabContainer} flexDirection='row' justifyContent='space-evenly'>
+        <Button color='#F0F0F0' onPress={() => {setTab('attending')}} style={styles.singleTab}>
+          <Text style={[styles.tabText, {color: (tab === 'attending') ? '#F49D1A' : '#000000'}]}>Attending</Text>
+        </Button>
+        <Button color='#F0F0F0' onPress={() => {setTab('pending')}} style={styles.singleTab}>
+          <Text style={[styles.tabText, {color: (tab === 'pending') ? '#F49D1A' : '#000000'}]}>Pending</Text>
+        </Button>
+      </View>
+      {(tab === 'attending') ?
+        <>
+          <View style={styles.mapView}>
+            <Map attendingEvents={attendingEvents} />
           </View>
-          {(tab === 'attending') ?
-            <>
-              <View style={styles.mapView}>
-                <Map attendingEvents={attendingEvents} />
-              </View>
-              <EventList eventList={attendingEvents} />
-              <View style={styles.createButton}>
-                <FAB
-                  visible={true}
-                  placement='right'
-                  icon={{ name: 'add', color: 'white' }}
-                  color="#007AFF"
-                  onPress={() => {
-                    navigation.navigate('Create Event');
-                  }}
-                />
-              </View>
-            </>
-          : <PendingEvents /> }
-      </ScrollView>
+          <ScrollView style={styles.evenList}>
+            <EventList eventList={attendingEvents} />
+          </ScrollView>
+          <FAB
+            visible={true}
+            placement='right'
+            icon={{ name: 'add', color: 'white' }}
+            color="#007AFF"
+            onPress={() => {
+              navigation.navigate('Create Event');
+            }}
+          />
+        </>
+      : <PendingEvents /> }
     </SafeAreaView>
   )
 }
@@ -75,10 +73,10 @@ export default Events;
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    height: (Dimensions.get('window').height * .8)
+    flex: 1,
   },
   mapView: {
+    alignItems: 'center',
     backgroundColor: '#F0F0F0',
     paddingBottom: 5,
   },
@@ -86,9 +84,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
   },
+  eventList: {
+    paddingTop: 200,
+  },
   singleTab: {
     borderRadius: 3,
-    // width: 150,
+    width: 120,
     backgroundColor: 'white'
   },
   tabText: {
