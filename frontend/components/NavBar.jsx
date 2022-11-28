@@ -11,7 +11,7 @@ import * as Location from 'expo-location';
 
 const socket = io(`http://${config.localIP}:${config.port}`);
 
-export default function NavBar({ route }) {
+export default function NavBar() {
   const [user, setUser] = useState(93);
   const [errorMsg, setErrorMsg] = useState(null);
   const [coordinates, setCoordinates] = useState(null);
@@ -35,10 +35,6 @@ export default function NavBar({ route }) {
       setUser(newUser.id);
     })
   }, [])
-
-  useEffect(() => {
-    setUser(route.params.user);
-  }, [ route.params.user ])
 
   return (
     <NavTabs socket={socket} user={user}/>
