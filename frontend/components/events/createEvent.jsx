@@ -75,6 +75,7 @@ const CreateEvent = ({invitees, setInvitees, matches}) => {
       axios.post(`http://${config.localIP}:${config.port}/attendingEvents`, input)
       .then(() => {
         Alert.alert('Successfully created event');
+        navigation.navigate('Events Home');
       })
       .catch((err) => {
         Alert.alert('We had a little oopsie daisy bingo boingo :( Could not create event');
@@ -88,9 +89,7 @@ const CreateEvent = ({invitees, setInvitees, matches}) => {
     e.preventDefault();
     coordinatify()
       .then((results) => {
-        console.log('results after coodinatifying: ', results);
         send(results);
-        navigation.navigate('Events Home');
       })
       // .then(() => {
       //   setEvent({

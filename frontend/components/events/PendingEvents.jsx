@@ -14,37 +14,6 @@ const PendingEvents = ({DYNAMICUSERINFO}) => {
   const [pendingEvents, setPendingEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   axios.get(`http://${config.localIP}:${config.port}/pendingEvents/${userData[0].id}`)
-  //     .then(async (results) => {
-  //       const rawEvents = results.data;
-  //       await addressify(rawEvents);
-  //       console.log('addressable: ', rawEvents);
-  //       await setPendingEvents(rawEvents);
-  //       await setLoading(false);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     })
-  //   }, [])
-
-  // const addressify = async (input) => {
-  //   if (input.length > 0) {
-  //     await input.forEach(async (element) => {
-  //       const coordinates = {latitude: element.event.latitude, longitude: element.event.longitude}
-  //       await Location.reverseGeocodeAsync(coordinates)
-  //         .then((addressObj) => {
-  //           element.event.address =
-  //           `${addressObj[0].streetNumber ? `${addressObj[0].streetNumber} ` : ''}${addressObj[0].street}, ${addressObj[0].city} ${addressObj[0].region} ${addressObj[0].postalCode}`;
-  //           console.log('within geocoding: ', element);
-  //         })
-  //         .catch((err) => {
-  //           console.log(err);
-  //         })
-  //     })
-  //   }
-  // }
-
   useEffect(() => {
     axios.get(`http://${config.localIP}:${config.port}/pendingEvents/${userData[0].id}`)
       .then((results) => {
@@ -75,7 +44,6 @@ const PendingEvents = ({DYNAMICUSERINFO}) => {
       })
     }
   }
-
 
   const cleanup = (targetId) => {
     for (var i = 0; i < pendingEvents.length; i++) {
