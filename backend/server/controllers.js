@@ -348,11 +348,11 @@ module.exports = {
   postEvent: function (req, res) {
     const eventDetails = {
       host_id: req.body.host_id,
-      title: req.body.event_title,
-      description: req.body.event_description,
-      date: req.body.event_date,
-      latitude: req.body.event_latitude,
-      longitude: req.body.event_longitude,
+      title: req.body.title,
+      description: req.body.description,
+      date: req.body.date,
+      latitude: req.body.latitude,
+      longitude: req.body.longitude,
     };
 
     Event.create(eventDetails)
