@@ -38,7 +38,7 @@ io.on('connection', (socket) => {
       }
     });
     if (secondUser) {
-      newUser = { id: 101, socket_id: socket.id };
+      newUser = { id: 8, socket_id: socket.id };
       clients[socket.id] = newUser.id;
       clientsById[newUser.id] = socket.id;
       socket.emit('sendID', newUser);
