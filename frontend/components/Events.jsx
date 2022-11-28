@@ -37,8 +37,8 @@ const Events = () => {
     )
   }
   return (
-    <SafeAreaView styles={styles.container}>
-      <ScrollView>
+    <SafeAreaView>
+      <ScrollView styles={styles.container}>
           <View styles={styles.tabContainer}>
             <Button color='#F0F0F0' onPress={() => {setTab('attending')}} style={styles.singleTab}>
               <Text style={[styles.tabText, {color: (tab === 'attending') ? '#F49D1A' : '#000000'}]}>Attending</Text>
@@ -53,20 +53,20 @@ const Events = () => {
                 <Map attendingEvents={attendingEvents} />
               </View>
               <EventList eventList={attendingEvents} />
+              <View style={styles.createButton}>
+                <FAB
+                  visible={true}
+                  placement='right'
+                  icon={{ name: 'add', color: 'white' }}
+                  color="#007AFF"
+                  onPress={() => {
+                    navigation.navigate('Create Event');
+                  }}
+                />
+              </View>
             </>
           : <PendingEvents /> }
       </ScrollView>
-      <View style={styles.createButton}>
-        <FAB
-          visible={true}
-          placement='right'
-          icon={{ name: 'add', color: 'white' }}
-          color="#007AFF"
-          onPress={() => {
-            navigation.navigate('Create Event');
-          }}
-        />
-      </View>
     </SafeAreaView>
   )
 }
@@ -75,8 +75,8 @@ export default Events;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: 'white',
+    flexGrow: 1,
+    height: (Dimensions.get('window').height * .8)
   },
   mapView: {
     backgroundColor: '#F0F0F0',
@@ -89,15 +89,14 @@ const styles = StyleSheet.create({
   singleTab: {
     borderRadius: 3,
     // width: 150,
-    backgroundColor: 'gray'
+    backgroundColor: 'white'
   },
   tabText: {
     fontSize: 18,
     fontWeight: 'bold',
   },
-  createButton: {
-    //position: 'absolute',
-    bottom: 0,
-    // left: (Dimensions.get('window').width) * 1,
-  },
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 })

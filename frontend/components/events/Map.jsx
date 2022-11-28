@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   mapBounds: {
     width: (Dimensions.get('window').width) * .95,
-    height: (Dimensions.get('window').height) * .3,
+    height: (Dimensions.get('window').height) * .32,
     borderRadius: 25,
     backgroundColor: '#F0F0F0',
   },
