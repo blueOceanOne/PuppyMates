@@ -9,15 +9,15 @@ import config from '../../config.js';
 export default SignUp5 = ({ navigation, route }) => {
   const [ bio, setBio ] = useState('');
 
-  const addUser = (obj) => {
-    axios.post(`http://${config.localIP}:${config.port}/signup`, obj)
-      .then(() => {
-        axios.get(`http://${config.localIP}:${config.port}/login?user_email=${obj.user_email}&hashed_password_attempt=${obj.hashed_password}`)
-          .then(result  => {
-            navigation.navigate('App', { user: result.id });
-          })
-      })
-  }
+  // const addUser = (obj) => {
+  //   axios.post(`http://${config.localIP}:${config.port}/signup`, obj)
+  //     .then(() => {
+  //       axios.get(`http://${config.localIP}:${config.port}/login?user_email=${obj.user_email}&hashed_password_attempt=${obj.hashed_password}`)
+  //         .then(result  => {
+  //           navigation.navigate('App', { user: result.id });
+  //         })
+  //     })
+  // }
 
   const finish = async () => {
     const props = _.extend(route.params, { bio });
@@ -29,7 +29,7 @@ export default SignUp5 = ({ navigation, route }) => {
     props.longitude = location.coords.longitude;
     props.latitude = location.coords.latitude;
     delete props.password;
-    addUser(props);
+    navigation.navigate('App');
   }
 
   const finishBtn = bio.length ? (

@@ -16,26 +16,27 @@ export default LogIn = ({ navigation }) => {
     setPassword(text);
   }
 
-  const authenticateUser = (email, pwd) => {
-    axios.get(`http://${config.localIP}:${config.port}/login?user_email=${email}$hashed_password_attempt=${pwd}`)
-      .then(result => {
-        console.log(result);
-        if (result === 'incorrect email') {
-          Alert.alert('Incorrect email')
-        } else if (result === 'incorrect password') {
-          Alert.alert('Incorrect password')
-        } else {
-          navigation.navigate('App', { user: result.id });
-        }
-      })
-  }
+  // const authenticateUser = (email, pwd) => {
+  //   axios.get(`http://${config.localIP}:${config.port}/login?user_email=${email}$hashed_password_attempt=${pwd}`)
+  //     .then(result => {
+  //       console.log(result);
+  //       if (result === 'incorrect email') {
+  //         Alert.alert('Incorrect email')
+  //       } else if (result === 'incorrect password') {
+  //         Alert.alert('Incorrect password')
+  //       } else {
+  //         navigation.navigate('App', { user: result.id });
+  //       }
+  //     })
+  // }
 
   const onLogIn = async () => {
-    const hashed_password_attempt = await Crypto.digestStringAsync(
-      Crypto.CryptoDigestAlgorithm.SHA256,
-      password
-    );
-    authenticateUser(user_email, hashed_password_attempt);
+    // const hashed_password_attempt = await Crypto.digestStringAsync(
+    //   Crypto.CryptoDigestAlgorithm.SHA256,
+    //   password
+    // );
+    // authenticateUser(user_email, hashed_password_attempt);
+    navigation.navigate('App');
   }
 
   const LogInBtn = user_email.length && password.length ? (
