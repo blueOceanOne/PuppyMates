@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { SafeAreaView, ScrollView, StyleSheet, Text, View, Dimensions, Pressable } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, Text, View, Dimensions, Pressable } from 'react-native';
 import { Button } from '@rneui/themed';
 import { events, userData } from '../sampleData/events.js';
 import EventList from '../components/events/EventList.jsx';
@@ -39,12 +39,12 @@ const Events = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View styles={styles.tabContainer} flexDirection='row' justifyContent='space-evenly'>
-        <Button color='#F0F0F0' onPress={() => {setTab('attending')}} style={styles.singleTab}>
+        <TouchableOpacity color='#F0F0F0' onPress={() => {setTab('attending')}} style={styles.singleTab}>
           <Text style={[styles.tabText, {color: (tab === 'attending') ? '#F49D1A' : '#000000'}]}>Attending</Text>
-        </Button>
-        <Button color='#F0F0F0' onPress={() => {setTab('pending')}} style={styles.singleTab}>
+        </TouchableOpacity>
+        <TouchableOpacity color='#F0F0F0' onPress={() => {setTab('pending')}} style={styles.singleTab}>
           <Text style={[styles.tabText, {color: (tab === 'pending') ? '#F49D1A' : '#000000'}]}>Pending</Text>
-        </Button>
+        </TouchableOpacity>
       </View>
       {(tab === 'attending') ?
         <>
@@ -74,10 +74,11 @@ export default Events;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   mapView: {
     alignItems: 'center',
-    backgroundColor: '#F0F0F0',
+    backgroundColor: 'white',
     paddingBottom: 5,
   },
   tabContainer: {
@@ -90,7 +91,8 @@ const styles = StyleSheet.create({
   singleTab: {
     borderRadius: 3,
     width: 120,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    padding: 15
   },
   tabText: {
     fontSize: 18,
