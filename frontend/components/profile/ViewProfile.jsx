@@ -33,6 +33,9 @@ export default ViewProfile = ({ navigation }) => {
         source={{uri: 'https://www.akc.org/wp-content/uploads/2017/11/Longhaired-Dachshund-standing-outdoors.jpg'}} />
         <Text style={{
           alignSelf: 'center'
+          fontSize: 20,
+          fontWeight: 'bold',
+          paddingLeft: 5
         }}>Lucy</Text>
         <View>
           <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: 5 }}>
