@@ -48,22 +48,22 @@
     <details>
       <summary>messages page details</summary>
     <p>
-      The messages page allows users to interact with dogs they have either connected with, or have pending connections with.  Pending connections are displayed in a carousel at the top of the page that displays the dog's profile picture and name.  Users can click on the dog card to view additional details, as well as accept or reject the match request. 
+      The messages page allows users to interact with dogs they have either connected with, or have pending connections with.  Pending connections are displayed under "Pending Requests" at the top of the page. Each request displays the dog's profile picture and name.  Users can click on any pending request card to view additional details. In the request detail page, users can tap on the photo to see other photos of the dog and tap on the arrow button to see more information. Users can choose to accept or reject the request by clicking on the buttons at the bottom. After accepting or rejecting a request, the app will automatically navigate back to the messages main page. Any rejected or accepted request will disappear from the pending list; accepted request will appear in the "Messages" section indicating a matched status. 
     </p>
     <p align="center">
-      <img src="https://media.giphy.com/media/0FbHbE7Ap9pbt0qjo6/giphy.gif" alt="messages-pending" />
+      <img src="https://media.giphy.com/media/GUprquxdyDn1uxq0Wh/giphy.gif" alt="messages-pending" />
     </p>
     <p>
-      The rest of the messages page displays a list of dogs that users have matched with.  Clicking on a dog will open a conversation panel that allows users to send messages to other dogs.  
+      The "Messages" section displays a list of dogs that users have matched with. Clicking on a dog will open a conversation panel between the current user and the clicked user that allows them to send messages with each other.  
     </p>
     <p align="center">
-      <img src="https://media.giphy.com/media/p66KivC1T2pqvXbkbX/giphy.gif" alt="messages-convesations" />
+      <img src="https://media.giphy.com/media/VWG0Bvn6NLaWlvjqNV/giphy.gif" alt="messages-convesations" />
     </p>
     <p>
       Users also have the option to unmatch with dogs.  Unmatching from another dog will remove that dog from the messages page. The user will be able to view that dog again on the home page and match again at a later time if they so choose.  
     </p>
     <p align="center">
-      <img src="https://media.giphy.com/media/XcUKatvoxIBfwnl9AK/giphy.gif" alt="messages-convesations-unmatch" />
+      <img src="https://media.giphy.com/media/rN1R9C8DDenoxyUcZv/giphy.gif" alt="messages-convesations-unmatch" />
     </p>
   </li>
   <li>
