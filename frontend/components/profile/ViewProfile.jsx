@@ -8,40 +8,31 @@ export default ViewProfile = ({ navigation }) => {
 
   return (
     <View style={{
-      backgroundColor: '#fff'
+      backgroundColor: '#fff',
+      height: '100%'
     }}>
-      <TouchableOpacity style={{
-        float: 'right',
-        width: 50,
-        backgroundColor: '#fff',
-        color: '#000'
-      }}>
-        <Text>
-          Log Out
-        </Text>
-      </TouchableOpacity>
       <View style={styles.moreInfo}>
         <Image style={{
           alignSelf: 'center',
           zIndex: 2,
-          width: 100,
+          width: 200,
           height: 200,
           borderRadius: 50,
           margin: 10,
-          borderRadius: 100
+          borderRadius: 100,
         }}
         source={{uri: 'https://www.akc.org/wp-content/uploads/2017/11/Longhaired-Dachshund-standing-outdoors.jpg'}} />
         <Text style={{
-          alignSelf: 'center'
-          fontSize: 20,
+          alignSelf: 'center',
+          fontSize: 22,
           fontWeight: 'bold',
           paddingLeft: 5
         }}>Lucy</Text>
         <View>
-          <Text style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: 5 }}>
+          <Text style={{ fontSize: 15, fontWeight: 'bold', paddingLeft: 5, alignSelf: 'center' }}>
             Peoria, AZ
           </Text>
-          <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+          <View style={{flexDirection: 'row', flexWrap: 'wrap', paddingTop: 10, paddingHorizontal: 5}}>
             <Chip
               title="Dachsund"
               size="xs"
@@ -82,19 +73,25 @@ export default ViewProfile = ({ navigation }) => {
               titleStyle={{ color: 'black' }}
             />
           </View>
-          <Text style={{ fontSize: 16, paddingLeft: 5 }}>I love sleeping all day and stealing my brother's bed.</Text>
+          <Text style={{ fontSize: 16, paddingLeft: 10, paddingTop: 10, paddingBottom: 10 }}>I love sleeping all day and stealing my brother's bed.</Text>
         </View>
-        <TouchableOpacity style={{
-          backgroundColor: '#fff',
-          borderRadius: 10,
-          borderColor: '#000',
-          borderWidth: 4
-        }}>
-          <Text>
-            Edit Profile
-          </Text>
-        </TouchableOpacity>
       </View>
+      <TouchableOpacity style={{
+        backgroundColor: '#fff',
+        borderRadius: 15,
+        borderColor: '#000',
+        borderWidth: 2,
+        marginTop: 5,
+        padding: 13,
+        width: 369,
+        marginHorizontal: 5,
+        alignItems: 'center',
+        alignSelf: 'center'
+      }}>
+        <Text>
+          Edit Profile
+        </Text>
+      </TouchableOpacity>
     </View>
   )
 }

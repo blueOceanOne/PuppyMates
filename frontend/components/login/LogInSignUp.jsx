@@ -12,8 +12,8 @@ const Stack = createNativeStackNavigator();
 export default LogInSignUp = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Log In" component={LogIn} />
-      <Stack.Group screenOptions={{title: 'Sign Up'}}>
+      <Stack.Screen name="Log In" options={{headerShown: false}} component={LogIn} />
+      <Stack.Group screenOptions={{title: 'Sign Up', headerShown: false}}>
         <Stack.Screen name="Sign Up 1" component={SignUp1} />
         <Stack.Screen name="Sign Up 2" component={SignUp2} />
         <Stack.Screen name="Sign Up 3" component={SignUp3} />

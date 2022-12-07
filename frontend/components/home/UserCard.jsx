@@ -102,6 +102,7 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
       style={[
         styles.cardStyle,
         {
+          backgroundColor: 'white',
           opacity: cardOpacity,
           transform: [{ translateX: xPosition }, { rotate: rotateCard }],
         },
@@ -112,6 +113,8 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
         containerStyle={{
           padding: 0,
           backgroundColor: '#FFE15D',
+          borderWidth: 0,
+          borderColor: '#FFE15D'
         }}
       >
         <Pressable onPress={() => handleDisplayImage()}>
@@ -140,7 +143,7 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
             {item.dog_name}
           </Text>
           <Text h4 style={{ fontWeight: 'bold', padding: 2 }}>
-            {Math.round(item.distance)} miles away
+            {(Math.round(item.distance) > 1) ? `${Math.round(item.distance)} miles away` : `${Math.round(item.distance)} mile away`}
           </Text>
         </View>
         {viewMore ? (
@@ -173,7 +176,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
+
     borderRadius: 10,
-    height: dHeight * 0.8,
+    height: dHeight * 0.67,
+    alignSelf: 'center',
+    width: dWidth * 0.925
   },
 });

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, TextInput, Button, Alert, Image } from 'react-native';
+import { Text, View, TextInput, Button, Alert, Image, SafeAreaView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import _ from 'underscore';
 
@@ -32,7 +32,7 @@ export default SignUp3 = ({ navigation, route }) => {
   )
 
   return (
-    <View>
+    <SafeAreaView>
       <Text>Tell us about your pup</Text>
       <Text>Upload some photos</Text>
       {uploadPhotoBtn}
@@ -49,6 +49,6 @@ export default SignUp3 = ({ navigation, route }) => {
         ))}
       </View>
       {nextPageBtn}
-    </View>
+    </SafeAreaView>
   )
 }

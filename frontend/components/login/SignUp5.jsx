@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button, SafeAreaView } from 'react-native';
 import _ from 'underscore';
 import * as Crypto from 'expo-crypto';
 import * as Location from 'expo-location';
@@ -39,10 +39,10 @@ export default SignUp5 = ({ navigation, route }) => {
   )
 
   return (
-    <View>
+    <SafeAreaView>
       <Text>Tell us about your pup</Text>
       <TextInput value={bio} onChangeText={setBio} placeholder="Anything else you'd like other pup owners to know about your pup? Let everyone know in this bio!" multiline numberOfLines={5} />
       {finishBtn}
-    </View>
+    </SafeAreaView>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Alert, SafeAreaView } from 'react-native';
 import CheckBox from 'expo-checkbox';
 import axios from 'axios';
 
@@ -32,7 +32,7 @@ export default SignUp1 = ({ navigation }) => {
   )
 
   return (
-    <View>
+    <SafeAreaView>
       <Text>Create your account</Text>
       <TextInput textContentType="emailAddress" value={user_email} onChangeText={setEmail} placeholder="Email" />
       <TextInput textContentType="newPassword" value={password} onChangeText={setPassword} placeholder="Password" secureTextEntry={true} />
@@ -43,6 +43,6 @@ export default SignUp1 = ({ navigation }) => {
         onValueChange={setToggleCheckBox}
       />
       {nextPageBtn}
-    </View>
+    </SafeAreaView>
   )
 }

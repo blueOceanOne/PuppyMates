@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, SafeAreaView } from 'react-native';
 import RadioButtonRN from 'radio-buttons-react-native';
 import { SelectList } from 'react-native-dropdown-select-list';
 import _ from 'underscore';
@@ -50,7 +50,7 @@ export default SignUp4 = ({ navigation, route }) => {
   ]
 
   return (
-    <View>
+    <SafeAreaView>
       <Text>Tell us about your pup</Text>
       <Text>Is your pup dog-friendly?</Text>
       <RadioButtonRN
@@ -69,6 +69,6 @@ export default SignUp4 = ({ navigation, route }) => {
         setSelected={handleEnergyChange}
       />
       {nextPageBtn}
-    </View>
+    </SafeAreaView>
   )
 }

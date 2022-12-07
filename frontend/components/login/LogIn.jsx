@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
+import { StyleSheet, Text, KeyboardAvoidingView, View, Button, Alert, SafeAreaView } from 'react-native';
+import { Input } from '@rneui/themed';
 import * as Crypto from 'expo-crypto';
 import axios from 'axios';
 import config from '../../config.js';
@@ -36,11 +37,13 @@ export default LogIn = ({ navigation }) => {
     //   password
     // );
     // authenticateUser(user_email, hashed_password_attempt);
+    setEmail('');
+    setPassword('');
     navigation.navigate('App');
   }
 
   const LogInBtn = user_email.length && password.length ? (
-    <Button onPress={onLogIn} title="Log In" />
+    <Button onPress={onLogIn} color='#F49D1A' type='outline' title="Log In" />
   ) : (
     <Button title="Log In" disabled />
   )
@@ -50,12 +53,28 @@ export default LogIn = ({ navigation }) => {
   }
 
   return (
-    <View>
-      <Text>PuppyMates</Text>
-      <TextInput textContentType="emailAddress" value={user_email} onChangeText={handleEmailChange} placeholder="Email" />
-      <TextInput textContentType="password" value={password} onChangeText={handlePasswordChange} placeholder="Password" secureTextEntry={true} />
-      {LogInBtn}
-      <Button title="Create an account" onPress={SignUp} />
-    </View>
+      <KeyboardAvoidingView behavior="padding" enabled style={styles.white}>
+        <View style={styles.logo}>
+          <Text style={styles.title}>puppymates</Text>
+        </View>
+        <Input textContentType="emailAddress" value={user_email} onChangeText={handleEmailChange} placeholder="Email" />
+        <Input textContentType="password" value={password} onChangeText={handlePasswordChange} placeholder="Password" secureTextEntry={true} />
+        {LogInBtn}
+        <Button title="Create an account" color='#F49D1A' onPress={SignUp} />
+      </KeyboardAvoidingView>
   )
 }
+
+const styles = StyleSheet.create({
+  title: {
+    color: '#F49D1A',
+    fontSize: '34px',
+  },
+  logo: {
+    alignSelf: 'center',
+    paddingVertical: 270
+  },
+  white: {
+    backgroundColor: 'white',
+  }
+})
