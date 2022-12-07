@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LogIn from './LogIn.jsx';
 import SignUp1 from './SignUp1.jsx';
@@ -14,8 +12,8 @@ const Stack = createNativeStackNavigator();
 export default LogInSignUp = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Log In" component={LogIn} />
-      <Stack.Group screenOptions={{title: 'Sign Up'}}>
+      <Stack.Screen name="Log In" options={{headerShown: false}} component={LogIn} />
+      <Stack.Group screenOptions={{title: 'Sign Up', headerShown: false}}>
         <Stack.Screen name="Sign Up 1" component={SignUp1} />
         <Stack.Screen name="Sign Up 2" component={SignUp2} />
         <Stack.Screen name="Sign Up 3" component={SignUp3} />

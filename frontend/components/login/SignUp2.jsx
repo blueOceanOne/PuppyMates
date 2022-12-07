@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import _ from 'underscore';
-import { Text, View, TextInput, Button } from 'react-native';
+import { Text, View, TextInput, Button, SafeAreaView } from 'react-native';
 import { SelectList } from 'react-native-dropdown-select-list';
 import stateData from './states.js';
 
@@ -46,7 +46,7 @@ export default SignUp2 = ({ navigation, route }) => {
   )
 
   return (
-    <View>
+    <SafeAreaView>
       <Text>Tell us about your pup</Text>
       <TextInput value={dog_name} onChangeText={setDogName} placeholder="Name" />
       <Text>State</Text>
@@ -63,17 +63,17 @@ export default SignUp2 = ({ navigation, route }) => {
       />
       <Text>Breed</Text>
       <SelectList
-        setSelected={setBreed}
+        setSelected={e => setBreed(e.toUpperCase())}
         data={breedData}
         save="value"
       />
       <Text>Size</Text>
       <SelectList
-        setSelected={ e => setSize(e.toLowerCase())}
+        setSelected={e => setSize(e.toLowerCase())}
         data={sizeData}
         save="value"
       />
       {nextPageBtn}
-    </View>
+    </SafeAreaView>
   )
 }

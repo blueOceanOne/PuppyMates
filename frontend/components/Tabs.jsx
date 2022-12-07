@@ -6,7 +6,7 @@ import { Entypo } from '@expo/vector-icons';
 import MessagePageNav from './messages_components/MessagePageNav.jsx';
 import Home from './home/Home.jsx';
 import Events from './Events.jsx';
-import Profile from './Profile.jsx';
+import Profile from './profile/Profile.jsx';
 import EventsSub from './EventsSub.jsx';
 import EventsNav from './events/EventsNav.jsx';
 

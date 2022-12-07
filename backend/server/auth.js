@@ -31,6 +31,7 @@ module.exports = {
         breed: req.body.breed,
       },
     }).then((result) => {
+      console.log(result);
       const newUser = {
         email: req.body.user_email,
         hashed_password: encryption.hash,
@@ -62,7 +63,7 @@ module.exports = {
           Photo.bulkCreate(photoArray).then(() => res.sendStatus(201));
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err.message);
           res.sendStatus(400);
         });
     });

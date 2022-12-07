@@ -12,38 +12,38 @@ const MoreInfo = ({ item }) => {
       >{`${item.city}, ${item.state}`}</Text>
       <View style={styles.chipView}>
         <Chip
-          title={item.breed.breed.toLowerCase()}
+          title={item.breed.breed}
           size="xs"
           color="#FFD8A9"
           containerStyle={{ padding: 2 }}
-          titleStyle={{ color: 'black' }}
+          titleStyle={{ color: 'black', textTransform: 'capitalize' }}
         />
         <Chip
           title={item.size}
           size="xs"
           color="#FFD8A9"
           containerStyle={{ padding: 2 }}
-          titleStyle={{ color: 'black' }}
+          titleStyle={{ color: 'black', textTransform: 'capitalize' }}
         />
         <Chip
-          title={`${item.energy} energy`}
+          title={`${item.energy} Energy`}
           size="xs"
           color="#FFD8A9"
           containerStyle={{ padding: 2 }}
-          titleStyle={{ color: 'black' }}
+          titleStyle={{ color: 'black', textTransform: 'capitalize' }}
         />
         {item.people_friendly ? (
           <Chip
-            title="people-friendly"
+            title="People-Friendly"
             size="xs"
             color="#FFD8A9"
             containerStyle={{ padding: 2 }}
-            titleStyle={{ color: 'black' }}
+            titleStyle={{ color: 'black', textTransform: 'capitalize' }}
           />
         ) : null}
         {item.dog_friendly ? (
           <Chip
-            title="dog-friendly"
+            title="Dog-Friendly"
             size="xs"
             color="#FFD8A9"
             containerStyle={{ padding: 2 }}
