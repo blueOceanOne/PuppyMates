@@ -120,18 +120,14 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
         <ListItem.Accordion
           content={
             <>
-              <ListItem.Content
-                flexDirection="row"
-                alignItems="center"
-                justifyContent="space-between"
-              >
+              <ListItem.Content style={styles.listItemContent}>
                 <ListItem.Title>Filter By </ListItem.Title>
                 {category && expandFilter ? <Badge value={category} status="warning" /> : null}
                 {displayConfirm && expandFilter ? (
                   <Button
                     title="Confirm"
                     type="clear"
-                    titleStyle={{ color: 'black', fontWeight: '500' }}
+                    titleStyle={styles.confirmButton.titleStyle}
                     onPress={() => handleConfirm()}
                   />
                 ) : null}
@@ -241,5 +237,16 @@ const styles = StyleSheet.create({
   },
   listItemTitle: {
     fontWeight: '600',
+  },
+  listItemContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  confirmButton: {
+    titleStyle: {
+      color: 'black',
+      fontWeight: '500',
+    },
   },
 });

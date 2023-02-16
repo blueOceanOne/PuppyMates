@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, SafeAreaView } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
 import axios from 'axios';
 import FilterContainer from './FilterContainer.jsx';
 import CarouselCards from './CarouselCards.jsx';
@@ -39,7 +39,7 @@ const Home = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+    <SafeAreaView style={styles.homeContainer}>
       <FilterContainer
         filter={filter}
         setFilter={setFilter}
@@ -52,3 +52,10 @@ const Home = () => {
 };
 
 export default Home;
+
+const styles = StyleSheet.create({
+  homeContainer: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+});

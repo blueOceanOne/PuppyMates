@@ -107,15 +107,7 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
         },
       ]}
     >
-      <Card
-        borderRadius="10"
-        containerStyle={{
-          padding: 0,
-          backgroundColor: '#FFE15D',
-          borderWidth: 0,
-          borderColor: '#FFE15D',
-        }}
-      >
+      <Card containerStyle={styles.cardContainer}>
         <Pressable onPress={() => handleDisplayImage()}>
           <Image
             style={[
@@ -137,11 +129,12 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
           email={item.email}
           id={item.id}
         />
-        <View flexDirection="row" justifyContent="space-between" style={{ paddingHorizontal: 5 }}>
-          <Text h4 style={{ fontWeight: 'bold', padding: 2 }}>
+
+        <View style={styles.userInfoContainer}>
+          <Text h4 style={styles.text}>
             {item.dog_name}
           </Text>
-          <Text h4 style={{ fontWeight: 'bold', padding: 2 }}>
+          <Text h4 style={styles.text}>
             {Math.round(item.distance) > 1
               ? `${Math.round(item.distance)} miles away`
               : `${Math.round(item.distance)} mile away`}
@@ -151,15 +144,14 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
           <Icon
             name={'chevron-up'}
             type="material-community"
-            containerStyle={{ justifyContent: 'flex-start' }}
+            containerStyle={styles.viewIcon}
             onPress={() => handleViewMore()}
           />
         ) : (
           <Icon
             name={'chevron-down'}
             type="material-community"
-            containerStyle={{ padding: 0 }}
-            containerStyle={{ justifyContent: 'flex-start' }}
+            containerStyle={styles.viewIcon}
             onPress={() => handleViewMore()}
           />
         )}
@@ -183,9 +175,28 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: dWidth * 0.925,
   },
+  cardContainer: {
+    padding: 0,
+    backgroundColor: '#FFE15D',
+    borderWidth: 0,
+    borderColor: '#FFE15D',
+    borderRadius: 10,
+  },
   userImage: {
     alignSelf: 'center',
     zIndex: 2,
     borderRadius: '10',
+  },
+  userInfoContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 5,
+  },
+  text: {
+    fontWeight: 'bold',
+    padding: 2,
+  },
+  viewIcon: {
+    padding: 0,
   },
 });

@@ -43,7 +43,7 @@ const CarouselCards = ({ localUsers, setLocalUsers, id }) => {
         />
       ))}
       {noMoreUsers ? (
-        <Text h3 style={{ color: '#000' }}>
+        <Text h3 style={styles.color}>
           You're caught up! Check back soon to find more pups to connect with.
         </Text>
       ) : null}
@@ -58,5 +58,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     zIndex: 2,
+  },
+  text: {
+    color: '#000',
   },
 });
