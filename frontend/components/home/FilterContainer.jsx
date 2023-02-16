@@ -39,36 +39,16 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
       setDisplayConfirm(false);
     }
   };
+  //args - state, setState,
 
-  const handleExpandBreed = () => {
-    if (expandBreed) {
+  const handleExpandFilterChoice = (filter, setFilter, category) => {
+    if (filter) {
       setCategory('');
       setValue('');
-      setExpandBreed(false);
+      setFilter(false);
     } else {
-      setExpandBreed(true);
-      setCategory('breed');
-    }
-  };
-
-  const handleExpandSize = () => {
-    if (expandSize) {
-      setCategory('');
-      setValue('');
-      setExpandSize(false);
-    } else {
-      setExpandSize(true);
-      setCategory('size');
-    }
-  };
-  const handleExpandEnergy = () => {
-    if (expandEnergy) {
-      setCategory('');
-      setValue('');
-      setExpandEnergy(false);
-    } else {
-      setExpandEnergy(true);
-      setCategory('energy');
+      setFilter(true);
+      setCategory(category);
     }
   };
 
@@ -162,7 +142,8 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
               </>
             }
             isExpanded={expandSize}
-            onPress={() => handleExpandSize()}
+            // onPress={() => handleExpandSize()}
+            onPress={() => handleExpandFilterChoice(expandSize, setExpandSize, 'size')}
             bottomDivider
           >
             {sizes.map((size) => (
@@ -185,7 +166,7 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
               </>
             }
             isExpanded={expandEnergy}
-            onPress={() => handleExpandEnergy()}
+            onPress={() => handleExpandFilterChoice(expandEnergy, setExpandEnergy, 'energy')}
             bottomDivider
           >
             {energy.map((level) => (
@@ -209,7 +190,7 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
               </>
             }
             isExpanded={expandBreed}
-            onPress={() => handleExpandBreed()}
+            onPress={() => handleExpandFilterChoice(expandBreed, setExpandBreed, 'breed')}
             bottomDivider
           >
             {breeds.map((breed) => (
