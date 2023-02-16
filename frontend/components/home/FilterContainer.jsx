@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-import { View, Text, FlatList, ScrollView } from 'react-native';
+import { View, Text, FlatList, ScrollView, StyleSheet } from 'react-native';
 import { ListItem, Button, Badge, Icon } from '@rneui/themed';
 const { useState, useEffect } = React;
-import userData from '../home/exampleData/userData.js';
+// import userData from '../home/exampleData/userData.js';
 import config from '../../config.js';
 
 const sizes = ['Extra Small', 'Small', 'Medium', 'Large', 'Extra Large'];
@@ -28,7 +28,7 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
         const breedNames = breedList.map((breed) => breed.breed);
         setBreeds(breedNames);
       })
-      .catch((err) => err);
+      .catch((err) => console.log(err));
   }, []);
 
   const handleExpandFilter = () => {
@@ -115,7 +115,7 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
   };
 
   return (
-    <View style={{ zIndex: 3 }}>
+    <View style={styles.container}>
       <ScrollView>
         <ListItem.Accordion
           content={
@@ -143,7 +143,7 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
         >
           <ListItem onPress={() => handleDogFriendly()} bottomDivider>
             <ListItem.Content>
-              <ListItem.Title style={{ fontWeight: '600' }}>
+              <ListItem.Title style={styles.listItemTitle}>
                 Dog Friendly
                 {'Dog Friendly' === category ? <Icon name="check" /> : null}
               </ListItem.Title>
@@ -151,7 +151,7 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
           </ListItem>
           <ListItem onPress={() => handlePeopleFriendly()} bottomDivider>
             <ListItem.Content>
-              <ListItem.Title style={{ fontWeight: '600' }}>
+              <ListItem.Title style={styles.listItemTitle}>
                 People Friendly
                 {'People Friendly' === category ? <Icon name="check" /> : null}
               </ListItem.Title>
@@ -161,7 +161,7 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
             content={
               <>
                 <ListItem.Content>
-                  <ListItem.Title style={{ fontWeight: '600' }}>Size</ListItem.Title>
+                  <ListItem.Title style={styles.listItemTitle}>Size</ListItem.Title>
                 </ListItem.Content>
               </>
             }
@@ -184,7 +184,7 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
             content={
               <>
                 <ListItem.Content>
-                  <ListItem.Title style={{ fontWeight: '600' }}>Energy</ListItem.Title>
+                  <ListItem.Title style={styles.listItemTitle}>Energy</ListItem.Title>
                 </ListItem.Content>
               </>
             }
@@ -208,7 +208,7 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
             content={
               <>
                 <ListItem.Content>
-                  <ListItem.Title style={{ fontWeight: '600' }}>Breed</ListItem.Title>
+                  <ListItem.Title style={styles.listItemTitle}>Breed</ListItem.Title>
                 </ListItem.Content>
               </>
             }
@@ -234,3 +234,12 @@ const FilterContainer = ({ filter, setFilter, handleFilter }) => {
 };
 
 export default FilterContainer;
+
+const styles = StyleSheet.create({
+  container: {
+    zIndex: 3,
+  },
+  listItemTitle: {
+    fontWeight: '600',
+  },
+});

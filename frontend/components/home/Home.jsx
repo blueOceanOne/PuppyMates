@@ -4,17 +4,15 @@ import axios from 'axios';
 import FilterContainer from './FilterContainer.jsx';
 import CarouselCards from './CarouselCards.jsx';
 import config from '../../config.js';
-//prop to be passed in to get current user's id
 const { useState, useEffect } = React;
+const id = 1;
 
 const Home = () => {
-  // const Home = ({id}) => {
   const initialFilter = { filterCategory: '', filterValue: '' };
   const [filter, setFilter] = useState(initialFilter);
   const [localUsers, setLocalUsers] = useState([]);
   const [breeds, setBreeds] = useState([]);
 
-  const id = 1;
   useEffect(() => {
     axios
       .get(`http://${config.localIP}:${config.port}/home?id=${id}`)
@@ -22,7 +20,7 @@ const Home = () => {
         const users = res.data.slice(10);
         setLocalUsers(users);
       })
-      .catch((err) => err);
+      .catch((err) => console.log(err));
   }, []);
 
   const handleFilter = (currCategory, currVal) => {
@@ -37,7 +35,7 @@ const Home = () => {
         setLocalUsers(filterUsers);
         setFilter(initialFilter);
       })
-      .catch((err) => err);
+      .catch((err) => console.log(err));
   };
 
   return (

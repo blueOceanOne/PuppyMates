@@ -100,9 +100,8 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
     <Animated.View
       {...panResponder.panHandlers}
       style={[
-        styles.cardStyle,
+        styles.cardAnimatedContainer,
         {
-          backgroundColor: 'white',
           opacity: cardOpacity,
           transform: [{ translateX: xPosition }, { rotate: rotateCard }],
         },
@@ -114,18 +113,18 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
           padding: 0,
           backgroundColor: '#FFE15D',
           borderWidth: 0,
-          borderColor: '#FFE15D'
+          borderColor: '#FFE15D',
         }}
       >
         <Pressable onPress={() => handleDisplayImage()}>
           <Image
-            style={{
-              height: imgHeight,
-              width: dWidth * 0.91,
-              alignSelf: 'center',
-              zIndex: 2,
-            }}
-            borderRadius="10"
+            style={[
+              styles.userImage,
+              {
+                height: imgHeight,
+                width: dWidth * 0.91,
+              },
+            ]}
             source={{
               uri: item.photos[imgIndex].url,
             }}
@@ -143,7 +142,9 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
             {item.dog_name}
           </Text>
           <Text h4 style={{ fontWeight: 'bold', padding: 2 }}>
-            {(Math.round(item.distance) > 1) ? `${Math.round(item.distance)} miles away` : `${Math.round(item.distance)} mile away`}
+            {Math.round(item.distance) > 1
+              ? `${Math.round(item.distance)} miles away`
+              : `${Math.round(item.distance)} mile away`}
           </Text>
         </View>
         {viewMore ? (
@@ -172,14 +173,19 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
 export default UserCard;
 
 const styles = StyleSheet.create({
-  cardStyle: {
+  cardAnimatedContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-
+    backgroundColor: 'white',
     borderRadius: 10,
     height: dHeight * 0.67,
     alignSelf: 'center',
-    width: dWidth * 0.925
+    width: dWidth * 0.925,
+  },
+  userImage: {
+    alignSelf: 'center',
+    zIndex: 2,
+    borderRadius: '10',
   },
 });
