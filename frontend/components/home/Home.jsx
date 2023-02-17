@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
 import axios from 'axios';
-import FilterContainer from './FilterContainer.jsx';
+import FilterMenu from './FilterMenu.jsx';
 import CarouselCards from './CarouselCards.jsx';
 import config from '../../config.js';
 const { useState, useEffect } = React;
-const id = 1;
 
 const Home = () => {
+  const [id, setId] = useState(1);
   const initialFilter = { filterCategory: '', filterValue: '' };
   const [filter, setFilter] = useState(initialFilter);
   const [localUsers, setLocalUsers] = useState([]);
@@ -21,7 +21,7 @@ const Home = () => {
         setLocalUsers(users);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [id]);
 
   const handleFilter = (currCategory, currVal) => {
     const val = currVal.toLowerCase();
@@ -40,7 +40,7 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.homeContainer}>
-      <FilterContainer
+      <FilterMenu
         filter={filter}
         setFilter={setFilter}
         handleFilter={handleFilter}
