@@ -18,16 +18,25 @@ const Home = () => {
       .get(`http://${config.localIP}:${config.port}/home?id=${id}`)
       .then((res) => {
         const users = res.data.slice(10);
+        console.log(users[0]);
+        const currBreeds = [];
+        users.map((user) => {
+          if (currBreeds.indexOf(user.breed.breed) === -1) {
+            currBreeds.push(user.breed.breed);
+          }
+        });
+        currBreeds.sort((a, b) => a.localeCompare(b));
+
         setLocalUsers(users);
+        setBreeds(currBreeds);
       })
       .catch((err) => console.log(err));
   }, [id]);
 
   const handleFilter = (currCategory, currVal) => {
-    const val = currVal.toLowerCase();
     axios
       .get(
-        `http://${config.localIP}:${config.port}/home?id=${id}&filterCategory=${currCategory}&filterValue=${val}`
+        `http://${config.localIP}:${config.port}/home?id=${id}&filterCategory=${currCategory}&filterValue=${currVal}`
       )
       .then((res) => {
         const filterUsers = res.data;
