@@ -171,9 +171,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: 'white',
     borderRadius: 10,
-    height: dHeight * 0.66,
+    height: dHeight * 0.662,
     alignSelf: 'center',
-    width: dWidth * 0.921,
+    width: dWidth * 0.923,
   },
   cardContainer: {
     padding: 0,
