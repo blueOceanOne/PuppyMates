@@ -17,7 +17,7 @@ const Home = () => {
     axios
       .get(`http://${config.localIP}:${config.port}/home?id=${id}`)
       .then((res) => {
-        const users = res.data;
+        const users = res.data.slice(10);
         const currBreeds = [];
         users.map((user) => {
           if (currBreeds.indexOf(user.breed.breed) === -1) {

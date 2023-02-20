@@ -12,8 +12,7 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
   const [imgHeight, setImgHeight] = useState(dHeight * 0.58);
   const [xPosition, setXPosition] = useState(new Animated.Value(0));
   const [imgIndex, setImgIndex] = useState(0);
-  const [swipeDirection, setSwipeDirection] = useState('');
-
+  let swipeDirection = '';
   const cardOpacity = new Animated.Value(1);
   const rotateCard = xPosition.interpolate({
     inputRange: [-200, 0, 200],
@@ -27,9 +26,9 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
     onPanResponderMove: (e, gestureState) => {
       xPosition.setValue(gestureState.dx);
       if (gestureState.dx > dWidth - 250) {
-        setSwipeDirection('right');
+        swipeDirection = 'right';
       } else if (gestureState.dx < -dWidth + 250) {
-        setSwipeDirection('left');
+        swipeDirection = 'left';
       }
     },
     onPanResponderRelease: (e, gestureState) => {
@@ -69,7 +68,7 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
             useNativeDriver: false,
           }),
         ]).start(() => {
-          handleSwipe(swipeDirection);
+          handleSwipe(swipeDirection, item.id);
           omitCard();
         });
       }
