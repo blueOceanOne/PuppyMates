@@ -1,10 +1,10 @@
-import React from 'react';
-import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
+import { useState, useEffect } from 'react';
+import { View, SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import axios from 'axios';
 import FilterMenu from './FilterMenu.jsx';
 import CarouselCards from './CarouselCards.jsx';
 import config from '../../config.js';
-const { useState, useEffect } = React;
 
 const Home = () => {
   const [id, setId] = useState(1);
@@ -17,7 +17,7 @@ const Home = () => {
     axios
       .get(`http://${config.localIP}:${config.port}/home?id=${id}`)
       .then((res) => {
-        const users = res.data.slice(10);
+        const users = res.data;
         const currBreeds = [];
         users.map((user) => {
           if (currBreeds.indexOf(user.breed.breed) === -1) {
@@ -25,7 +25,6 @@ const Home = () => {
           }
         });
         currBreeds.sort((a, b) => a.localeCompare(b));
-
         setLocalUsers(users);
         setBreeds(currBreeds);
       })
@@ -33,7 +32,6 @@ const Home = () => {
   }, [id]);
 
   const handleFilter = (currCategory, currVal) => {
-    console.log('currCategory and val', currCategory, currVal);
     axios
       .get(
         `http://${config.localIP}:${config.port}/home?id=${id}&filterCategory=${currCategory}&filterValue=${currVal}`
@@ -48,14 +46,18 @@ const Home = () => {
   };
 
   return (
-    <SafeAreaView style={styles.homeContainer}>
-      <FilterMenu
-        filter={filter}
-        setFilter={setFilter}
-        handleFilter={handleFilter}
-        breeds={breeds}
-      />
-      <CarouselCards localUsers={localUsers} setLocalUsers={setLocalUsers} id={id} />
+    <SafeAreaView style={styles.container}>
+      <View style={styles.filterMenuContainer}>
+        <FilterMenu
+          filter={filter}
+          setFilter={setFilter}
+          handleFilter={handleFilter}
+          breeds={breeds}
+        />
+      </View>
+      <View style={styles.carouselCardContainer}>
+        <CarouselCards localUsers={localUsers} setLocalUsers={setLocalUsers} id={id} />
+      </View>
     </SafeAreaView>
   );
 };
@@ -63,8 +65,22 @@ const Home = () => {
 export default Home;
 
 const styles = StyleSheet.create({
-  homeContainer: {
+  container: {
     flex: 1,
     backgroundColor: 'white',
+  },
+  filterMenuContainer: {
+    flex: 1,
+    zIndex: 1,
+    top: 0,
+    left: 0,
+    position: 'absolute',
+    width: '100%',
+    backgroundColor: 'white',
+    borderRadius: 25,
+    paddingHorizontal: 10,
+  },
+  carouselCardContainer: {
+    flex: 9,
   },
 });

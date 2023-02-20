@@ -1,10 +1,7 @@
-import React from 'react';
-import axios from 'axios';
-import { View, Text, FlatList, ScrollView, StyleSheet } from 'react-native';
-import { ListItem, Button, Badge, Icon } from '@rneui/themed';
-const { useState, useEffect } = React;
-// import userData from '../home/exampleData/userData.js';
-import config from '../../config.js';
+import { useState } from 'react';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { ListItem, Button, Badge } from '@rneui/themed';
+import FilterCategory from './FilterCategory.jsx';
 
 const sizes = ['extra small', 'small', 'medium', 'large', 'extra large'];
 const energy = ['low', 'average', 'high'];
@@ -12,10 +9,9 @@ const friendliness = [
   { category: 'dog friendly', value: 'dog_friendly' },
   { category: 'people friendly', value: 'people_friendly' },
 ];
-const checkedColor = '#F49D1A';
 
 const FilterMenu = ({ filter, setFilter, handleFilter, breeds }) => {
-  const [expandFilter, setExpandFilter] = useState(false);
+  const [expandMenu, setExpandMenu] = useState(false);
   const [displayConfirm, setDisplayConfirm] = useState(false);
   const [value, setValue] = useState('');
   const [category, setCategory] = useState('');
@@ -24,25 +20,22 @@ const FilterMenu = ({ filter, setFilter, handleFilter, breeds }) => {
   const [title, setTitle] = useState('');
 
   const handleDisplayFilterMenu = () => {
-    if (expandFilter === false) {
-      setExpandFilter(true);
-      setChoice(initialChoice);
-    } else {
+    if (expandMenu) {
       setChoice(initialChoice);
       setDisplayConfirm(false);
-      setExpandFilter(false);
     }
+    setExpandMenu(!expandMenu);
   };
 
   const handleChoice = (category, value) => {
-    setChoice({ category: category, value: value });
+    setChoice({ category, value });
   };
 
-  const handleCategory = (currCategory) => {
-    if (choice.category === currCategory) {
+  const handleCategory = (category) => {
+    if (choice.category === category) {
       setChoice(initialChoice);
     } else {
-      setChoice({ ...initialChoice, category: currCategory });
+      setChoice({ ...initialChoice, category });
     }
   };
 
@@ -50,27 +43,25 @@ const FilterMenu = ({ filter, setFilter, handleFilter, breeds }) => {
     if (choice.category === 'friendliness') {
       handleFilter(choice.value, true);
       setChoice(initialChoice);
-      setExpandFilter(false);
+      setExpandMenu(false);
     } else {
       handleFilter(choice.category, choice.value);
       setChoice(initialChoice);
-      setExpandFilter(false);
+      setExpandMenu(false);
     }
   };
 
   return (
-    <View style={styles.container}>
-      {/* <ScrollView> */}
+    <>
       <ListItem.Accordion
         noIcon
         content={
           <>
             <ListItem.Content style={styles.listItemContent}>
               <ListItem.Title style={styles.listItemTitle}>Filter By </ListItem.Title>
-              {choice.category && expandFilter ? (
+              {choice.category && expandMenu ? (
                 <Badge
                   value={choice.category}
-                  status="warning"
                   badgeStyle={styles.badge.badgeContainer}
                   textStyle={styles.badge.badgeText}
                 />
@@ -78,162 +69,60 @@ const FilterMenu = ({ filter, setFilter, handleFilter, breeds }) => {
             </ListItem.Content>
           </>
         }
-        isExpanded={expandFilter}
+        isExpanded={expandMenu}
         onPress={() => handleDisplayFilterMenu()}
-        bottomDivider
       >
-        {choice.category === 'friendliness' || choice.category === '' ? (
-          <ListItem.Accordion
-            noIcon
-            content={
-              <>
-                <ListItem.Content>
-                  <ListItem.Title style={styles.listItemTitle}>Friendliness</ListItem.Title>
-                </ListItem.Content>
-              </>
-            }
-            isExpanded={choice.category === 'friendliness'}
-            onPress={() => handleCategory('friendliness')}
-            bottomDivider
-          >
-            {choice.category === 'friendliness'
-              ? friendliness.map((option) => (
-                  <ListItem
-                    key={option.category}
-                    onPress={() => handleChoice('friendliness', option.value)}
-                    bottomDivider
-                  >
-                    <ListItem.CheckBox
-                      checkedIcon="dot-circle-o"
-                      uncheckedIcon="circle-o"
-                      checked={option.value === choice.value ? true : false}
-                      checkedColor={checkedColor}
-                      containerStyle={styles.checkBox}
-                    />
-                    <ListItem.Content>
-                      <ListItem.Title style={styles.text}>{option.category}</ListItem.Title>
-                    </ListItem.Content>
-                  </ListItem>
-                ))
-              : null}
-          </ListItem.Accordion>
-        ) : null}
-
-        {choice.category === 'size' || choice.category === '' ? (
-          <ListItem.Accordion
-            noIcon
-            content={
-              <>
-                <ListItem.Content>
-                  <ListItem.Title style={styles.listItemTitle}>Size</ListItem.Title>
-                </ListItem.Content>
-              </>
-            }
-            isExpanded={choice.category === 'size'}
-            onPress={() => handleCategory('size')}
-            bottomDivider
-            bottomDivider
-          >
-            {choice.category === 'size'
-              ? sizes.map((size) => (
-                  <ListItem key={size} onPress={() => handleChoice('size', size)} bottomDivider>
-                    <ListItem.CheckBox
-                      iconType="material-community"
-                      checkedIcon="checkbox-marked"
-                      uncheckedIcon="checkbox-blank-outline"
-                      checked={size === choice.value ? true : false}
-                      containerStyle={styles.checkBox}
-                      checkedColor={checkedColor}
-                    />
-                    <ListItem.Content>
-                      <ListItem.Title style={styles.text}>{size}</ListItem.Title>
-                    </ListItem.Content>
-                  </ListItem>
-                ))
-              : null}
-          </ListItem.Accordion>
-        ) : null}
-        {choice.category === 'energy' || choice.category === '' ? (
-          <ListItem.Accordion
-            noIcon
-            content={
-              <>
-                <ListItem.Content>
-                  <ListItem.Title style={styles.listItemTitle}>Energy</ListItem.Title>
-                </ListItem.Content>
-              </>
-            }
-            isExpanded={choice.category === 'energy'}
-            onPress={() => handleCategory('energy')}
-            bottomDivider
-          >
-            {choice.category === 'energy'
-              ? energy.map((level) => (
-                  <ListItem key={level} onPress={() => handleChoice('energy', level)} bottomDivider>
-                    <ListItem.CheckBox
-                      iconType="material-community"
-                      checkedIcon="checkbox-marked"
-                      uncheckedIcon="checkbox-blank-outline"
-                      checked={level === choice.value ? true : false}
-                      containerStyle={styles.checkBox}
-                      checkedColor={checkedColor}
-                    />
-                    <ListItem.Content>
-                      <ListItem.Title style={styles.text}>{level}</ListItem.Title>
-                    </ListItem.Content>
-                  </ListItem>
-                ))
-              : null}
-          </ListItem.Accordion>
-        ) : null}
-
-        {choice.category === 'breed' || choice.category === '' ? (
-          <ListItem.Accordion
-            noIcon
-            content={
-              <>
-                <ListItem.Content>
-                  <ListItem.Title style={styles.listItemTitle}>Breed</ListItem.Title>
-                </ListItem.Content>
-              </>
-            }
-            isExpanded={choice.category === 'breed'}
-            onPress={() => handleCategory('breed')}
-            bottomDivider
-          >
-            {choice.category === 'breed'
-              ? breeds.map((breed) => (
-                  <ListItem
-                    key={`${breed} + type`}
-                    onPress={() => handleChoice('breed', breed)}
-                    bottomDivider
-                  >
-                    <ListItem.CheckBox
-                      iconType="material-community"
-                      checkedIcon="checkbox-marked"
-                      uncheckedIcon="checkbox-blank-outline"
-                      checked={breed === choice.value ? true : false}
-                      containerStyle={styles.checkBox}
-                      checkedColor={checkedColor}
-                    />
-                    <ListItem.Content>
-                      <ListItem.Title style={styles.text}>{breed}</ListItem.Title>
-                    </ListItem.Content>
-                  </ListItem>
-                ))
-              : null}
-          </ListItem.Accordion>
-        ) : null}
+        <ScrollView style={{ maxHeight: 300 }}>
+          {choice.category === 'friendliness' || choice.category === '' ? (
+            <FilterCategory
+              title="Friendliness"
+              category="friendliness"
+              choice={choice}
+              handleCategory={handleCategory}
+              handleChoice={handleChoice}
+              items={friendliness}
+            />
+          ) : null}
+          {choice.category === 'size' || choice.category === '' ? (
+            <FilterCategory
+              title="Size"
+              category="size"
+              choice={choice}
+              handleCategory={handleCategory}
+              handleChoice={handleChoice}
+              items={sizes}
+            />
+          ) : null}
+          {choice.category === 'energy' || choice.category === '' ? (
+            <FilterCategory
+              title="Energy"
+              category="energy"
+              choice={choice}
+              handleCategory={handleCategory}
+              handleChoice={handleChoice}
+              items={energy}
+            />
+          ) : null}
+          {choice.category === 'breed' || choice.category === '' ? (
+            <FilterCategory
+              title="Breed"
+              category="breed"
+              choice={choice}
+              handleCategory={handleCategory}
+              handleChoice={handleChoice}
+              items={breeds}
+            />
+          ) : null}
+        </ScrollView>
       </ListItem.Accordion>
-      {/* </ScrollView> */}
 
-      {expandFilter ? (
+      {expandMenu ? (
         <View style={styles.buttonContainer}>
           {choice.category === '' ? (
             <View style={styles.buttonContainer}>
               <Button
                 title="Close"
-                size="xs"
+                size="sm"
                 type="solid"
                 titleStyle={styles.confirmButton.titleStyle}
                 buttonStyle={styles.confirmButton.buttonStyle}
@@ -244,8 +133,8 @@ const FilterMenu = ({ filter, setFilter, handleFilter, breeds }) => {
           ) : (
             <View style={styles.buttonContainer}>
               <Button
-                title="Clear"
-                size="xs"
+                title={<Text style={{ textDecorationLine: 'underline' }}>Clear</Text>}
+                size="sm"
                 type="clear"
                 titleStyle={styles.cancelButton.titleStyle}
                 buttonStyle={styles.cancelButton.buttonStyle}
@@ -254,7 +143,7 @@ const FilterMenu = ({ filter, setFilter, handleFilter, breeds }) => {
               />
               <Button
                 title="Confirm"
-                size="xs"
+                size="sm"
                 type="solid"
                 titleStyle={styles.confirmButton.titleStyle}
                 buttonStyle={styles.confirmButton.buttonStyle}
@@ -265,38 +154,36 @@ const FilterMenu = ({ filter, setFilter, handleFilter, breeds }) => {
           )}
         </View>
       ) : null}
-    </View>
+    </>
   );
 };
 
 export default FilterMenu;
 
 const styles = StyleSheet.create({
-  container: {
-    zIndex: 3,
-    position: 'absolute',
-    width: '100%',
-    backgroundColor: 'white',
-  },
-  accordion: {
-    width: '100%',
-    borderRadius: 25,
-  },
-  listItemTitle: {
-    fontWeight: 'bold',
-    justifySelf: 'space-between',
-  },
-  text: {
-    textTransform: 'capitalize',
-  },
   listItemContent: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  listItemTitle: {
+    fontWeight: 'bold',
+    justifySelf: 'space-between',
+  },
+  badge: {
+    badgeText: {
+      color: 'black',
+      fontSize: 15,
+      textTransform: 'capitalize',
+    },
+    badgeContainer: {
+      paddingHorizontal: 10,
+      height: 25,
+      backgroundColor: '#FFD8A9',
+    },
+  },
   buttonContainer: {
     flexDirection: 'row',
-    // alignItems: 'center',
     justifyContent: 'flex-end',
     margin: 5,
   },
@@ -315,28 +202,11 @@ const styles = StyleSheet.create({
   cancelButton: {
     titleStyle: {
       color: '#202124',
+      textDecoration: 'underline',
     },
     buttonStyle: {
       marginRight: 10,
-      paddingHorizontal: 10,
+      paddingTop: 10,
     },
-  },
-  badge: {
-    badgeText: {
-      color: 'black',
-      // fontWeight: 'bold',
-      fontSize: 15,
-      textTransform: 'capitalize',
-    },
-    badgeContainer: {
-      paddingHorizontal: 10,
-      height: 25,
-      backgroundColor: '#FFD8A9',
-      // alignItems: 'center',
-    },
-  },
-  checkBox: {
-    right: 20,
-    position: 'absolute',
   },
 });

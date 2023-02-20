@@ -1,12 +1,10 @@
-import React from 'react';
+import { useState } from 'react';
 import axios from 'axios';
-import { View, FlatList, Dimensions, SafeAreaView, StyleSheet } from 'react-native';
-import { Text, Card, Button, Icon } from '@rneui/themed';
+import { StyleSheet } from 'react-native';
+import { Text } from '@rneui/themed';
 import UserCard from './UserCard.jsx';
 
 import config from '../../config.js';
-
-const { useState } = React;
 
 const CarouselCards = ({ localUsers, setLocalUsers, id }) => {
   const [userIndex, setUserIndex] = useState(0);
@@ -33,7 +31,7 @@ const CarouselCards = ({ localUsers, setLocalUsers, id }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <>
       {localUsers.map((item) => (
         <UserCard
           key={item.email}
@@ -47,18 +45,12 @@ const CarouselCards = ({ localUsers, setLocalUsers, id }) => {
           You're caught up! Check back soon to find more pups to connect with.
         </Text>
       ) : null}
-    </View>
+    </>
   );
 };
 export default CarouselCards;
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-    zIndex: 2,
-  },
   text: {
     color: '#000',
   },

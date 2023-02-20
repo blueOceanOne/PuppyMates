@@ -1,15 +1,10 @@
-import React from 'react';
-import { View, Image, Dimensions, Animated, PanResponder, StyleSheet } from 'react-native';
-import { Text, Card, Button, Icon, Divider, Badge, Header, ButtonGroup, Chip } from '@rneui/themed';
-const { useState, useEffect, useRef } = React;
-import userData from '../home/exampleData/userData.js';
+import { View, StyleSheet } from 'react-native';
+import { Text, Chip } from '@rneui/themed';
 
 const MoreInfo = ({ item }) => {
   return (
-    <View style={styles.moreInfo}>
-      <Text
-        style={{ fontSize: 20, fontWeight: 'bold', paddingLeft: 5 }}
-      >{`${item.city}, ${item.state}`}</Text>
+    <View style={styles.moreInfoContainer}>
+      <Text style={styles.locationText}>{`${item.city}, ${item.state}`}</Text>
       <View style={styles.container}>
         <Chip
           title={item.breed.breed}
@@ -58,11 +53,16 @@ const MoreInfo = ({ item }) => {
 export default MoreInfo;
 
 const styles = StyleSheet.create({
-  moreInfo: {
+  moreInfoContainer: {
     backgroundColor: '#F5EFE6',
     padding: 5,
-    borderRadius: 10,
+    borderRadius: 25,
     margin: 10,
+  },
+  locationText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    paddingLeft: 5,
   },
   container: {
     flexDirection: 'row',

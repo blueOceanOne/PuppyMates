@@ -1,21 +1,22 @@
-import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text } from '@rneui/themed';
 
 import MoreInfo from '../home/MoreInfo.jsx';
-const { useState, useEffect } = React;
 
-const UserCardInfo = ({ item }) => {
+const UserCardInfo = ({ item, viewMore }) => {
   return (
-    <View style={styles.userInfoContainer}>
-      <Text h4 style={styles.text}>
-        {item.dog_name}
-      </Text>
-      <Text h4 style={styles.text}>
-        {Math.round(item.distance) > 1
-          ? `${Math.round(item.distance)} miles away`
-          : `${Math.round(item.distance)} mile away`}
-      </Text>
+    <View style={styles.container}>
+      <View style={styles.textContainer}>
+        <Text h4 style={styles.text}>
+          {item.dog_name}
+        </Text>
+        <Text h4 style={styles.text}>
+          {Math.round(item.distance) > 1
+            ? `${Math.round(item.distance)} miles away`
+            : `${Math.round(item.distance)} mile away`}
+        </Text>
+      </View>
+      {viewMore ? <MoreInfo item={item} /> : null}
     </View>
   );
 };
@@ -23,17 +24,17 @@ const UserCardInfo = ({ item }) => {
 export default UserCardInfo;
 
 const styles = StyleSheet.create({
-  userInfoContainer: {
+  container: {
+    justifyContent: 'space-between',
+    paddingTop: 10,
+    paddingHorizontal: 5,
+  },
+  textContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingTop: 3,
-    paddingHorizontal: 5,
   },
   text: {
     fontWeight: 'bold',
-    paddingHorizontal: 5,
-  },
-  viewIcon: {
-    padding: 0,
+    paddingHorizontal: 10,
   },
 });
