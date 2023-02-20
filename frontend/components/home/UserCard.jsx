@@ -13,6 +13,7 @@ import { Text, Card, Button, Icon, Divider } from '@rneui/themed';
 
 import MoreInfo from '../home/MoreInfo.jsx';
 import ImageGallery from '../home/ImageGallery.jsx';
+import UserCardInfo from '../home/UserCardInfo.jsx';
 
 const { useState, useEffect } = React;
 const dWidth = Dimensions.get('window').width;
@@ -23,7 +24,8 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
   const [imgHeight, setImgHeight] = useState(dHeight * 0.58);
   const [xPosition, setXPosition] = useState(new Animated.Value(0));
   const [imgIndex, setImgIndex] = useState(0);
-  let swipeDirection = '';
+  const [swipeDirection, setSwipeDirection] = useState('');
+
   let cardOpacity = new Animated.Value(1);
   let rotateCard = xPosition.interpolate({
     inputRange: [-200, 0, 200],
@@ -37,9 +39,11 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
     onPanResponderMove: (e, gestureState) => {
       xPosition.setValue(gestureState.dx);
       if (gestureState.dx > dWidth - 250) {
-        swipeDirection = 'right';
+        // swipeDirection = 'right';
+        setSwipeDirection('right');
       } else if (gestureState.dx < -dWidth + 250) {
-        swipeDirection = 'left';
+        // swipeDirection = 'left';
+        setSwipeDirection('left');
       }
     },
     onPanResponderRelease: (e, gestureState) => {
@@ -107,57 +111,34 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
         },
       ]}
     >
-      <Card containerStyle={styles.cardContainer}>
-        <Pressable onPress={() => handleDisplayImage()}>
-          <Image
-            style={[
-              styles.userImage,
-              {
-                height: imgHeight,
-                width: dWidth * 0.91,
-              },
-            ]}
-            source={{
-              uri: item.photos[imgIndex].url,
-            }}
+      <Pressable onPress={() => handleViewMore()}>
+        <Card containerStyle={styles.cardContainer}>
+          <Pressable onPress={() => handleDisplayImage()}>
+            <Image
+              style={[
+                styles.userImage,
+                {
+                  height: imgHeight,
+                  width: dWidth * 0.923,
+                },
+              ]}
+              source={{
+                uri: item.photos[imgIndex].url,
+              }}
+            />
+          </Pressable>
+          <ImageGallery
+            photos={item.photos}
+            setImgIndex={setImgIndex}
+            imgIndex={imgIndex}
+            email={item.email}
+            id={item.id}
           />
-        </Pressable>
-        <ImageGallery
-          photos={item.photos}
-          setImgIndex={setImgIndex}
-          imgIndex={imgIndex}
-          email={item.email}
-          id={item.id}
-        />
 
-        <View style={styles.userInfoContainer}>
-          <Text h4 style={styles.text}>
-            {item.dog_name}
-          </Text>
-          <Text h4 style={styles.text}>
-            {Math.round(item.distance) > 1
-              ? `${Math.round(item.distance)} miles away`
-              : `${Math.round(item.distance)} mile away`}
-          </Text>
-        </View>
-        {viewMore ? (
-          <Icon
-            name={'chevron-up'}
-            type="material-community"
-            containerStyle={styles.viewIcon}
-            onPress={() => handleViewMore()}
-          />
-        ) : (
-          <Icon
-            name={'chevron-down'}
-            type="material-community"
-            containerStyle={styles.viewIcon}
-            onPress={() => handleViewMore()}
-          />
-        )}
-
-        {viewMore ? <MoreInfo item={item} /> : null}
-      </Card>
+          <UserCardInfo item={item} />
+          {viewMore ? <MoreInfo item={item} /> : null}
+        </Card>
+      </Pressable>
     </Animated.View>
   );
 };
@@ -171,16 +152,25 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: 'white',
     borderRadius: 10,
-    height: dHeight * 0.662,
+    height: dHeight * 0.663,
     alignSelf: 'center',
     width: dWidth * 0.923,
+    // borderWidth: 2,
+    borderColor: 'blue',
+    zIndex: 3,
   },
   cardContainer: {
     padding: 0,
     backgroundColor: '#FFE15D',
+    // backgroundColor: 'green',
+
     borderWidth: 0,
-    borderColor: '#FFE15D',
+    // borderColor: '#FFE15D',
+    borderColor: 'red',
+    // borderWidth: 2,
     borderRadius: 10,
+    height: dHeight * 0.663,
+    width: dWidth * 0.923,
   },
   userImage: {
     alignSelf: 'center',
@@ -190,11 +180,12 @@ const styles = StyleSheet.create({
   userInfoContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingTop: 3,
     paddingHorizontal: 5,
   },
   text: {
     fontWeight: 'bold',
-    padding: 2,
+    paddingHorizontal: 5,
   },
   viewIcon: {
     padding: 0,
