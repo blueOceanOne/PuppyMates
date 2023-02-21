@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-  <img src="https://media.giphy.com/media/YmgaipDjLcMyHjFuGJ/giphy.gif" alt="Puppymates-home-page" />
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWRiYWJlY2I4NDU5ZWU5YjRlNWE1MTNiZGJmNjFlNDdiNTZhOGU3YiZjdD1n/9D19rtDUWn2AwQpLBK/giphy.gif" alt="Puppymates-overview" />
 </p>
   
 <h2>
@@ -27,26 +27,32 @@
 </h2>
 <ul>
   <li>
-    <h4 >Home page - primary author: <a href="https://github.com/kallycao"     target="_blank">Kally Cao<a/></h4>
+    <h4 >Home Page - Primary Author: <a href="https://github.com/kallycao"     target="_blank">Kally Cao<a/></h4>
     <details>
-      <summary>home page details</summary>
+      <summary>Home Page Details</summary>
     <p>
-      The home page allows users to view local dogs within a 50 mile radius. By default, the dog's name, profile photo, and the distance from the user are all displayed.  Additional photos can be viewed using the interface on the right side of the card, and profile details can be viewed by touching the bottom of the card.  Dogs can be filtered by a number of parameters, including size, breed, friendliness, and energy level.
+     On the home page, users can view local dogs within a 50-mile radius of your location. By default,  the dog's name, profile photo, and distance from the user are displayed. Users can click on the main image to view additional photos. Users can view additional details by clicking on the bottom of the card.
     </p>
     <p align="center">
-      <img src="https://media.giphy.com/media/M24bG6vvTtoKeuyCBH/giphy.gif" alt="home-filter" />
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2M0OGYwMzQwNmU4YzlhM2ZlNGY4ZjAwNWYyZTNlOWNhZjRiOGNkNyZjdD1n/pxVc64aADS8X3sCMTg/giphy.gif" alt="home-card" />
     </p>
     <p>
-      Users can swipe connect with other dogs by swiping right or left.  A right swipe sends the target dog a match request that can be viewed and accepted in the messages tab.  If both users swipe right on each othat, that bypasses the match request and automatically matches the two dogs.  
+      Users can swipe right to send a match request or left to pass. 
     </p>
     <p align="center">
-      <img src="https://media.giphy.com/media/1Hxu50XMnGZ216ofk0/giphy.gif" alt="home-swipe" />
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjVkMjNkM2ViZjBkYTMwN2Q5ZDUyYTdlM2I0MGYyOTlmOTllMmUyYyZjdD1n/4T7gRh19OXGu8khTRD/giphy.gif" alt="home-swipe" />
+    </p>
+    <p>
+      Various filters are provided for the user to search for dogs based on specific parameters such as their size, breed, friendliness, and energy level. 
+    </p>
+    <p align="center">
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjcwMTFlYzFlZjJkNTZhMjNkOGNkMzBkNTY2OTUzY2JiYTA5MzUzZSZjdD1n/LfuF8mUKRDKIlFC391/giphy.gif" alt="home-filter" />
     </p>
   </li>
   <li>
-    <h4>Messages - primary author: <a href="https://github.com/boyiq" target="_blank">Boyi Qu</a></h4>
+    <h4>Messages - Primary Author: <a href="https://github.com/boyiq" target="_blank">Boyi Qu</a></h4>
     <details>
-      <summary>messages page details</summary>
+      <summary>Messages Page Details</summary>
     <p>
       The messages page allows users to interact with dogs they have either connected with, or have pending connections with.  Pending connections are displayed under "Pending Requests" at the top of the page. Each request displays the dog's profile picture and name.  Users can click on any pending request card to view additional details. In the request detail page, users can tap on the photo to see other photos of the dog and tap on the arrow button to see more information. Users can choose to accept or reject the request by clicking on the buttons at the bottom. After accepting or rejecting a request, the app will automatically navigate back to the messages main page. Any rejected or accepted request will disappear from the pending list; accepted request will appear in the "Messages" section indicating a matched status. 
     </p>
@@ -67,9 +73,9 @@
     </p>
   </li>
   <li>
-    <h4>Events - primary author: <a href="https://github.com/hecwon" target="_blank">Hector Wong</a></h4>
+    <h4>Events - Primary Author: <a href="https://github.com/hecwon" target="_blank">Hector Wong</a></h4>
     <details>
-      <summary>events page details</summary>
+      <summary>Events Page Details</summary>
     <p>
       The events page allows users to organize meetings with other dogs using an Apple Maps API.  Users can view the locations of pending events on the interactive map, view event invitations, or add a new event to host.  
     </p>
