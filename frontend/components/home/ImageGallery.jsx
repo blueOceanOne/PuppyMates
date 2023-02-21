@@ -1,11 +1,10 @@
 import React from 'react';
-import { View, Image, Dimensions, Animated, PanResponder, StyleSheet } from 'react-native';
-import { Text, Card, Icon, Divider } from '@rneui/themed';
-const { useState, useEffect, useRef } = React;
+import { View, StyleSheet } from 'react-native';
+import { Icon } from '@rneui/themed';
 
 const ImageGallery = ({ photos, setImgIndex, imgIndex, email, id }) => {
   return (
-    <View style={styles.dotContainer}>
+    <View style={styles.container}>
       {photos.map((photo, index) => (
         <Icon
           name={'paw'}
@@ -20,11 +19,8 @@ const ImageGallery = ({ photos, setImgIndex, imgIndex, email, id }) => {
 };
 export default ImageGallery;
 const styles = StyleSheet.create({
-  dotContainer: {
+  container: {
     flexDirection: 'column',
-    // height: '100%',
-    // justifyContent: 'center',
-    // alignItems: 'center',
     top: '50%',
     left: '90%',
     position: 'absolute',
@@ -32,16 +28,10 @@ const styles = StyleSheet.create({
   },
   icon: {
     current: {
-      // height: 10,
-      // width: 10,
-      // padding: 10,
       zIndex: 2,
       color: '#F49D1A',
     },
     hidden: {
-      // height: 10,
-      // width: 10,
-      // padding: 10,
       zIndex: 2,
       color: '#FFE15D',
     },
