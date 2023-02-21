@@ -1,20 +1,9 @@
-import React from 'react';
-import {
-  View,
-  Image,
-  Dimensions,
-  Animated,
-  PanResponder,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  Pressable,
-} from 'react-native';
-import { Text, Card, Button, Icon, Divider } from '@rneui/themed';
+import { useState } from 'react';
+import { Image, Dimensions, Animated, PanResponder, StyleSheet, Pressable } from 'react-native';
 
-import MoreInfo from '../home/MoreInfo.jsx';
 import ImageGallery from '../home/ImageGallery.jsx';
+import UserCardInfo from '../home/UserCardInfo.jsx';
 
-const { useState, useEffect } = React;
 const dWidth = Dimensions.get('window').width;
 const dHeight = Dimensions.get('window').height;
 
@@ -24,8 +13,8 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
   const [xPosition, setXPosition] = useState(new Animated.Value(0));
   const [imgIndex, setImgIndex] = useState(0);
   let swipeDirection = '';
-  let cardOpacity = new Animated.Value(1);
-  let rotateCard = xPosition.interpolate({
+  const cardOpacity = new Animated.Value(1);
+  const rotateCard = xPosition.interpolate({
     inputRange: [-200, 0, 200],
     outputRange: ['-20deg', '0deg', '20deg'],
   });
@@ -44,7 +33,6 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
     },
     onPanResponderRelease: (e, gestureState) => {
       if (gestureState.dx < dWidth - 150 && gestureState.dx > -dWidth + 150) {
-        handleSwipe('');
         Animated.spring(xPosition, {
           toValue: 0,
           speed: 5,
@@ -80,7 +68,7 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
             useNativeDriver: false,
           }),
         ]).start(() => {
-          handleSwipe(swipeDirection);
+          handleSwipe(swipeDirection, item.id);
           omitCard();
         });
       }
@@ -100,37 +88,29 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
     <Animated.View
       {...panResponder.panHandlers}
       style={[
-        styles.cardStyle,
+        styles.container,
         {
-          backgroundColor: 'white',
           opacity: cardOpacity,
           transform: [{ translateX: xPosition }, { rotate: rotateCard }],
         },
       ]}
     >
-      <Card
-        borderRadius="10"
-        containerStyle={{
-          padding: 0,
-          backgroundColor: '#FFE15D',
-          borderWidth: 0,
-          borderColor: '#FFE15D'
-        }}
-      >
+      <Pressable onPress={() => handleViewMore()}>
         <Pressable onPress={() => handleDisplayImage()}>
           <Image
-            style={{
-              height: imgHeight,
-              width: dWidth * 0.91,
-              alignSelf: 'center',
-              zIndex: 2,
-            }}
-            borderRadius="10"
+            style={[
+              styles.userImage,
+              {
+                height: imgHeight,
+                width: dWidth * 0.923,
+              },
+            ]}
             source={{
               uri: item.photos[imgIndex].url,
             }}
           />
         </Pressable>
+
         <ImageGallery
           photos={item.photos}
           setImgIndex={setImgIndex}
@@ -138,33 +118,9 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
           email={item.email}
           id={item.id}
         />
-        <View flexDirection="row" justifyContent="space-between" style={{ paddingHorizontal: 5 }}>
-          <Text h4 style={{ fontWeight: 'bold', padding: 2 }}>
-            {item.dog_name}
-          </Text>
-          <Text h4 style={{ fontWeight: 'bold', padding: 2 }}>
-            {(Math.round(item.distance) > 1) ? `${Math.round(item.distance)} miles away` : `${Math.round(item.distance)} mile away`}
-          </Text>
-        </View>
-        {viewMore ? (
-          <Icon
-            name={'chevron-up'}
-            type="material-community"
-            containerStyle={{ justifyContent: 'flex-start' }}
-            onPress={() => handleViewMore()}
-          />
-        ) : (
-          <Icon
-            name={'chevron-down'}
-            type="material-community"
-            containerStyle={{ padding: 0 }}
-            containerStyle={{ justifyContent: 'flex-start' }}
-            onPress={() => handleViewMore()}
-          />
-        )}
 
-        {viewMore ? <MoreInfo item={item} /> : null}
-      </Card>
+        <UserCardInfo item={item} viewMore={viewMore} />
+      </Pressable>
     </Animated.View>
   );
 };
@@ -172,14 +128,21 @@ const UserCard = ({ item, index, handleSwipe, omitCard }) => {
 export default UserCard;
 
 const styles = StyleSheet.create({
-  cardStyle: {
-    justifyContent: 'center',
+  container: {
+    justifyContent: 'space-between',
     alignItems: 'center',
     position: 'absolute',
-
-    borderRadius: 10,
-    height: dHeight * 0.67,
+    backgroundColor: '#FFE15D',
+    borderRadius: 25,
+    height: dHeight * 0.66,
     alignSelf: 'center',
-    width: dWidth * 0.925
+    width: dWidth * 0.923,
+    zIndex: 3,
+    top: 95,
+  },
+
+  userImage: {
+    zIndex: 2,
+    borderRadius: 25,
   },
 });
