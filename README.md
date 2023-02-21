@@ -31,7 +31,7 @@
     <details>
       <summary>Home Page Details</summary>
     <p>
-     On the home page, users can view local dogs within a 50-mile radius of your location. By default,  the dog's name, profile photo, and distance from the user are displayed. Users can click on the main image to view additional photos. Users can view additional details by clicking on the bottom of the card.
+     On the home page, users can view local dogs within a 50-mile radius of their location. By default,  the dog's name, profile photo, and distance from the user are displayed. Users can click on the main image to view additional photos. Users can view additional details by clicking on the bottom of the card.
     </p>
     <p align="center">
       <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2M0OGYwMzQwNmU4YzlhM2ZlNGY4ZjAwNWYyZTNlOWNhZjRiOGNkNyZjdD1n/pxVc64aADS8X3sCMTg/giphy.gif" alt="home-card" />
